@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rovdyr og byttedyr — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/#fagoversikt">Fagoversikt</a></li>
+          <li><a href="#">Om meg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <span class="post-category"><a href="/alle-simuleringer/?kategori=biologisk-mangfold">Biologisk mangfold</a></span>
+      <h1>Rovdyr og byttedyr</h1>
+<p class="wp-block-paragraph">uster vekstraten til byttedyrene og appetitten til rovdyrene for å se hvordan populasjonskurvene påvirker hverandre over tid. Legg merke til at rovdyr-toppen ofte kommer <em>etter</em> byttedyr-toppen.</p>
+
+
+
+<style>
+    /* 1. CSS-Stil (Hovedprinsipper) 
+       Importerer fonter først 
+    */
+    @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&family=Geologica:wght@700&display=swap');
+
+    :root {
+        /* Hovedfarger */
+        --raft-bg: #EBE8E6;        /* Hovedbakgrunn (lys grå/beige) */
+        --raft-fg: #1D1F25;        /* Hovedtekstfarge (mørk grå) */
+        --raft-accent: #C26148;   /* Aksentfarge (rustrød) */
+        --raft-accent-dark: #AC5039; /* Mørkere aksent for hover */
+        --raft-bg-alt: rgba(255, 255, 255, 0.6); /* Gjennomsiktig hvit for container */
+        --raft-bg-controls: rgba(255, 255, 255, 0.8); /* Litt mindre gjennomsiktig for kontroller */
+        --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
+
+        /* Skrifttyper */
+        --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --raft-font-heading: "Geologica", var(--raft-font);
+    }
+
+    body {
+        background-color: var(--raft-bg);
+        color: var(--raft-fg);
+        font-family: var(--raft-font);
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container {
+        background: var(--raft-bg-alt);
+        max-width: 1000px;
+        width: 100%;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        backdrop-filter: blur(10px);
+    }
+
+    h1, h2 {
+        font-family: var(--raft-font-heading);
+        margin-top: 0;
+    }
+
+    h1 {
+        color: var(--raft-fg);
+        border-bottom: 2px solid var(--raft-accent);
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+    }
+
+    h2 {
+        color: var(--raft-accent);
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Layout for simulering */
+    .sim-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .visualization {
+        background: var(--raft-bg-box);
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    canvas {
+        width: 100%;
+        max-width: 600px;
+        height: 300px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+    }
+
+    .legend {
+        display: flex;
+        gap: 20px;
+        margin-top: 10px;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+    
+    .legend span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .controls {
+        background-color: var(--raft-bg-controls);
+        padding: 1.5rem;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* D. Interaktive Elementer */
+    button {
+        background-color: var(--raft-accent);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-family: var(--raft-font);
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        font-size: 1rem;
+    }
+
+    button:hover {
+        background-color: var(--raft-accent-dark);
+    }
+
+    button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background-color: #999;
+    }
+
+    input[type="range"] {
+        width: 100%;
+        height: 6px;
+        background: #ddd;
+        border-radius: 3px;
+        outline: none;
+        -webkit-appearance: none;
+        accent-color: var(--raft-accent);
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        background: var(--raft-accent);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 0.1s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+        transform: scale(1.1);
+    }
+
+    .stats {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #ddd;
+        font-size: 0.9rem;
+    }
+
+    .button-row {
+        display: flex;
+        gap: 10px;
+        margin-top: auto;
+    }
+
+    /* E. Responsivitet */
+    @media (max-width: 768px) {
+        .sim-layout {
+            grid-template-columns: 1fr;
+        }
+        
+        .container {
+            padding: 1rem;
+        }
+    }
+</style>
+
+<div class="container">
+    <h1>Økosystem i Balanse?</h1>
+    <p>Utforsk hvordan antallet rovdyr og byttedyr påvirker hverandre. Bruk kontrollene til å endre forutsetningene.</p>
+
+    <div class="sim-layout">
+        <!-- Visualisering -->
+        <div class="visualization">
+            <canvas id="popChart"></canvas>
+            <div class="legend">
+                <span><span class="dot" style="background: #2E8B57;"></span> Byttedyr (Kaniner)</span>
+                <span><span class="dot" style="background: var(--raft-accent);"></span> Rovdyr (Rever)</span>
+            </div>
+        </div>
+
+        <!-- Kontroller -->
+        <div class="controls">
+            <h2>Innstillinger</h2>
+            
+            <div class="control-group">
+                <label>
+                    Byttedyr Vekstrate
+                    <span id="val-growth">50%</span>
+                </label>
+                <input type="range" id="preyGrowth" min="1" max="100" value="50">
+                <small style="color: #666;">Hvor raskt kaninene formerer seg.</small>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    Rovdyr Appetitt
+                    <span id="val-appetite">50%</span>
+                </label>
+                <input type="range" id="predatorAppetite" min="1" max="100" value="50">
+                <small style="color: #666;">Hvor mange kaniner revene spiser.</small>
+            </div>
+
+            <div class="stats">
+                <strong>Status nå:</strong><br>
+                Antall Byttedyr: <span id="stat-prey">0</span><br>
+                Antall Rovdyr: <span id="stat-pred">0</span>
+            </div>
+
+            <div class="button-row">
+                <button id="btn-toggle">Start</button>
+                <button id="btn-reset" style="background-color: #666;">Nullstill</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. "Last Ned"-Knapp -->
+    <div style="text-align: center; margin-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 2rem;">
+        <button id="downloadButton">Last ned denne filen</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Canvas oppsett
+    const canvas = document.getElementById('popChart');
+    const ctx = canvas.getContext('2d');
+    
+    // Sett canvas størrelse basert på faktisk visning for skarphet
+    function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Variabler for simulering
+    let isRunning = false;
+    let time = 0;
+    let animationId;
+    
+    // Startverdier tunet for oscillatorisk oppførsel
+    let preyPop = 80;     // Start litt over likevekt
+    let predatorPop = 40; // Start litt under likevekt
+    
+    // Parametere (styres av slidere)
+    let preyGrowthRate = 0.05;      // Alpha
+    let predationRate = 0.001;      // Beta
+    let predatorDeathRate = 0.03;   // Gamma (konstant)
+    let predatorReproduction = 0.0005; // Delta
+
+    // Historikk for grafen
+    let history = [];
+    const maxHistory = 300; // Hvor mange punkter vi viser bortover
+
+    // DOM Elementer
+    const sliderGrowth = document.getElementById('preyGrowth');
+    const sliderAppetite = document.getElementById('predatorAppetite');
+    const displayGrowth = document.getElementById('val-growth');
+    const displayAppetite = document.getElementById('val-appetite');
+    const btnToggle = document.getElementById('btn-toggle');
+    const btnReset = document.getElementById('btn-reset');
+    const statPrey = document.getElementById('stat-prey');
+    const statPred = document.getElementById('stat-pred');
+
+    // Oppdater parametere fra slidere
+    function updateParams() {
+        // Tunet for å gi fine svingninger (Lotka-Volterra Sweet Spot)
+        // Alpha: 0.02 til 0.12
+        preyGrowthRate = (parseInt(sliderGrowth.value) / 1000) + 0.01; 
+        displayGrowth.textContent = sliderGrowth.value + "%";
+
+        // Beta: 0.0005 til 0.0015
+        const appetiteVal = parseInt(sliderAppetite.value);
+        predationRate = (appetiteVal / 100000) + 0.0005; 
+        
+        // Delta (reproduksjon) knyttes også litt til appetitt for realisme
+        predatorReproduction = (appetiteVal / 200000) + 0.0003;
+        
+        displayAppetite.textContent = sliderAppetite.value + "%";
+    }
+
+    // Input lyttere
+    sliderGrowth.addEventListener('input', updateParams);
+    sliderAppetite.addEventListener('input', updateParams);
+
+    function step() {
+        if (!isRunning) return;
+
+        // Lotka-Volterra differensial-ligninger (Eulers metode)
+        // dPrey/dt = (vekst * prey) - (predasjon * prey * predator)
+        let deltaPrey = (preyGrowthRate * preyPop) - (predationRate * preyPop * predatorPop);
+        
+        // dPredator/dt = (vekst_fra_mat * prey * predator) - (død * predator)
+        let deltaPredator = (predatorReproduction * preyPop * predatorPop) - (predatorDeathRate * predatorPop);
+
+        preyPop += deltaPrey;
+        predatorPop += deltaPredator;
+
+        // Unngå negative tall og ekstremverdier
+        if (preyPop < 0) preyPop = 0;
+        if (predatorPop < 0) predatorPop = 0;
+        if (preyPop > 2000) preyPop = 2000; // Tak for visualisering
+        if (predatorPop > 2000) predatorPop = 2000;
+
+        // Lagre historikk
+        history.push({
+            prey: preyPop,
+            predator: predatorPop
+        });
+
+        // Fjern gamle punkter hvis vi går utenfor skjermen
+        if (history.length > maxHistory) {
+            history.shift();
+        }
+
+        draw();
+        statPrey.textContent = Math.round(preyPop);
+        statPred.textContent = Math.round(predatorPop);
+
+        animationId = requestAnimationFrame(step);
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        if (history.length < 2) return;
+
+        // Skaleringsfaktorer - dynamisk, men med en min-verdi for stabilitet
+        const maxVal = Math.max(
+            ...history.map(h => Math.max(h.prey, h.predator)), 
+            150 
+        );
+        
+        const xScale = canvas.width / maxHistory;
+        const yScale = (canvas.height - 40) / maxVal; // Padding
+
+        // Tegn Byttedyr (Grønn)
+        ctx.beginPath();
+        ctx.strokeStyle = '#2E8B57';
+        ctx.lineWidth = 3;
+        ctx.moveTo(0, canvas.height - (history[0].prey * yScale));
+        history.forEach((point, i) => {
+            ctx.lineTo(i * xScale, canvas.height - (point.prey * yScale));
+        });
+        ctx.stroke();
+
+        // Tegn Rovdyr (Rød/Accent)
+        ctx.beginPath();
+        ctx.strokeStyle = '#C26148'; // --raft-accent
+        ctx.lineWidth = 3;
+        ctx.moveTo(0, canvas.height - (history[0].predator * yScale));
+        history.forEach((point, i) => {
+            ctx.lineTo(i * xScale, canvas.height - (point.predator * yScale));
+        });
+        ctx.stroke();
+    }
+
+    // Knapper
+    btnToggle.addEventListener('click', () => {
+        isRunning = !isRunning;
+        btnToggle.textContent = isRunning ? "Pause" : "Fortsett";
+        btnToggle.style.backgroundColor = isRunning ? "var(--raft-accent-dark)" : "var(--raft-accent)";
+        if (isRunning) step();
+    });
+
+    btnReset.addEventListener('click', () => {
+        isRunning = false;
+        cancelAnimationFrame(animationId);
+        preyPop = 80;
+        predatorPop = 40;
+        history = [];
+        btnToggle.textContent = "Start";
+        statPrey.textContent = Math.round(preyPop);
+        statPred.textContent = Math.round(predatorPop);
+        draw();
+        // Tegn startpunkt
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+    // Initialiser
+    updateParams();
+    statPrey.textContent = preyPop;
+    statPred.textContent = predatorPop;
+
+    // --- Last ned funksjon (Fra mal) ---
+    const downloadButton = document.getElementById('downloadButton');
+    downloadButton.addEventListener('click', () => {
+        try {
+            // Hent hele HTML-innholdet til det nåværende dokumentet
+            const htmlContent = document.documentElement.outerHTML;
+            
+            // Lag en Blob (en fil-lignende objekt i minnet)
+            // \ufeff er en BOM (Byte Order Mark) for å sikre at UTF-8-koding gjenkjennes korrekt
+            const blob = new Blob(['\ufeff', htmlContent], { type: 'text/html;charset=utf-8' });
+            
+            // Lag en midlertidig lenke for nedlasting
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'simulering.html'; // Standard filnavn
+            
+            // Legg til i DOM (nødvendig for noen nettlesere), klikk, og fjern
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            // Frigjør minne
+            URL.revokeObjectURL(a.href);
+        } catch (error) {
+            console.error("Feil ved nedlasting av fil:", error);
+        }
+    });
+});
+</script>
+
+
+
+<p class="wp-block-paragraph"></p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p>Copyright 2026 - Skolesim</p>
+      <nav><a href="#">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
+</body>
+</html>

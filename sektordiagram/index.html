@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sektordiagram — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/#fagoversikt">Fagoversikt</a></li>
+          <li><a href="#">Om meg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <span class="post-category"><a href="/alle-simuleringer/?kategori=diagrammer">Diagrammer</a></span>
+      <h1>Sektordiagram</h1>
+<p class="wp-block-paragraph">Juster fordelingen av ressurser mellom ulike avdelinger ved å dra i gliderne. Se hvordan endringene umiddelbart påvirker den totale sammensetningen i sektordiagrammet.</p>
+
+
+
+<p class="wp-block-paragraph">Innsendt av Sondre Østbye Roos.</p>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+<style>
+:root {
+    /* Hovedfarger */
+    --raft-bg: #EBE8E6;        /* Hovedbakgrunn (lys grå/beige) */
+    --raft-fg: #1D1F25;        /* Hovedtekstfarge (mørk grå) */
+    --raft-accent: #C26148;   /* Aksentfarge (rustrød) */
+    --raft-accent-dark: #AC5039; /* Mørkere aksent for hover */
+    --raft-bg-alt: rgba(255, 255, 255, 0.6); /* Gjennomsiktig hvit for container */
+    --raft-bg-controls: rgba(255, 255, 255, 0.8); /* Litt mindre gjennomsiktig for kontroller */
+    --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
+
+    /* Skrifttyper */
+    --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --raft-font-heading: "Geologica", var(--raft-font);
+}
+
+/* Generell Layout */
+.container {
+    background: var(--raft-bg-alt);
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    font-family: var(--raft-font);
+    color: var(--raft-fg);
+}
+
+/* Typografi */
+h1 {
+    font-family: var(--raft-font-heading);
+    color: var(--raft-fg);
+    border-bottom: 2px solid var(--raft-accent);
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+h2 {
+    font-family: var(--raft-font-heading);
+    color: var(--raft-accent);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+/* Layout for innholdet */
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+/* Kontroller (Venstre side) */
+.controls {
+    background-color: var(--raft-bg-controls);
+    padding: 25px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.slider-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.slider-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.slider-value {
+    background: var(--raft-accent);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    min-width: 35px;
+    text-align: center;
+}
+
+/* Input Range Styling */
+input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #d1d1d1;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    accent-color: var(--raft-accent);
+    cursor: pointer;
+}
+
+/* Webkit spesifikk styling for track og thumb for bedre støtte */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--raft-accent);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: var(--raft-accent-dark);
+}
+
+/* Chart Container (Høyre side) */
+.chart-box {
+    background: var(--raft-bg-box);
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Knapper */
+button {
+    background-color: var(--raft-accent);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: var(--raft-font);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: var(--raft-accent-dark);
+}
+
+.download-section {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ccc;
+}
+
+/* Responsivitet */
+@media (max-width: 768px) {
+    .content-wrapper {
+        grid-template-columns: 1fr; /* Stables vertikalt */
+    }
+    
+    .chart-box {
+        height: 300px;
+    }
+}
+</style>
+
+<div class="container">
+    <h1>Interaktivt Sektordiagram</h1>
+    
+    <div class="content-wrapper">
+        <!-- Venstre side: Kontroller -->
+        <div class="controls">
+            <h2>Fordeling av ressurser</h2>
+            
+            <div class="slider-group">
+                <div class="slider-label-row">
+                    <label for="slider1">Salg</label>
+                    <span class="slider-value" id="value1">30</span>
+                </div>
+                <input type="range" id="slider1" min="0" max="100" value="30">
+            </div>
+            
+            <div class="slider-group">
+                <div class="slider-label-row">
+                    <label for="slider2">Markedsføring</label>
+                    <span class="slider-value" id="value2">25</span>
+                </div>
+                <input type="range" id="slider2" min="0" max="100" value="25">
+            </div>
+            
+            <div class="slider-group">
+                <div class="slider-label-row">
+                    <label for="slider3">Utvikling</label>
+                    <span class="slider-value" id="value3">20</span>
+                </div>
+                <input type="range" id="slider3" min="0" max="100" value="20">
+            </div>
+            
+            <div class="slider-group">
+                <div class="slider-label-row">
+                    <label for="slider4">Brukerstøtte</label>
+                    <span class="slider-value" id="value4">15</span>
+                </div>
+                <input type="range" id="slider4" min="0" max="100" value="15">
+            </div>
+            
+            <div class="slider-group">
+                <div class="slider-label-row">
+                    <label for="slider5">Drift</label>
+                    <span class="slider-value" id="value5">10</span>
+                </div>
+                <input type="range" id="slider5" min="0" max="100" value="10">
+            </div>
+        </div>
+
+        <!-- Høyre side: Diagram -->
+        <div class="chart-box">
+            <canvas id="sectorChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Last ned knapp -->
+    <div class="download-section">
+        <button id="downloadButton">Last ned denne filen</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Chart Logic ---
+    const labels = ['Salg', 'Markedsføring', 'Utvikling', 'Brukerstøtte', 'Drift'];
+    // Beholder originale farger for kontrast i diagrammet, men tilpasser stilen
+    const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe'];
+    
+    const ctx = document.getElementById('sectorChart').getContext('2d');
+    
+    // Initialiser Chart.js
+    let chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: [30, 25, 20, 15, 10],
+                backgroundColor: colors,
+                borderColor: '#ffffff',
+                borderWidth: 2,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            family: "'Figtree', sans-serif",
+                            size: 12
+                        },
+                        padding: 20,
+                        usePointStyle: true,
+                        color: '#1D1F25'
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(29, 31, 37, 0.9)',
+                    titleFont: { family: "'Geologica', sans-serif" },
+                    bodyFont: { family: "'Figtree', sans-serif" },
+                    callbacks: {
+                        label: function(context) {
+                            const values = [
+                                parseInt(document.getElementById('slider1').value),
+                                parseInt(document.getElementById('slider2').value),
+                                parseInt(document.getElementById('slider3').value),
+                                parseInt(document.getElementById('slider4').value),
+                                parseInt(document.getElementById('slider5').value)
+                            ];
+                            const total = values.reduce((a, b) => a + b, 0);
+                            const percentage = total > 0 ? ((values[context.dataIndex] / total) * 100).toFixed(1) : 0;
+                            return context.label + ': ' + percentage + '% (' + context.raw + ' enheter)';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Oppdater diagram når slidere endres
+    for (let i = 1; i <= 5; i++) {
+        const slider = document.getElementById(`slider${i}`);
+        const valueDisplay = document.getElementById(`value${i}`);
+        
+        slider.addEventListener('input', function() {
+            // Oppdater tallet ved siden av slideren
+            valueDisplay.textContent = this.value;
+            
+            // Oppdater data i diagrammet
+            chart.data.datasets[0].data = [
+                parseInt(document.getElementById('slider1').value),
+                parseInt(document.getElementById('slider2').value),
+                parseInt(document.getElementById('slider3').value),
+                parseInt(document.getElementById('slider4').value),
+                parseInt(document.getElementById('slider5').value)
+            ];
+            
+            chart.update();
+        });
+    }
+
+    // --- Last ned funksjon ---
+    const downloadButton = document.getElementById('downloadButton');
+    
+    downloadButton.addEventListener('click', () => {
+        try {
+            // Funksjonen prøver å finne den ytre HTML-en
+            // I noen sandkasse-miljøer kan document.documentElement være begrenset
+            let htmlContent = '';
+            if (document.documentElement && document.documentElement.outerHTML) {
+                htmlContent = document.documentElement.outerHTML;
+            } else {
+                // Fallback: Prøv å hente innholdet fra containeren hvis toppen feiler
+                const container = document.querySelector('.container');
+                if (container) {
+                    // Lager en fullstendig HTML-struktur manuelt
+                    const head = document.head ? document.head.innerHTML : '<meta charset="UTF-8"><title>Simulering</title>';
+                    htmlContent = `<!DOCTYPE html><html><head>${head}</head><body>${container.outerHTML}</body></html>`;
+                } else {
+                    console.error("Kunne ikke hente HTML-innhold.");
+                    return;
+                }
+            }
+            
+            const blob = new Blob(['\ufeff', htmlContent], { type: 'text/html;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'simulering.html';
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+        } catch (error) {
+            console.error("Feil ved nedlasting av fil:", error);
+        }
+    });
+});
+</script>
+
+
+
+<h2 class="wp-block-heading">Hva skjer i simuleringen?</h2>
+
+
+
+<p class="wp-block-paragraph"><strong>Glidere styrer verdiene.</strong> Du kontrollerer fordelingen av ressurser til fem ulike avdelinger ved å dra i spakene til venstre. Hver glider representerer en absolutt verdi (for eksempel antall timer eller kroner), og summen av alle gliderne utgjør den nye "totalen" for bedriften. Denne totalen fungerer som nevneren i brøken diagrammet bruker for å beregne kakestykkene.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Diagrammet responderer umiddelbart.</strong> Når du endrer en verdi, regner programmet raskt ut hvor stor andel denne verdien utgjør av helheten. Resultatet vises visuelt som en sektor i smultringdiagrammet (doughnut chart) til høyre. Simuleringen visualiserer dermed hvordan en endring i én variabel dynamisk påvirker det totale bildet.</p>
+
+
+
+<h2 class="wp-block-heading">Hva kan man utforske?</h2>
+
+
+
+<p class="wp-block-paragraph"><strong>Relativitet fremfor absolutte tall.</strong> En interessant øvelse er å øke alle verdiene like mye. Selv om de absolutte tallene (innsatsen) stiger, vil diagrammet se helt likt ut fordi forholdet mellom avdelingene forblir konstant. Utforskning av proporsjonalitet står sentralt her.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Konsekvenser av ressursfordeling.</strong> Prøv å maksimere "Salg" mens de andre verdiene holdes lave men konstante. Du vil se at prosenten til de andre avdelingene krymper drastisk, selv om du ikke rørte deres glidere. Dette demonstrerer at i et lukket system (eller en sirkel på $360^\circ$), vil en økning ett sted alltid gå på bekostning av den relative andelen et annet sted. Utforskning avslører at prosentregning handler om forholdet mellom del og helhet.</p>
+
+
+
+<h2 class="wp-block-heading">Teorien bak</h2>
+
+
+
+<p class="wp-block-paragraph"><strong>Fra brøk til grader.</strong> Et sektordiagram er en geometrisk representasjon av relative frekvenser. En full sirkel består alltid av $360^\circ$. For å finne ut hvor stor vinkel (sektor) en kategori skal ha, bruker programmet følgende formel:</p>
+
+
+
+<p class="wp-block-paragraph">$$\text{Vinkel} = \frac{\text{Verdi for kategori}}{\text{Summen av alle kategorier}} \times 360^\circ$$</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Beregning av prosentandeler.</strong> Diagrammet viser også prosenten, som følger samme logikk, men skaleres til 100 i stedet for 360. Matematisk sett konverterer simuleringen en delmengde til en desimaltall-brøk, som deretter projiseres over på sirkelens geometri. Teorien binder sammen brøkregning, prosentlære og geometri i én visuell modell.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p>Copyright 2026 - Skolesim</p>
+      <nav><a href="#">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
+</body>
+</html>

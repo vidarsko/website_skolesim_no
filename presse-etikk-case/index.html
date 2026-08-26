@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presse-etikk-case — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/#fagoversikt">Fagoversikt</a></li>
+          <li><a href="#">Om meg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <span class="post-category"><a href="/alle-simuleringer/?kategori=etikk">Etikk</a></span>
+      <h1>Presse-etikk-case</h1>
+<p class="wp-block-paragraph">Ta rollen som vaktsjef i en digital redaksjon og fatt presseetiske valg i seks realistiske caser, der hvert valg påvirker redaksjonens tillit, tempo og etikk. For hvert scenario identifiserer du relevante punkter fra Vær Varsom-plakaten og begrunner valgene skriftlig.</p>
+
+
+
+<p class="wp-block-paragraph">Innsendt av Gunnulv Hellesylt</p>
+
+
+
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deadline: Presseetikk</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Geologica:wght@400;700&display=swap');
+
+:root {
+    --raft-bg: #EBE8E6;
+    --raft-fg: #1D1F25;
+    --raft-accent: #C26148;
+    --raft-accent-dark: #AC5039;
+    --raft-bg-alt: rgba(255, 255, 255, 0.6);
+    --raft-bg-controls: rgba(255, 255, 255, 0.8);
+    --raft-bg-box: #ffffff;
+    --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --raft-font-heading: "Geologica", var(--raft-font);
+
+    --muted-color: #6b7280;
+    --border-color: rgba(29, 31, 37, 0.12);
+    --panel-soft: rgba(29, 31, 37, 0.04);
+    --radius: 16px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--raft-bg);
+    color: var(--raft-fg);
+    font-family: var(--raft-font);
+    line-height: 1.6;
+}
+
+.shell {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+}
+
+.hero {
+    background: var(--raft-bg-alt);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.panel {
+    background: var(--raft-bg-box);
+    border-radius: var(--radius);
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+}
+
+h1, h2 { font-family: var(--raft-font-heading); margin-top: 0; }
+
+h1 {
+    color: var(--raft-fg);
+    border-bottom: 2px solid var(--raft-accent);
+    padding-bottom: 8px;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    line-height: 1.1;
+    margin-bottom: 12px;
+    display: inline-block;
+}
+
+h2 { color: var(--raft-accent); font-size: clamp(1.2rem, 3vw, 1.6rem); margin-bottom: 8px; }
+h3 { margin-top: 0; margin-bottom: 8px; color: var(--raft-fg); font-weight: 700; }
+p { margin-top: 0; }
+
+.lead { max-width: 60ch; color: var(--muted-color); font-size: 1rem; }
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--raft-accent);
+    color: var(--raft-accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; align-items: start; }
+.game-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 16px; }
+.score-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
+.choice-list { display: grid; gap: 8px; }
+.vvp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+.result-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+
+.stat {
+    background: var(--raft-bg-controls);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 14px;
+}
+
+.stat-label {
+    display: block;
+    color: var(--muted-color);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.stat strong {
+    font-size: 1.4rem;
+    display: block;
+    color: var(--raft-fg);
+    font-family: var(--raft-font-heading);
+}
+
+.meter { height: 7px; margin-top: 8px; border-radius: 999px; background: rgba(29,31,37,0.1); overflow: hidden; }
+.meter > i { display: block; height: 100%; width: 50%; border-radius: inherit; background: var(--raft-accent); transition: width 250ms ease; }
+
+.button-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+button {
+    appearance: none;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    min-height: 42px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-family: var(--raft-font);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 120ms, transform 100ms, opacity 120ms;
+    color: var(--raft-fg);
+}
+
+button:hover { opacity: 0.9; }
+button:active { transform: translateY(1px); }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-primary { background-color: var(--raft-accent); color: white; }
+.btn-primary:hover { background-color: var(--raft-accent-dark); opacity: 1; }
+.btn-secondary { background: var(--raft-bg-controls); border: 1px solid var(--border-color); color: var(--raft-fg); }
+.btn-danger { background: #b91c1c; color: white; }
+
+.case-header { display: flex; justify-content: space-between; gap: 12px; align-items: start; margin-bottom: 12px; }
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 5px 12px;
+    background: var(--panel-soft);
+    border: 1px solid var(--border-color);
+    color: var(--muted-color);
+    font-size: 0.83rem;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.timeline { display: grid; gap: 8px; margin-top: 12px; }
+
+.timeline-item {
+    padding: 11px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--raft-bg-controls);
+}
+
+.timeline-item strong { display: block; margin-bottom: 3px; color: var(--raft-accent); font-size: 0.88rem; }
+
+.choice {
+    width: 100%;
+    text-align: left;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--raft-bg-controls);
+    border: 1px solid var(--border-color);
+    color: var(--raft-fg);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.choice.active { border-color: var(--raft-accent); background: rgba(194,97,72,0.08); }
+
+.choice span {
+    display: block;
+    color: var(--muted-color);
+    font-weight: 400;
+    font-size: 0.87rem;
+    margin-top: 4px;
+}
+
+.vvp-chip {
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--raft-bg-controls);
+    cursor: pointer;
+    user-select: none;
+    text-align: left;
+    font-family: var(--raft-font);
+    color: var(--raft-fg);
+    transition: border-color 120ms, background 120ms;
+}
+
+.vvp-chip strong { display: block; margin-bottom: 4px; color: var(--raft-accent); font-size: 0.9rem; }
+.vvp-chip span { font-size: 0.83rem; color: var(--muted-color); line-height: 1.4; display: block; }
+.vvp-chip.selected { border-color: var(--raft-accent); background: rgba(194,97,72,0.1); }
+
+textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--raft-bg-controls);
+    color: var(--raft-fg);
+    font-family: var(--raft-font);
+    font-size: 0.95rem;
+    resize: vertical;
+    margin-top: 8px;
+}
+
+textarea:focus { outline: 2px solid var(--raft-accent); border-color: var(--raft-accent); }
+
+.feedback { border-radius: 12px; padding: 16px; border: 1px solid var(--border-color); background: var(--raft-bg-controls); }
+.feedback.good { border-color: rgba(22,101,52,0.35); background: rgba(22,101,52,0.05); }
+.feedback.warn { border-color: rgba(194,97,72,0.4); background: rgba(194,97,72,0.06); }
+.feedback.bad { border-color: rgba(153,27,27,0.4); background: rgba(153,27,27,0.06); }
+
+.summary-card { border-radius: 12px; padding: 16px; border: 1px solid var(--border-color); background: var(--raft-bg-controls); }
+
+.muted { color: var(--muted-color); }
+.hidden { display: none !important; }
+
+.tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+
+.tag {
+    display: inline-flex;
+    border-radius: 999px;
+    padding: 5px 11px;
+    border: 1px solid var(--border-color);
+    background: var(--panel-soft);
+    font-size: 0.82rem;
+    color: var(--muted-color);
+}
+
+.result-score {
+    font-size: clamp(2rem, 6vw, 3.6rem);
+    line-height: 0.9;
+    margin: 4px 0 10px;
+    color: var(--raft-accent);
+    font-family: var(--raft-font-heading);
+    font-weight: 700;
+}
+
+.footer-note { color: var(--muted-color); font-size: 0.88rem; margin-top: 12px; }
+
+@media (max-width: 768px) {
+    .hero-grid, .game-grid, .score-grid, .vvp-grid, .result-grid { grid-template-columns: 1fr; }
+    .case-header { flex-direction: column; }
+    .hero { padding: 20px; }
+    .panel { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-grid">
+            <div>
+                <span class="eyebrow">Simulering for medier og kommunikasjon</span>
+                <h1>Deadline: Presseetikk</h1>
+                <p class="lead">Du er vaktsjef i en digital redaksjon. Tipsene tikker inn, presset øker og publisering frister. Målet er å ta journalistiske valg som tåler møte med Vær Varsom-plakaten, uten å miste saken.</p>
+                <div class="button-row">
+                    <button id="startBtn" class="btn-primary">Start simulering</button>
+                    <button id="restartBtn" class="btn-secondary hidden">Start på nytt</button>
+                </div>
+                <p class="footer-note">Opplegget er laget for elever rundt 18 år og kan brukes individuelt, i par eller som klassediskusjon.</p>
+            </div>
+            <div class="panel" style="margin:0;">
+                <h2>Spillidé</h2>
+                <p class="muted">Hver runde gir deg en realistisk redaksjonssituasjon. Du må velge handling, peke ut relevante VVP-punkter og begrunne kort. Etterpå får du konsekvens, poeng og et etisk debrief.</p>
+                <div class="tag-list">
+                    <span class="tag">6 caser</span>
+                    <span class="tag">Flere valg</span>
+                    <span class="tag">Poeng og status</span>
+                    <span class="tag">VVP-refleksjon</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APP -->
+    <section id="app" class="hidden">
+        <div class="score-grid panel" style="margin-bottom:16px;">
+            <div class="stat">
+                <span class="stat-label">Runde</span>
+                <strong id="roundLabel">1 / 6</strong>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Tillit</span>
+                <strong id="trustValue">50</strong>
+                <div class="meter"><i id="trustMeter"></i></div>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Tempo</span>
+                <strong id="speedValue">50</strong>
+                <div class="meter"><i id="speedMeter"></i></div>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Etikk</span>
+                <strong id="ethicsValue">50</strong>
+                <div class="meter"><i id="ethicsMeter"></i></div>
+            </div>
+        </div>
+
+        <div class="game-grid">
+            <section class="panel">
+                <div class="case-header">
+                    <div>
+                        <span class="pill" id="caseType"></span>
+                        <h2 id="caseTitle" style="margin-top:10px;"></h2>
+                    </div>
+                    <span class="pill" id="pressureLabel"></span>
+                </div>
+                <p id="caseIntro"></p>
+                <div class="timeline" id="timeline"></div>
+                <div id="breakingWrap" class="button-row hidden">
+                    <button id="breakingBtn" class="btn-danger">Breaking update</button>
+                </div>
+                <div id="breakingBox" class="feedback hidden" style="margin-top:10px;"></div>
+                <div style="margin-top:18px;">
+                    <h3>Hva gjør du?</h3>
+                    <div class="choice-list" id="choices"></div>
+                </div>
+            </section>
+
+            <aside class="panel">
+                <h2>Etisk vurdering</h2>
+                <p class="muted">Velg minst to punkter fra Vær Varsom-plakaten som er mest relevante for saken, og skriv kort hvorfor.</p>
+                <div id="vvpOptions" class="vvp-grid"></div>
+                <div>
+                    <label for="reasoning"><strong>Din begrunnelse</strong></label>
+                    <textarea id="reasoning" placeholder="Eksempel: Jeg ville ventet med navn og video fordi opplysningene ikke er kontrollert, og elevene i videoen er i en sårbar situasjon."></textarea>
+                </div>
+                <div class="button-row">
+                    <button id="submitBtn" class="btn-primary">Lås valg</button>
+                </div>
+                <div id="feedbackBox" class="feedback hidden" style="margin-top:16px;"></div>
+                <div id="nextWrap" class="button-row hidden">
+                    <button id="nextBtn" class="btn-secondary">Neste runde →</button>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- RESULT -->
+    <section id="result" class="panel hidden" style="margin-top:16px;"></section>
+
+    <!-- DOWNLOAD -->
+    <div style="text-align:center; margin-top:28px;">
+        <button id="downloadButton" class="btn-secondary">Last ned denne filen</button>
+    </div>
+
+</div>
+
+<script>
+const cases = [
+    {
+        type: "Breaking",
+        title: "Video fra skolegården går viralt",
+        pressure: "Høyt publiseringspress",
+        intro: "Redaksjonen får tilsendt en mobilvideo som viser at en elev blir lagt i bakken av to andre elever utenfor en videregående skole. Videoen sprer seg raskt på TikTok og flere kontoer hevder at skolen har skjult volden.",
+        timeline: [
+            { label: "15:07", text: "En elevtipser sender videoen og sier: 'Alle legger dette ut nå. Dere må være først.'" },
+            { label: "15:11", text: "Rektor svarer at skolen kjenner til hendelsen, men at de fortsatt kartlegger hva som skjedde." },
+            { label: "15:13", text: "En av elevene i videoen er trolig 17 år. Ansiktet er tydelig synlig i klippet." }
+        ],
+        vvp: [
+            { code: "3.2", text: "Vær kritisk i valg av kilder, og kontroller at opplysninger som gis er korrekte." },
+            { code: "4.1", text: "Legg vekt på saklighet og omtanke i innhold og presentasjon." },
+            { code: "4.7", text: "Vær varsom med bruk av navn og bilde i saker som omtaler klanderverdige eller straffbare forhold." },
+            { code: "4.8", text: "Når barn omtales, er det god presseskikk å ta hensyn til hvilke konsekvenser medieomtalen kan få." }
+        ],
+        choices: [
+            {
+                title: "Publiser videoen umiddelbart med skole og elevnavn",
+                summary: "Høy fart og høy risiko for identifisering og feil.",
+                impact: { trust: -20, speed: 20, ethics: -28 },
+                tone: "bad",
+                verdict: "Dette er dramatisk, men etisk svakt. Videoen er ikke godt nok kontrollert, de involverte er unge og identifisering kan gjøre stor skade.",
+                learning: "Det mest relevante her er opplysningskontroll og hensyn til mindreårige. Å være først er ikke viktigere enn å være presis og varsom."
+            },
+            {
+                title: "Publiser en kort nyhet uten video og identifisering, og opplys at saken undersøkes",
+                summary: "Du bruker det som er bekreftet, men holder igjen detaljer.",
+                impact: { trust: 14, speed: 8, ethics: 18 },
+                tone: "good",
+                verdict: "Dette balanserer nyhetsbehov og omtanke godt. Du informerer publikum uten å henge ut elever eller bruke udokumenterte påstander.",
+                learning: "En forsiktig første publisering kan være riktig når saken er aktuell, men faktagrunnlaget fortsatt er uklart."
+            },
+            {
+                title: "Venter helt med å omtale saken til alle parter har uttalt seg",
+                summary: "Trygt etisk, men du mister muligheten til å korrigere rykter i offentligheten.",
+                impact: { trust: 8, speed: -12, ethics: 14 },
+                tone: "warn",
+                verdict: "Etisk sett er dette ryddig, men total stillhet kan også være problematisk når rykter allerede eksploderer.",
+                learning: "God presseetikk handler ikke alltid om å tie, men om å publisere riktig nivå av informasjon til riktig tid."
+            }
+        ]
+    },
+    {
+        type: "Undersøkende",
+        title: "Lekkede meldinger om lokalpolitiker",
+        pressure: "Konkurrenten teaser sak",
+        intro: "En anonym kilde sender skjermbilder av meldinger som skal vise at en ung lokalpolitiker skaffer venner sommerjobber i kommunen. Kilden krever anonymitet og vil ikke sende hele samtalen.",
+        timeline: [
+            { label: "09:18", text: "Skjermbildene viser bare deler av en samtale. Tidspunkter og mottakernavn er delvis kuttet bort." },
+            { label: "09:25", text: "Politikeren svarer at skjermbildene er tatt ut av sammenheng og ber om å få se hva redaksjonen sitter på." },
+            { label: "09:31", text: "En rivaliserende avis skriver på forsiden: 'Snart avsløring om nepotisme'." }
+        ],
+        vvp: [
+            { code: "3.2", text: "Vær kritisk i valg av kilder, og kontroller at opplysninger som gis er korrekte." },
+            { code: "3.3", text: "Det er god presseskikk å gjøre premissene klare i intervjusituasjoner og ellers overfor kilder og kontakter." },
+            { code: "4.14", text: "De som utsettes for sterke beskyldninger, skal så vidt mulig ha adgang til samtidig imøtegåelse." },
+            { code: "4.13", text: "Feilaktige opplysninger skal rettes og eventuelt beklages snarest mulig." }
+        ],
+        choices: [
+            {
+                title: "Kjør hardt ut med påstanden om vennetjenester basert på skjermbildene",
+                summary: "Du satser på scoop før kontroll.",
+                impact: { trust: -24, speed: 18, ethics: -22 },
+                tone: "bad",
+                verdict: "Sterke beskyldninger krever mer enn et anonymt, ufullstendig skjermbilde. Her er risikoen for feil og urettferdig framstilling høy.",
+                learning: "Hvis du publiserer før dokumentasjon og samtidig imøtegåelse er på plass, bryter du lett sentrale VVP-prinsipper."
+            },
+            {
+                title: "Be om mer dokumentasjon, gi politikeren konkret innsyn og publiser først når saken er kontrollert",
+                summary: "Tregere, men langt mer robust journalistikk.",
+                impact: { trust: 18, speed: -4, ethics: 22 },
+                tone: "good",
+                verdict: "Dette er det tryggeste og mest presseetisk solide valget. Du behandler både kilden og den omtalte ryddig, og bygger en sak som tåler etterprøving.",
+                learning: "Samtidig imøtegåelse handler ikke om en formalitet på slutten, men om reell mulighet til å svare på konkrete beskyldninger."
+            },
+            {
+                title: "Lag en sak om at 'det verserer rykter' uten å navngi politikeren",
+                summary: "Du omgår noe av risikoen, men publiserer fortsatt løse antydninger.",
+                impact: { trust: -4, speed: 10, ethics: -2 },
+                tone: "warn",
+                verdict: "Dette er mindre risikabelt enn full publisering, men fortsatt svakt. Publikum får rykter uten skikkelig dokumentasjon, og lokalmiljøet kan lett forstå hvem det gjelder.",
+                learning: "Anonymisering alene redder ikke en sak hvis innholdet fortsatt bygger på sviktende kontroll."
+            }
+        ]
+    },
+    {
+        type: "Visuell journalistikk",
+        title: "Sterkt bilde fra ulykke på festival",
+        pressure: "Publikum krever bilder",
+        intro: "En fotograf kommer tilbake med sterke nærbilder etter en alvorlig ulykke på en ungdomsfestival. Bildene er journalistisk sterke, men en skadet person kan gjenkjennes av venner og familie før pårørende er varslet.",
+        timeline: [
+            { label: "22:42", text: "Politiet bekrefter at én person er alvorlig skadet, men vil ikke gå ut med identitet." },
+            { label: "22:46", text: "Bildene viser ansikt, klær og et svært gjenkjennelig sceneområde." },
+            { label: "22:50", text: "Sosiale medier fylles av spekulasjoner om hvem den skadde er." }
+        ],
+        vvp: [
+            { code: "4.1", text: "Legg vekt på saklighet og omtanke i innhold og presentasjon." },
+            { code: "4.6", text: "Ta hensyn til hvordan omtale av ulykker og kriminalsaker kan virke på ofre og pårørende." },
+            { code: "4.7", text: "Vær varsom med bruk av navn og bilde i saker som omtaler klanderverdige eller straffbare forhold." },
+            { code: "4.10", text: "Vær varsom med bruk av bilder i annen sammenheng enn den opprinnelige." }
+        ],
+        choices: [
+            {
+                title: "Publiser nærbildet fordi det dokumenterer dramatikken best",
+                summary: "Sterk effekt, men stor belastning for involverte.",
+                impact: { trust: -12, speed: 14, ethics: -24 },
+                tone: "bad",
+                verdict: "At et bilde er sterkt, er ikke nok. Her kan journalistikken påføre ekstra belastning før fakta og varsling er avklart.",
+                learning: "I ulykkessaker må redaksjonen vurdere både informasjonsverdi og menneskelig konsekvens. Omtanke veier tungt."
+            },
+            {
+                title: "Bruk et oversiktsbilde fra stedet og beskriv situasjonen uten identifiserende detaljer",
+                summary: "Du viser alvoret, men beskytter den skadde og pårørende.",
+                impact: { trust: 16, speed: 6, ethics: 20 },
+                tone: "good",
+                verdict: "Dette er et godt kompromiss. Publikum får nødvendig informasjon, men de mest sårbare blir skjermet.",
+                learning: "Sterk journalistikk er ikke det samme som maksimal eksponering. God etikk handler ofte om bevisste kutt."
+            },
+            {
+                title: "Dropper alle bilder og publiserer bare politiets korte melding",
+                summary: "Meget varsomt, men kanskje mer forsiktig enn nødvendig.",
+                impact: { trust: 10, speed: -8, ethics: 14 },
+                tone: "warn",
+                verdict: "Dette er et etisk trygt valg, men ikke alltid den beste journalistiske løsningen. Bildedekning kan fungere hvis den gjøres varsomt.",
+                learning: "Målet er ikke å unngå visuell journalistikk, men å bruke bilder på en måte som er saklig og hensynsfull."
+            }
+        ]
+    },
+    {
+        type: "KI og verifikasjon",
+        title: "Dramatisk bilde fra klimademonstrasjon",
+        pressure: "Bildet trender allerede",
+        intro: "Et spektakulært bilde går viralt etter en klimademonstrasjon i sentrum. Bildet viser tilsynelatende at en demonstrant blir båret bort av politiet foran flammer og røyk. Flere brukere hevder at bildet beviser unødvendig maktbruk, men ingen i redaksjonen vet sikkert om bildet er ekte eller KI-generert.",
+        timeline: [
+            { label: "18:03", text: "Bildet deles i høy hastighet på Instagram og X, og flere store kontoer omtaler det som dokumentasjon." },
+            { label: "18:08", text: "Fotodesken påpeker at lys og skygger ser unaturlige ut rundt ansiktet til demonstranten." },
+            { label: "18:14", text: "Politiet bekrefter at de fjernet demonstranter, men sier at de ikke kjenner seg igjen i situasjonen på bildet." }
+        ],
+        vvp: [
+            { code: "3.2", text: "Vær kritisk i valg av kilder, og kontroller at opplysninger som gis er korrekte." },
+            { code: "3.8", text: "Det er pressens plikt å gjengi meningsinnholdet i det som brukes av sitater og uttalelser." },
+            { code: "4.1", text: "Legg vekt på saklighet og omtanke i innhold og presentasjon." },
+            { code: "4.12", text: "Sørg for at bilder, grafikk og annet illustrasjonsmateriale ikke skaper et falskt inntrykk." }
+        ],
+        choices: [
+            {
+                title: "Publiser bildet som hovedsak med tittelen 'Dette ryster nettet'",
+                summary: "Stor klikkraft, men du bygger saken på et visuelt bevis du ikke har verifisert.",
+                impact: { trust: -22, speed: 16, ethics: -26 },
+                tone: "bad",
+                verdict: "Dette er et klassisk eksempel på at visuelt sterke uttrykk kan lure redaksjonen. Dersom bildet er manipulert, skaper publiseringen et falskt inntrykk og svekker troverdigheten kraftig.",
+                learning: "I en tid med KI-genererte bilder må redaksjonen være ekstra kritisk. Presseetikk og verifikasjon henger tett sammen når publikum forventer raske svar."
+            },
+            {
+                title: "Lag en sak om at bildet undersøkes, og vis bare et utsnitt merket som ubekreftet",
+                summary: "Du dekker saken, men gjør usikkerheten tydelig.",
+                impact: { trust: 12, speed: 8, ethics: 16 },
+                tone: "good",
+                verdict: "Dette er en god mellomløsning. Du informerer om hvorfor bildet vekker oppsikt, samtidig som du gjør det tydelig at redaksjonen ikke har slått fast ektheten.",
+                learning: "Når noe er usikkert, må usikkerheten også være synlig i journalistikken. Tydelig merking og presis språkbruk er avgjørende."
+            },
+            {
+                title: "Hold bildet helt unna og publiser kun når bildekilden er bekreftet eller avkreftet",
+                summary: "Meget trygt, men du kan komme sent inn i en viktig mediedebatt.",
+                impact: { trust: 14, speed: -10, ethics: 18 },
+                tone: "warn",
+                verdict: "Etisk er dette solid, men det kan være legitimt å omtale at et bilde sirkulerer hvis du er helt tydelig på hva du ikke vet ennå.",
+                learning: "God presseetikk betyr ikke alltid total tilbakeholdenhet. Det handler om å finne en form som er både opplysende og redelig."
+            }
+        ]
+    },
+    {
+        type: "Identifisering",
+        title: "Lærer suspendert etter varsling",
+        pressure: "Lokalsamfunnet vil ha navn",
+        intro: "En lærer ved en videregående skole er suspendert etter et internt varsel om upassende oppførsel. Saken har skapt sterke reaksjoner blant elever og foresatte, og redaksjonen får spørsmål om hvorfor dere ikke navngir læreren når 'alle allerede vet hvem det er'.",
+        timeline: [
+            { label: "07:42", text: "Skoleeier bekrefter suspensjon, men sier at undersøkelsen er i en tidlig fase og at ingen konklusjoner er trukket." },
+            { label: "07:49", text: "Flere elever sender navn og skjermbilder fra lukkede klassegrupper." },
+            { label: "07:55", text: "Lærerens advokat sier at klienten bestrider framstillingen og advarer mot forhåndsdømming." }
+        ],
+        vvp: [
+            { code: "4.1", text: "Legg vekt på saklighet og omtanke i innhold og presentasjon." },
+            { code: "4.5", text: "Unngå forhåndsdømming i kriminal- og rettsreportasje." },
+            { code: "4.7", text: "Vær varsom med bruk av navn og bilde i saker som omtaler klanderverdige eller straffbare forhold." },
+            { code: "4.14", text: "De som utsettes for sterke beskyldninger, skal så vidt mulig ha adgang til samtidig imøtegåelse." }
+        ],
+        choices: [
+            {
+                title: "Navngi læreren fordi identiteten allerede er kjent i nærmiljøet",
+                summary: "Du legger offentlig press på én person før saken er ferdig undersøkt.",
+                impact: { trust: -18, speed: 12, ethics: -24 },
+                tone: "bad",
+                verdict: "At mange tror de vet hvem det gjelder, er ikke i seg selv et presseetisk argument for identifisering. Suspensjon er ikke det samme som skyld.",
+                learning: "Pressen skal ikke forsterke rykter eller bidra til forhåndsdømming. Jo mer alvorlig beskyldningen er, desto sterkere må begrunnelsen for identifisering være."
+            },
+            {
+                title: "Omtal saken uten navn, forklar hvorfor dere ikke identifiserer og gi læreren reell mulighet til svar",
+                summary: "Du informerer om saken, men skjermer personen mens faktagrunnlaget er uklart.",
+                impact: { trust: 18, speed: 4, ethics: 22 },
+                tone: "good",
+                verdict: "Dette er et godt presseetisk valg. Publikum får innsikt i en viktig sak, men redaksjonen unngår å gjøre uopprettelig skade i en tidlig fase.",
+                learning: "Saklighet handler også om transparens. Når dere velger å ikke navngi, kan det være klokt å forklare hvorfor."
+            },
+            {
+                title: "Vent med all omtale til undersøkelsen er ferdig",
+                summary: "Svært varsomt, men publikum mister viktig informasjon om en aktuell sak.",
+                impact: { trust: 6, speed: -14, ethics: 12 },
+                tone: "warn",
+                verdict: "Dette er forsiktig, men ikke nødvendigvis best. Offentligheten kan ha legitim interesse i å vite at en lærer er suspendert, selv om identiteten holdes tilbake.",
+                learning: "Presseetikken krever ofte nyansering mer enn stillhet. Spørsmålet er ikke bare om saken skal omtales, men hvordan."
+            }
+        ]
+    },
+    {
+        type: "Boss round",
+        title: "Krise natt til lørdag",
+        pressure: "Alt skjer samtidig",
+        intro: "Klokken er 01:12 natt til lørdag. En russbuss har vært involvert i en alvorlig ulykke etter en privat fest. Redaksjonen får en video fra innsiden av bussen rett før krasjet, navn på mulige førere sirkulerer i Snapchat-grupper, og en anonym kilde hevder at skolen kjente til farlig kjøring uten å gripe inn.",
+        breakingUpdate: {
+            label: "01:37",
+            title: "Ny oppdatering fra politiet",
+            text: "Politiet ber mediene være svært varsomme fordi én av de skadde er under 18 år, og opplyser at videoen som sirkulerer kan være misvisende fordi den ikke viser hvem som faktisk kjørte da ulykken skjedde."
+        },
+        timeline: [
+            { label: "01:12", text: "Politiet bekrefter en alvorlig ulykke med flere ungdommer involvert, men ingen navn er frigitt og pårørende er ikke ferdig varslet." },
+            { label: "01:18", text: "En video viser høy musikk, tydelig berusede ungdommer og en person som roper navnet på en antatt sjåfør." },
+            { label: "01:24", text: "En anonym foresatt hevder at skolen fikk advarsler om risikokjøring tidligere i uka, men vil ikke stå fram med navn." },
+            { label: "01:29", text: "Konkurrenten publiserer: 'Vet hvem som kjørte bussen'." }
+        ],
+        vvp: [
+            { code: "3.2", text: "Vær kritisk i valg av kilder, og kontroller at opplysninger som gis er korrekte." },
+            { code: "4.1", text: "Legg vekt på saklighet og omtanke i innhold og presentasjon." },
+            { code: "4.6", text: "Ta hensyn til hvordan omtale av ulykker og kriminalsaker kan virke på ofre og pårørende." },
+            { code: "4.7", text: "Vær varsom med bruk av navn og bilde i saker som omtaler klanderverdige eller straffbare forhold." },
+            { code: "4.8", text: "Når barn omtales, er det god presseskikk å ta hensyn til hvilke konsekvenser medieomtalen kan få." },
+            { code: "4.14", text: "De som utsettes for sterke beskyldninger, skal så vidt mulig ha adgang til samtidig imøtegåelse." }
+        ],
+        choices: [
+            {
+                title: "Publiser videoen, navngi den antatte sjåføren og koble skolen til mulig ansvar",
+                summary: "Du går tungt ut med maksimal dramatikk på svært usikkert grunnlag.",
+                impact: { trust: -30, speed: 22, ethics: -34 },
+                tone: "bad",
+                verdict: "Dette kombinerer flere høyrisikovalg samtidig: identifisering av unge personer, bruk av belastende video, mulige feil i faktagrunnlaget og sterke beskyldninger uten reell imøtegåelse.",
+                learning: "Boss-runden viser hvorfor presseetikk blir vanskeligst når mange hensyn kolliderer samtidig. Nettopp da må redaksjonen roe ned, kontrollere mer og kutte hardest i det som kan skade mest."
+            },
+            {
+                title: "Publiser en nøktern ulykkessak med bekreftede opplysninger, uten video, navn eller skoleanklager, og jobb videre parallelt",
+                summary: "Du gir publikum viktig informasjon, men holder tilbake alt som ikke er verifisert eller kan skade unge involverte.",
+                impact: { trust: 22, speed: 6, ethics: 26 },
+                tone: "good",
+                verdict: "Dette er det mest robuste valget i en kaotisk situasjon. Du dekker nyheten, men lar ikke rykter, belastende materiale eller konkurransepress styre publiseringen.",
+                learning: "I alvorlige hendelser med unge mennesker må publisering bygges trinnvis. Først det sikre. Deretter kontroll, imøtegåelse og ny vurdering av identifisering og ansvar."
+            },
+            {
+                title: "Vent helt med omtale til dere har sjekket video, kilder og skoleansvar grundig",
+                summary: "Svært trygt etisk, men du kan overlate hele offentligheten til rykter og konkurrentenes halvdokumenterte dekning.",
+                impact: { trust: 10, speed: -16, ethics: 18 },
+                tone: "warn",
+                verdict: "Dette er forsvarlig, men kanskje mer passivt enn nødvendig. Redaksjonen kan ofte publisere et første, stramt faktanotat uten å gå inn i de mest belastende detaljene.",
+                learning: "Poenget er ikke alltid å velge mellom full publisering eller total taushet. Ofte er den beste løsningen en bevisst, begrenset førstesak."
+            }
+        ]
+    }
+];
+
+const state = {
+    caseIndex: 0,
+    selectedChoice: null,
+    selectedVvp: [],
+    locked: false,
+    breakingShown: false,
+    trust: 50,
+    speed: 50,
+    ethics: 50,
+    reflections: []
+};
+
+const el = {
+    app: document.getElementById("app"),
+    result: document.getElementById("result"),
+    startBtn: document.getElementById("startBtn"),
+    restartBtn: document.getElementById("restartBtn"),
+    roundLabel: document.getElementById("roundLabel"),
+    trustValue: document.getElementById("trustValue"),
+    speedValue: document.getElementById("speedValue"),
+    ethicsValue: document.getElementById("ethicsValue"),
+    trustMeter: document.getElementById("trustMeter"),
+    speedMeter: document.getElementById("speedMeter"),
+    ethicsMeter: document.getElementById("ethicsMeter"),
+    caseType: document.getElementById("caseType"),
+    caseTitle: document.getElementById("caseTitle"),
+    pressureLabel: document.getElementById("pressureLabel"),
+    caseIntro: document.getElementById("caseIntro"),
+    timeline: document.getElementById("timeline"),
+    breakingWrap: document.getElementById("breakingWrap"),
+    breakingBtn: document.getElementById("breakingBtn"),
+    breakingBox: document.getElementById("breakingBox"),
+    choices: document.getElementById("choices"),
+    vvpOptions: document.getElementById("vvpOptions"),
+    reasoning: document.getElementById("reasoning"),
+    submitBtn: document.getElementById("submitBtn"),
+    feedbackBox: document.getElementById("feedbackBox"),
+    nextWrap: document.getElementById("nextWrap"),
+    nextBtn: document.getElementById("nextBtn")
+};
+
+function clamp(v) { return Math.max(0, Math.min(100, v)); }
+
+function resetState() {
+    state.caseIndex = 0;
+    state.selectedChoice = null;
+    state.selectedVvp = [];
+    state.locked = false;
+    state.breakingShown = false;
+    state.trust = 50;
+    state.speed = 50;
+    state.ethics = 50;
+    state.reflections = [];
+    el.reasoning.value = "";
+    el.result.classList.add("hidden");
+    el.restartBtn.classList.add("hidden");
+}
+
+function updateHud() {
+    el.roundLabel.textContent = `${state.caseIndex + 1} / ${cases.length}`;
+    el.trustValue.textContent = state.trust;
+    el.speedValue.textContent = state.speed;
+    el.ethicsValue.textContent = state.ethics;
+    el.trustMeter.style.width = `${state.trust}%`;
+    el.speedMeter.style.width = `${state.speed}%`;
+    el.ethicsMeter.style.width = `${state.ethics}%`;
+}
+
+function renderCase() {
+    const current = cases[state.caseIndex];
+    state.locked = false;
+    state.breakingShown = false;
+    state.selectedChoice = null;
+    state.selectedVvp = [];
+    el.reasoning.value = "";
+    el.feedbackBox.className = "feedback hidden";
+    el.feedbackBox.innerHTML = "";
+    el.breakingBox.className = "feedback hidden";
+    el.breakingBox.innerHTML = "";
+    el.breakingWrap.classList.add("hidden");
+    el.breakingBtn.disabled = false;
+    el.nextWrap.classList.add("hidden");
+    el.submitBtn.disabled = false;
+
+    el.caseType.textContent = current.type;
+    el.caseTitle.textContent = current.title;
+    el.pressureLabel.textContent = current.pressure;
+    el.caseIntro.textContent = current.intro;
+
+    el.timeline.innerHTML = current.timeline.map(item => `
+        <article class="timeline-item">
+            <strong>${item.label}</strong>
+            <div>${item.text}</div>
+        </article>
+    `).join("");
+
+    if (current.breakingUpdate) {
+        el.breakingWrap.classList.remove("hidden");
+    }
+
+    el.choices.innerHTML = current.choices.map((choice, index) => `
+        <button class="choice" data-choice="${index}">
+            ${choice.title}
+            <span>${choice.summary}</span>
+        </button>
+    `).join("");
+
+    el.vvpOptions.innerHTML = current.vvp.map(item => `
+        <button class="vvp-chip" data-vvp="${item.code}">
+            <strong>${item.code}</strong>
+            <span>${item.text}</span>
+        </button>
+    `).join("");
+
+    document.querySelectorAll(".choice").forEach(button => {
+        button.addEventListener("click", () => {
+            if (state.locked) return;
+            state.selectedChoice = Number(button.dataset.choice);
+            document.querySelectorAll(".choice").forEach(item => item.classList.remove("active"));
+            button.classList.add("active");
+        });
+    });
+
+    document.querySelectorAll(".vvp-chip").forEach(button => {
+        button.addEventListener("click", () => {
+            if (state.locked) return;
+            const code = button.dataset.vvp;
+            if (state.selectedVvp.includes(code)) {
+                state.selectedVvp = state.selectedVvp.filter(item => item !== code);
+                button.classList.remove("selected");
+                return;
+            }
+            if (state.selectedVvp.length < 3) {
+                state.selectedVvp.push(code);
+                button.classList.add("selected");
+            }
+        });
+    });
+
+    updateHud();
+}
+
+function revealBreakingUpdate() {
+    const current = cases[state.caseIndex];
+    if (!current.breakingUpdate || state.locked || state.breakingShown) return;
+    state.breakingShown = true;
+    state.speed = clamp(state.speed - 4);
+    state.ethics = clamp(state.ethics + 4);
+    el.breakingBtn.disabled = true;
+    el.breakingBox.className = "feedback warn";
+    el.breakingBox.classList.remove("hidden");
+    el.breakingBox.innerHTML = `
+        <h3>Breaking update: ${current.breakingUpdate.label}</h3>
+        <p><strong>${current.breakingUpdate.title}</strong></p>
+        <p>${current.breakingUpdate.text}</p>
+        <p><strong>Redaksjonelt signal:</strong> Situasjonen er mer usikker enn den så ut først. Revurder om du har valgt for hardt, for raskt eller på for tynt grunnlag.</p>
+    `;
+    updateHud();
+}
+
+function evaluateRound() {
+    const current = cases[state.caseIndex];
+    const reasoning = el.reasoning.value.trim();
+
+    if (state.selectedChoice === null) {
+        alert("Velg hva redaksjonen skal gjøre før du låser valget.");
+        return;
+    }
+    if (state.selectedVvp.length < 2) {
+        alert("Velg minst to relevante VVP-punkter.");
+        return;
+    }
+    if (reasoning.length < 80) {
+        alert("Skriv en litt tydeligere begrunnelse. Prøv å forklare både publisering og etikk.");
+        return;
+    }
+
+    const choice = current.choices[state.selectedChoice];
+    state.locked = true;
+    state.trust = clamp(state.trust + choice.impact.trust);
+    state.speed = clamp(state.speed + choice.impact.speed);
+    state.ethics = clamp(state.ethics + choice.impact.ethics);
+
+    const relevantMatches = state.selectedVvp.filter(code => current.vvp.some(item => item.code === code)).length;
+    const reflectionBonus = reasoning.length > 180 ? 4 : 0;
+    state.ethics = clamp(state.ethics + relevantMatches * 2 + reflectionBonus);
+    state.trust = clamp(state.trust + (relevantMatches >= 2 ? 3 : 0));
+
+    const chosenTexts = current.vvp
+        .filter(item => state.selectedVvp.includes(item.code))
+        .map(item => `${item.code}: ${item.text}`);
+
+    state.reflections.push({
+        title: current.title,
+        action: choice.title,
+        vvp: [...state.selectedVvp],
+        reasoning
+    });
+
+    el.feedbackBox.className = `feedback ${choice.tone}`;
+    el.feedbackBox.classList.remove("hidden");
+    el.feedbackBox.innerHTML = `
+        <h3>Konsekvens</h3>
+        <p>${choice.verdict}</p>
+        <p><strong>Faglig debrief:</strong> ${choice.learning}</p>
+        <p><strong>Dine valgte VVP-punkter:</strong> ${chosenTexts.join(" | ")}</p>
+    `;
+
+    el.submitBtn.disabled = true;
+    el.breakingBtn.disabled = true;
+    el.nextWrap.classList.remove("hidden");
+    updateHud();
+}
+
+function buildEnding() {
+    const total = Math.round((state.trust + state.speed + state.ethics) / 3);
+    let headline = "Du styrer redaksjonen med trygg hånd";
+    let description = "Valgene dine viser at du klarer å balansere nyhetsverdi og presseetikk. Dette er den typen vurderinger en ansvarlig journalist må gjøre under press.";
+
+    if (total < 50) {
+        headline = "Du gikk for fort i svingene";
+        description = "Her ble fart viktigere enn kontroll og omtanke. I en ekte redaksjon ville flere av valgene dine gitt høy risiko for presseetiske brudd.";
+    } else if (total < 70) {
+        headline = "Du er på rett vei, men må spisse vurderingene";
+        description = "Du ser flere viktige hensyn, men noen valg viser at du fortsatt må jobbe med å koble publisering tydeligere til Vær Varsom-plakaten.";
+    }
+
+    const highlights = [
+        { label: "Tillit", value: state.trust, note: "Hvor troverdig og ansvarlig redaksjonen framstår." },
+        { label: "Tempo", value: state.speed, note: "Hvor raskt du fikk stoffet ut." },
+        { label: "Etikk", value: state.ethics, note: "Hvor godt valgene dine tåler møte med VVP." }
+    ];
+
+    el.result.innerHTML = `
+        <span class="eyebrow">Sluttrapport</span>
+        <h2>${headline}</h2>
+        <div class="result-score">${total}</div>
+        <p class="muted">${description}</p>
+        <div class="result-grid" style="margin-top:18px;">
+            ${highlights.map(item => `
+                <article class="summary-card">
+                    <h3>${item.label}</h3>
+                    <p class="result-score" style="font-size:2.2rem; margin-bottom:4px;">${item.value}</p>
+                    <p class="muted">${item.note}</p>
+                </article>
+            `).join("")}
+        </div>
+        <div class="summary-card" style="margin-top:16px;">
+            <h3>Forslag til bruk i undervisning</h3>
+            <p>La elevene spille individuelt først. Deretter kan de sammenligne valg i grupper og diskutere om samme case kunne vært løst på andre måter uten å bryte Vær Varsom-plakaten.</p>
+            <p>Utvidelse: Be elevene skrive ingressen de faktisk ville publisert i én av rundene, og begrunne hvilke opplysninger de bevisst holder tilbake.</p>
+        </div>
+    `;
+
+    el.result.classList.remove("hidden");
+    el.restartBtn.classList.remove("hidden");
+}
+
+function goNext() {
+    if (state.caseIndex === cases.length - 1) {
+        el.app.classList.add("hidden");
+        buildEnding();
+        return;
+    }
+    state.caseIndex += 1;
+    renderCase();
+}
+
+function startGame() {
+    resetState();
+    el.app.classList.remove("hidden");
+    renderCase();
+    updateHud();
+}
+
+el.startBtn.addEventListener("click", startGame);
+el.restartBtn.addEventListener("click", startGame);
+el.breakingBtn.addEventListener("click", revealBreakingUpdate);
+el.submitBtn.addEventListener("click", evaluateRound);
+el.nextBtn.addEventListener("click", goNext);
+updateHud();
+
+// Download button
+const downloadButton = document.getElementById('downloadButton');
+downloadButton.addEventListener('click', () => {
+    try {
+        const htmlContent = document.documentElement.outerHTML;
+        const blob = new Blob(['\ufeff', htmlContent], { type: 'text/html;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'deadline-presseetikk.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(a.href);
+    } catch (error) {
+        console.error("Feil ved nedlasting av fil:", error);
+    }
+});
+</script>
+</body>
+</html>
+
+
+
+<h1 class="wp-block-heading">Deadline: Presseetikk — Lærerveiledning og faglig bakgrunn</h1>
+
+
+
+<p class="wp-block-paragraph"><strong>Fag:</strong> Medier og kommunikasjon / Norsk / Samfunnsfag<br><strong>Nivå:</strong> Videregående skole, Vg2–Vg3<br><strong>Tidsbruk:</strong> 45–90 minutter (individuelt, par eller gruppe)</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Hva er presseetikk?</h2>
+
+
+
+<p class="wp-block-paragraph">Journalistikk handler om mer enn å formidle nyheter. Det handler om å ta ansvar for hva som publiseres, hvem det rammer, og om informasjonen faktisk er korrekt. Presseetikk er de prinsippene og reglene som styrer hvordan journalister og redaksjoner bør opptre — ikke bare hva de <em>kan</em> skrive, men hva de <em>bør</em> skrive.</p>
+
+
+
+<p class="wp-block-paragraph">I Norge er presseetikken selvregulert. Det betyr at pressen selv har laget regler for god presseskikk, og at brudd på disse behandles av et uavhengig organ kalt <strong>Pressens Faglige Utvalg (PFU)</strong>. PFU kan felle redaksjoner som publiserer saker som bryter med god presseskikk.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Vær Varsom-plakaten (VVP)</h2>
+
+
+
+<p class="wp-block-paragraph">Vær Varsom-plakaten er pressens etiske grunnlov. Den ble vedtatt første gang i 1936 og revideres jevnlig av Norsk Presseforbund. Plakaten er delt inn i fire hoveddeler:</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Kapittel 1 — Pressens samfunnsrolle</strong><br>Her slås det fast at pressen har et særlig ansvar for å informere, avdekke og beskytte enkeltmennesker mot maktmisbruk. Pressefrihet er en forutsetning for demokrati.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Kapittel 2 — Integritet og ansvar</strong><br>Handler om journalistens og redaksjonens uavhengighet — blant annet at redaksjoner skal tåle press fra annonsører, myndigheter og andre interessegrupper uten å la dette påvirke journalistikken.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Kapittel 3 — Journalistisk atferd og forholdet til kildene</strong><br>Dette kapitlet handler om kildekritikk, kildebeskyttelse, kildevern og om å kontrollere opplysninger. Sentrale punkter:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>3.2</strong> — Vær kritisk i valg av kilder, og kontroller at opplysninger som gis er korrekte.</li>
+
+
+
+<li><strong>3.3</strong> — Gjør premissene klare overfor kilder og kontakter.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph"><strong>Kapittel 4 — Publiseringsregler</strong><br>Det mest omfattende kapitlet. Handler om saklighet, omtanke, identifisering, bruk av bilder, hensyn til ofre og pårørende, og om å ikke forhåndsdømme. Punkter som går igjen i simuleringen:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>4.1</strong> — Vær saklig og hensynsfull i innhold og presentasjon.</li>
+
+
+
+<li><strong>4.5</strong> — Unngå forhåndsdømming i kriminal- og rettsreportasje.</li>
+
+
+
+<li><strong>4.6</strong> — Ta hensyn til hvordan omtale av ulykker og kriminalsaker kan virke på ofre og pårørende.</li>
+
+
+
+<li><strong>4.7</strong> — Vær varsom med bruk av navn og bilde i saker om klanderverdige eller straffbare forhold.</li>
+
+
+
+<li><strong>4.8</strong> — Ta særlig hensyn til konsekvensene for barn som omtales i media.</li>
+
+
+
+<li><strong>4.12</strong> — Sørg for at bilder og illustrasjoner ikke skaper et falskt inntrykk.</li>
+
+
+
+<li><strong>4.14</strong> — De som utsettes for sterke beskyldninger skal så vidt mulig ha rett til samtidig imøtegåelse.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Sentrale presseetiske begreper</h2>
+
+
+
+<h3 class="wp-block-heading">Kildekritikk</h3>
+
+
+
+<p class="wp-block-paragraph">Kildekritikk handler om å vurdere hvem som gir informasjon og <em>hvorfor</em>. En kilde kan ha interesse av å fremstille saken på en bestemt måte. Journalisten må alltid spørre: Hva vet kilden? Hva kan kilden vite? Hva ønsker kilden å oppnå ved å dele denne informasjonen?</p>
+
+
+
+<h3 class="wp-block-heading">Anonyme kilder</h3>
+
+
+
+<p class="wp-block-paragraph">En kilde kan ha legitime grunner til å ønske anonymitet — for eksempel varsling om kritikkverdige forhold. Men anonymous kilder gir også redaksjonen lavere etisk trygghet, fordi man ikke kan stille kilden til ansvar for feilinformasjon. Som tommelfingerregel bør anonyme påstander alltid bekreftes gjennom andre uavhengige kilder.</p>
+
+
+
+<h3 class="wp-block-heading">Identifisering</h3>
+
+
+
+<p class="wp-block-paragraph">Å navngi eller avbilde en person i en sak der vedkommende fremstilles negativt, er en av de alvorligste presseetiske avgjørelsene en redaksjon tar. Identifisering kan være berettiget hvis personen har offentlig posisjon og saken angår denne rollen, eller hvis anonymitet vil gi et skjevt bilde. Men i tidlige faser av en sak — der fakta ikke er avklart — er identifisering sjelden forsvarlig.</p>
+
+
+
+<h3 class="wp-block-heading">Forhåndsdømming</h3>
+
+
+
+<p class="wp-block-paragraph">Forhåndsdømming skjer når pressen omtaler en person som skyldig i noe straffbart eller klanderverdig <em>før</em> dette er fastslått av rettssystem eller grundig undersøkelse. Pressetiske brudd på dette punktet er blant de vanligste feltene i PFU.</p>
+
+
+
+<h3 class="wp-block-heading">Simultanimøtegåelse</h3>
+
+
+
+<p class="wp-block-paragraph">Alle som utsettes for sterke beskyldninger har krav på å få svare <em>i samme sak</em>. Det er ikke tilstrekkelig å si at «vi forsøkte å nå personen» — vedkommende skal gis reell mulighet til å imøtegå konkrete påstander, ikke et generelt spørsmål om kommentar.</p>
+
+
+
+<h3 class="wp-block-heading">Pressefrihet vs. omsorg</h3>
+
+
+
+<p class="wp-block-paragraph">Journalister befinner seg i en varig spenning mellom to legitime hensyn: plikten til å informere offentligheten, og plikten til å beskytte enkeltmennesker mot unødvendig skade. Det finnes ingen algoritme som løser dette. Det krever skjønn, etisk bevissthet og redaksjonell diskusjon.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Om simuleringen</h2>
+
+
+
+<h3 class="wp-block-heading">Hva simuleringen gjør</h3>
+
+
+
+<p class="wp-block-paragraph">Simuleringen setter elever i rollen som vaktsjef i en digital redaksjon. Gjennom seks caser med stigende kompleksitet må elevene:</p>
+
+
+
+<ol class="wp-block-list">
+<li>Velge én av tre mulige handlinger (publisere hardt, publisere forsiktig, vente)</li>
+
+
+
+<li>Identifisere hvilke punkter i Vær Varsom-plakaten som er relevante for casen</li>
+
+
+
+<li>Begrunne valget skriftlig</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">Etter hvert valg får elevene tilbakemelding i form av konsekvens, faglig debrief og informasjon om hvilke VVP-punkter som veier tyngst.</p>
+
+
+
+<h3 class="wp-block-heading">Hvordan poengsystemet fungerer</h3>
+
+
+
+<p class="wp-block-paragraph">Tre verdier justeres gjennom spillet: <strong>Tillit</strong> (redaksjonens troverdighet), <strong>Tempo</strong> (publiseringshastighet) og <strong>Etikk</strong> (i hvilken grad valgene følger VVP). Spenningen mellom Tempo og Etikk er bevisst: å publisere raskt gir gjerne etisk risiko, og å vente gir etisk trygghet men koster tid.</p>
+
+
+
+<p class="wp-block-paragraph">Merk at begrunnelsesteksten vurderes <em>kun</em> etter lengde (minimum 80 tegn), ikke etter innhold. Poengsystemet er regelbasert og ikke koblet til kunstig intelligens. Verdien av begrunnelsesfeltet ligger i å tvinge elevene til å formulere tanker skriftlig — ikke i at disse vurderes automatisk.</p>
+
+
+
+<h3 class="wp-block-heading">Case-oversikt</h3>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Runde</th><th>Type</th><th>Etisk kjerneproblem</th></tr></thead><tbody><tr><td>1</td><td>Breaking</td><td>Mindreårige i video, ukontrollerte opplysninger</td></tr><tr><td>2</td><td>Undersøkende</td><td>Anonyme påstander, rett til imøtegåelse</td></tr><tr><td>3</td><td>Visuell journalistikk</td><td>Bildeetikk, hensyn til pårørende</td></tr><tr><td>4</td><td>KI og verifikasjon</td><td>Falske bilder, publiseringspress</td></tr><tr><td>5</td><td>Identifisering</td><td>Navngivning under tidlig fase av sak</td></tr><tr><td>6</td><td>Boss round</td><td>Alle hensyn kolliderer samtidig</td></tr></tbody></table></figure>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Pedagogisk bruk</h2>
+
+
+
+<h3 class="wp-block-heading">Individuelt</h3>
+
+
+
+<p class="wp-block-paragraph">Elever spiller gjennom simuleringen og skriver logg etter hver runde: hva valgte de, hva lærte de av debriefet, og hva ville de gjort annerledes?</p>
+
+
+
+<h3 class="wp-block-heading">I par eller gruppe</h3>
+
+
+
+<p class="wp-block-paragraph">Elevene diskuterer seg frem til felles valg. Uenigheter om hvilke VVP-punkter som gjelder kan brukes som inngangspunkt for faglig samtale.</p>
+
+
+
+<h3 class="wp-block-heading">Som klassediskusjon</h3>
+
+
+
+<p class="wp-block-paragraph">Læreren kjører én case på storskjerm. Elevene stemmer (vis hender eller digitalt verktøy) på hvilket valg de ville tatt, og diskusjonen tar utgangspunkt i resultatene.</p>
+
+
+
+<h3 class="wp-block-heading">Skriftlig etterarbeid</h3>
+
+
+
+<p class="wp-block-paragraph">Be elevene skrive den faktiske ingressen de ville publisert i én av casene. Hva tar de med? Hva utelater de bevisst, og hvorfor? Denne øvelsen knytter VVP direkte til konkret skriving.</p>
+
+
+
+<h3 class="wp-block-heading">Kobling til kildebesøk eller nyhetssøk</h3>
+
+
+
+<p class="wp-block-paragraph">Elevene kan ta utgangspunkt i en reell nyhetssak og analysere hvilke VVP-punkter redaksjonen ser ut til å ha vurdert — og om de mener redaksjonen har håndtert saken godt.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Nyttige ressurser</h2>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Vær Varsom-plakaten (fullstendig tekst):</strong> <a href="https://presse.no/pfu/var-varsom-plakaten/">presse.no/vær-varsom-plakaten</a></li>
+
+
+
+<li><strong>Pressens Faglige Utvalg:</strong> <a href="https://presse.no/pfu/">presse.no/pfu</a></li>
+
+
+
+<li><strong>PFU-saker (søkbar database):</strong> Et stort arkiv med reelle presseetiske klager og utfall — utmerket som eksempelmateriale i undervisning.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph"></p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p>Copyright 2026 - Skolesim</p>
+      <nav><a href="#">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
+</body>
+</html>

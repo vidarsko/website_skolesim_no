@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spenning, strøm og motstand — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/#fagoversikt">Fagoversikt</a></li>
+          <li><a href="#">Om meg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <span class="post-category"><a href="/alle-simuleringer/?kategori=elektrisitet">Elektrisitet</a></span>
+      <h1>Spenning, strøm og motstand</h1>
+<p class="wp-block-paragraph">Utforsk sammenhengen mellom spenning, strøm og resistans ved å justere verdiene og se partikkelbevegelse i sanntid. Observer hvordan endringer i ladning og motstand påvirker elektronstrømmen og kollisjoner direkte i lederen.</p>
+
+
+
+<p class="wp-block-paragraph">Innsendt av Sondre Østbye Roos.</p>
+
+
+
+<style>
+    :root {
+        /* Hovedfarger */
+        --raft-bg: #EBE8E6;        /* Hovedbakgrunn (lys grå/beige) */
+        --raft-fg: #1D1F25;        /* Hovedtekstfarge (mørk grå) */
+        --raft-accent: #C26148;   /* Aksentfarge (rustrød) */
+        --raft-accent-dark: #AC5039; /* Mørkere aksent for hover */
+        --raft-bg-alt: rgba(255, 255, 255, 0.6); /* Gjennomsiktig hvit for container */
+        --raft-bg-controls: rgba(255, 255, 255, 0.8); /* Litt mindre gjennomsiktig for kontroller */
+        --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
+
+        /* Skrifttyper */
+        --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --raft-font-heading: "Geologica", var(--raft-font);
+    }
+
+    /* Generell Layout */
+    body {
+        background-color: var(--raft-bg);
+        color: var(--raft-fg);
+        font-family: var(--raft-font);
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        background: var(--raft-bg-alt);
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    /* Typografi */
+    h1, h2, h3 {
+        font-family: var(--raft-font-heading);
+    }
+
+    h1 {
+        color: var(--raft-fg);
+        border-bottom: 2px solid var(--raft-accent);
+        padding-bottom: 15px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        color: var(--raft-accent);
+        margin-top: 0;
+    }
+
+    p.intro {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto 40px auto;
+        opacity: 0.8;
+    }
+
+    /* Lab Bokser */
+    .lab-box {
+        background-color: var(--raft-bg-box);
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 40px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        border-left: 6px solid var(--raft-accent);
+    }
+
+    /* Formler */
+    .formula-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--raft-bg);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+        font-size: 1.5em;
+        font-family: "Times New Roman", serif;
+        font-style: italic;
+    }
+
+    .fraction {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 10px;
+        vertical-align: middle;
+    }
+
+    .numerator {
+        border-bottom: 2px solid var(--raft-fg);
+        padding-bottom: 2px;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .denominator {
+        padding-top: 2px;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Kontroller */
+    .controls {
+        background-color: var(--raft-bg-controls);
+        padding: 20px;
+        border-radius: 8px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 0.9em;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    .value-tag {
+        color: var(--raft-accent);
+        font-weight: bold;
+    }
+
+    input[type="range"] {
+        width: 100%;
+        cursor: pointer;
+        accent-color: var(--raft-accent);
+    }
+
+    /* Resultater */
+    .result {
+        text-align: center;
+        font-size: 1.8em;
+        margin: 25px 0;
+        font-weight: bold;
+        color: var(--raft-fg);
+    }
+    
+    .result span {
+        color: var(--raft-accent);
+    }
+
+    /* Canvas & Visualisering */
+    canvas {
+        background-color: var(--raft-fg); /* Mørk bakgrunn for kontrast */
+        border-radius: 8px;
+        width: 100%;
+        height: 250px;
+        display: block;
+        margin-top: 15px;
+    }
+    
+    /* Spesifikk stil for Voltage canvas for å ha lysere bakgrunn */
+    #canvasVoltage {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+    }
+    
+    .canvas-container-visual {
+        position: relative;
+        padding: 0 40px; /* Plass til + og - tegn */
+    }
+    
+    .polarity-sign {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 3em;
+        font-weight: bold;
+        color: var(--raft-accent);
+    }
+    
+    .polarity-plus { left: 0; }
+    .polarity-minus { right: 0; }
+    
+    .current-arrow {
+        text-align: center;
+        font-weight: bold;
+        color: var(--raft-accent);
+        margin-bottom: 5px;
+    }
+    .current-arrow span {
+        font-size: 1.5em;
+        vertical-align: middle;
+    }
+
+
+    .caption {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #666;
+        margin-top: 10px;
+        font-style: italic;
+    }
+
+    /* Knapper */
+    button {
+        background-color: var(--raft-accent);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        font-family: var(--raft-font);
+        transition: background-color 0.2s;
+        font-weight: 600;
+        margin-top: 20px;
+    }
+
+    button:hover {
+        background-color: var(--raft-accent-dark);
+    }
+
+    /* Responsivitet */
+    @media (max-width: 768px) {
+        .controls {
+            grid-template-columns: 1fr;
+        }
+        .container {
+            padding: 20px;
+        }
+        .formula-container {
+            font-size: 1.2em;
+        }
+        .canvas-container-visual { padding: 0 25px; }
+        .polarity-sign { font-size: 2em; }
+    }
+</style>
+
+<div class="container">
+    <h1>⚡ Interaktiv Elektrisitets-Lab</h1>
+    <p class="intro">Endre på gliderne nedenfor for å utforske fysikken bak elektrisitet. Se hvordan verdiene henger sammen i sanntid.</p>
+
+    <!-- 1. SPENNING -->
+    <div class="lab-box">
+        <h2>1. Spenning (U)</h2>
+        <p>Spenning er definert som arbeid utført per ladning. Tenk på det som hvor mye "energi" hver enkelt ladning bærer på.</p>
+        
+        <div class="formula-container">
+            <span>U</span> &nbsp;=&nbsp; 
+            <div class="fraction">
+                <span class="numerator">W</span>
+                <span class="denominator">q</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div>
+                <label>Arbeid (W) - Total Energi: <span id="valW" class="value-tag">50</span> J</label>
+                <input type="range" id="slideW" min="10" max="100" value="50">
+            </div>
+            <div>
+                <label>Ladning (q) - Antall: <span id="valQ_U" class="value-tag">5.0</span> C</label>
+                <input type="range" id="slideQ_U" min="1" max="20" step="0.1" value="5">
+            </div>
+        </div>
+
+        <div class="result">U = <span id="resU">10.00</span> V</div>
+
+        <!-- Ny visualisering for Spenning -->
+        <canvas id="canvasVoltage"></canvas>
+        
+        <p class="caption">
+            Det gule feltet er Arbeidet (W). Dette fordeles på antall ladninger (oransje kuler, q).<br>
+            Høyden på feltet blir da Spenningen (U).
+        </p>
+    </div>
+
+    <!-- 2. STRØM -->
+    <div class="lab-box">
+        <h2>2. Strøm (I)</h2>
+        <p>Strøm er mengden ladning som passerer et punkt per tidsenhet.</p>
+        
+        <div class="formula-container">
+            <span>I</span> &nbsp;=&nbsp; 
+            <div class="fraction">
+                <span class="numerator">q</span>
+                <span class="denominator">t</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div>
+                <label>Ladning (q): <span id="valQ_I" class="value-tag">50</span> C</label>
+                <input type="range" id="slideQ_I" min="10" max="500" value="50">
+            </div>
+            <div>
+                <label>Tid (t): <span id="valT" class="value-tag">5</span> s</label>
+                <input type="range" id="slideT" min="1" max="10" value="5">
+            </div>
+        </div>
+
+        <div class="result">I = <span id="resI">10.00</span> A</div>
+
+        <div class="current-arrow">Strømretning (I) <span>&longrightarrow;</span></div>
+        <div class="canvas-container-visual">
+            <span class="polarity-sign polarity-plus">+</span>
+            <canvas id="canvasCurrent"></canvas>
+            <span class="polarity-sign polarity-minus">-</span>
+        </div>
+        <p class="caption">
+            <b>q</b> endrer antall partikler. <b>t</b> endrer hastigheten. Elektronene beveger seg fra minus til pluss, mens strømretningen defineres motsatt.
+        </p>
+    </div>
+
+    <!-- 3. RESISTANS -->
+    <div class="lab-box">
+        <h2>3. Resistans (R)</h2>
+        <p>Resistans er motstand mot strømmen. Her simulerer vi elektroner som kolliderer med atomer i en leder.</p>
+        
+        <div class="formula-container">
+            <span>U</span> &nbsp;=&nbsp; <span>R</span> &middot; <span>I</span>
+        </div>
+
+        <div class="controls">
+            <div style="grid-column: 1 / -1;">
+                <label>Motstand (R) / Antall hindringer: <span id="valR" class="value-tag">5</span> Ω</label>
+                <input type="range" id="slideR" min="1" max="50" value="5">
+            </div>
+        </div>
+
+        <div class="result">
+            Strøm (I) = <span id="resI_Ohm">2.00</span> A<br>
+            <small style="font-size: 0.6em; color: var(--raft-fg); opacity: 0.7;" id="colStatus">Lite kollisjoner</small>
+        </div>
+
+        <div class="current-arrow">Strømretning (I) <span>&longrightarrow;</span></div>
+        <div class="canvas-container-visual">
+            <span class="polarity-sign polarity-plus">+</span>
+            <canvas id="canvasRes"></canvas>
+            <span class="polarity-sign polarity-minus">-</span>
+        </div>
+        <p class="caption">
+            Elektronene har konstant fart, men kolliderer oftere når motstanden øker. Røde blink markerer kollisjoner.
+        </p>
+    </div>
+
+    <div style="text-align: center;">
+        <button id="downloadButton">Last ned denne filen</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // --- 1. SPENNING (VOLTAGE) ---
+    const sW = document.getElementById('slideW');
+    const sQ_U = document.getElementById('slideQ_U');
+    const vW = document.getElementById('valW');
+    const vQ_U = document.getElementById('valQ_U');
+    const rU = document.getElementById('resU');
+    
+    const canvasV = document.getElementById('canvasVoltage');
+    const ctxV = canvasV.getContext('2d');
+
+    // Funksjon for å håndtere resizing av alle canvas
+    function resizeCanvas(canvas, isWhite) {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = 250;
+        // Hvis bredden er 0 (skjult eller ikke rendret), sett en standard for å unngå feil
+        if (canvas.width === 0) canvas.width = 800; 
+    }
+    
+    resizeCanvas(canvasV);
+
+    function drawVoltage() {
+        // Hent verdier
+        let w = parseFloat(sW.value);
+        let q = parseFloat(sQ_U.value);
+        let u = w / q;
+
+        // Oppdater tekst
+        vW.textContent = w;
+        vQ_U.textContent = q.toFixed(1);
+        rU.textContent = u.toFixed(2);
+
+        // Tegn
+        ctxV.clearRect(0, 0, canvasV.width, canvasV.height);
+
+        // Konstanter for tegning
+        const sphereRadius = 15;
+        const sphereDiameter = sphereRadius * 2;
+        const spacing = 5;
+        const unitWidth = sphereDiameter + spacing;
+        
+        const startX = 40;
+        const bottomY = canvasV.height - 40;
+        
+        // Beregn total bredde basert på q (kan være desimaltall)
+        const totalWidthQ = q * unitWidth;
+
+        // 1. Tegn kulene (Ladninger)
+        ctxV.save();
+        // Vi clipper (avgrenser) tegneområdet til nøyaktig bredden av q
+        // Dette gjør at "delkuler" (f.eks 0.5) blir kuttet perfekt
+        ctxV.beginPath();
+        ctxV.rect(startX, bottomY - sphereRadius, totalWidthQ, sphereDiameter + 5); 
+        ctxV.clip();
+
+        // Tegn nok kuler til å dekke q (rund opp til nærmeste heltall)
+        const numSpheresToDraw = Math.ceil(q);
+        
+        for (let i = 0; i < numSpheresToDraw; i++) {
+            ctxV.beginPath();
+            let x = startX + sphereRadius + (i * unitWidth);
+            ctxV.arc(x, bottomY, sphereRadius, 0, Math.PI * 2);
+            ctxV.fillStyle = "#E67E22"; // Oransje
+            ctxV.fill();
+            ctxV.strokeStyle = "#D35400";
+            ctxV.stroke();
+            
+            // Tegn + tegn i kulen
+            ctxV.fillStyle = "white";
+            ctxV.font = "bold 16px Arial";
+            ctxV.textAlign = "center";
+            ctxV.textBaseline = "middle";
+            ctxV.fillText("+", x, bottomY);
+        }
+        ctxV.restore();
+
+        // 2. Tegn Arbeid/Energi boksen (W)
+        // Høyden skal skalere med U. 
+        // Vi må finne en fornuftig skaleringsfaktor slik at det passer i canvaset.
+        // Maks U er 100/1 = 100. Min U er 10/20 = 0.5.
+        const heightScale = 1.8; // Piksler per Volt
+        const boxHeight = u * heightScale; 
+
+        // Tegn boksen oppå kulene
+        const boxBottom = bottomY - sphereRadius - 5;
+        const boxTop = boxBottom - boxHeight;
+
+        // Gradient for "Energi"
+        let gradient = ctxV.createLinearGradient(0, boxTop, 0, boxBottom);
+        gradient.addColorStop(0, "rgba(241, 196, 15, 0.8)"); // Gul
+        gradient.addColorStop(1, "rgba(243, 156, 18, 0.4)"); // Mørkere gul/oransje bunn
+
+        ctxV.fillStyle = gradient;
+        ctxV.fillRect(startX, boxTop, totalWidthQ, boxHeight);
+        
+        ctxV.strokeStyle = "#F39C12";
+        ctxV.lineWidth = 2;
+        ctxV.strokeRect(startX, boxTop, totalWidthQ, boxHeight);
+
+        // 3. Piler og merking
+        
+        // Pil for Spenning (Høyde)
+        if (boxHeight > 10) {
+            const arrowX = startX + totalWidthQ + 20;
+            ctxV.beginPath();
+            ctxV.moveTo(arrowX, boxBottom);
+            ctxV.lineTo(arrowX, boxTop);
+            
+            // Pilspiss topp
+            ctxV.moveTo(arrowX - 5, boxTop + 5);
+            ctxV.lineTo(arrowX, boxTop);
+            ctxV.lineTo(arrowX + 5, boxTop + 5);
+            
+            // Pilspiss bunn
+            ctxV.moveTo(arrowX - 5, boxBottom - 5);
+            ctxV.lineTo(arrowX, boxBottom);
+            ctxV.lineTo(arrowX + 5, boxBottom - 5);
+
+            ctxV.strokeStyle = "#C26148"; // Raft accent
+            ctxV.lineWidth = 2;
+            ctxV.stroke();
+
+            // Tekst Spenning
+            ctxV.fillStyle = "#C26148";
+            ctxV.font = "bold 14px sans-serif";
+            ctxV.textAlign = "left";
+            ctxV.textBaseline = "middle";
+            ctxV.fillText("U (Spenning)", arrowX + 10, boxTop + boxHeight/2);
+        }
+
+        // Tekst Arbeid (Inni boksen)
+        if (boxHeight > 20 && totalWidthQ > 40) {
+            ctxV.fillStyle = "#555";
+            ctxV.font = "bold 14px sans-serif";
+            ctxV.textAlign = "center";
+            ctxV.fillText("W (Arbeid)", startX + totalWidthQ/2, boxTop + boxHeight/2);
+        }
+        
+        // Tekst Q (Under)
+        ctxV.fillStyle = "#E67E22";
+        ctxV.fillText("q (Ladning)", startX + totalWidthQ/2, bottomY + 30);
+
+    }
+
+    sW.addEventListener('input', drawVoltage);
+    sQ_U.addEventListener('input', drawVoltage);
+    drawVoltage();
+
+
+    // --- 2. STRØM (CURRENT) ---
+    const sQ_I = document.getElementById('slideQ_I');
+    const sT = document.getElementById('slideT');
+    const vQ_I = document.getElementById('valQ_I');
+    const vT = document.getElementById('valT');
+    const rI = document.getElementById('resI');
+    
+    const canvasI = document.getElementById('canvasCurrent');
+    const ctxI = canvasI.getContext('2d');
+    
+    resizeCanvas(canvasI);
+
+    let particlesI = [];
+
+    function generateCurrentParticles(amount) {
+        particlesI = [];
+        let rad = 3; 
+        
+        // VIKTIG: Sikre at width er satt før vi genererer posisjoner
+        // Dette fikser "alle på rad" problemet.
+        let width = canvasI.width > 0 ? canvasI.width : 800;
+        let height = canvasI.height > 0 ? canvasI.height : 250;
+        
+        for(let i=0; i<amount; i++) {
+            particlesI.push({ 
+                x: Math.random() * width, 
+                y: Math.random() * height,
+                r: rad
+            });
+        }
+    }
+
+    // Generer start-partikler
+    generateCurrentParticles(parseInt(sQ_I.value));
+
+    sQ_I.addEventListener('input', function() {
+        generateCurrentParticles(parseInt(this.value));
+    });
+
+    function animateCurrent() {
+        let q = parseFloat(sQ_I.value);
+        let t = parseFloat(sT.value);
+        let iVal = q / t;
+
+        vQ_I.textContent = q;
+        vT.textContent = t;
+        rI.textContent = iVal.toFixed(2);
+
+        ctxI.fillStyle = "#1D1F25"; // Raft FG color
+        ctxI.fillRect(0, 0, canvasI.width, canvasI.height);
+
+        let speed = 20 / t; // Justert hastighet
+
+        ctxI.fillStyle = "#3498db"; // Elektroner (Blå)
+        
+        particlesI.forEach(p => {
+            p.x -= speed; // Beveger seg mot venstre (mot +)
+            
+            // Reset hvis den går ut til venstre
+            if (p.x < 0) p.x = canvasI.width;
+            
+            ctxI.beginPath();
+            ctxI.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctxI.fill();
+        });
+
+        requestAnimationFrame(animateCurrent);
+    }
+    animateCurrent();
+
+    // --- 3. RESISTANS (RESISTANCE) ---
+    const sR = document.getElementById('slideR');
+    const vR = document.getElementById('valR');
+    const rI_Ohm = document.getElementById('resI_Ohm');
+    const colStat = document.getElementById('colStatus');
+
+    const canvasR = document.getElementById('canvasRes');
+    const ctxR = canvasR.getContext('2d');
+    resizeCanvas(canvasR);
+
+    let atoms = [];
+    let electrons = [];
+    
+    for(let i=0; i<25; i++) { 
+        electrons.push({ 
+            x: Math.random() * canvasR.width, 
+            y: Math.random() * canvasR.height,
+            stuck: 0 
+        });
+    }
+
+    function generateAtoms(rVal) {
+        atoms = [];
+        let count = rVal * 3; // Skalerer antall atomer
+        let width = canvasR.width > 0 ? canvasR.width : 800;
+        let height = canvasR.height > 0 ? canvasR.height : 250;
+
+        for(let i=0; i<count; i++) {
+            atoms.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                r: 5 
+            });
+        }
+    }
+
+    generateAtoms(parseFloat(sR.value));
+
+    sR.addEventListener('input', function() {
+        generateAtoms(parseFloat(this.value));
+    });
+
+    function animateResistance() {
+        let rVal = parseFloat(sR.value);
+        let voltage = 10; 
+        let current = voltage / rVal;
+
+        vR.textContent = rVal;
+        rI_Ohm.textContent = current.toFixed(2);
+
+        if (rVal < 10) colStat.textContent = "Lite kollisjoner (God leder)";
+        else if (rVal < 30) colStat.textContent = "Noen kollisjoner";
+        else colStat.textContent = "Mange kollisjoner (Høy motstand)";
+
+        ctxR.fillStyle = "#1D1F25"; // Raft FG
+        ctxR.fillRect(0, 0, canvasR.width, canvasR.height);
+
+        // Tegn atomer
+        ctxR.fillStyle = "#555";
+        atoms.forEach(a => {
+            ctxR.beginPath();
+            ctxR.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+            ctxR.fill();
+        });
+
+        // FAST HASTIGHET (Uavhengig av resistans, men kollisjoner sinker dem i praksis)
+        let speed = 12; 
+
+        // Tegn elektroner og sjekk kollisjon
+        electrons.forEach(e => {
+            if (e.stuck > 0) {
+                // Elektronet sitter fast etter kollisjon
+                ctxR.fillStyle = "#C26148"; // Rød farge
+                e.stuck--;
+            } else {
+                // Elektronet beveger seg fritt
+                e.x -= speed; // Beveger seg mot venstre (mot +)
+                ctxR.fillStyle = "#3498db"; // Blå farge
+
+                // Sjekk for kollisjoner
+                atoms.forEach(a => {
+                    let dx = e.x - a.x;
+                    let dy = e.y - a.y;
+                    if (Math.sqrt(dx*dx + dy*dy) < 9) { // Kollisjonsradius
+                        e.stuck = Math.floor(Math.random() * 10) + 5; // Sitter fast i 5-15 frames
+                    }
+                });
+            }
+
+            // Reset posisjon hvis det går ut av canvas til venstre
+            if(e.x < 0) e.x = canvasR.width;
+
+            ctxR.beginPath();
+            ctxR.arc(e.x, e.y, 3, 0, Math.PI * 2);
+            ctxR.fill();
+        });
+
+        requestAnimationFrame(animateResistance);
+    }
+    animateResistance();
+
+    // Håndter vindus-resizing for canvas
+    window.addEventListener('resize', function() {
+        resizeCanvas(canvasV);
+        resizeCanvas(canvasI);
+        resizeCanvas(canvasR);
+        // Oppdater tegninger etter resize
+        drawVoltage();
+        generateAtoms(parseFloat(sR.value));
+        // For strøm, re-distribuer partikler for å unngå klumping eller tomme felt
+        generateCurrentParticles(parseInt(sQ_I.value));
+    });
+
+    // --- Last Ned Funksjon (Påkrevd) ---
+    const downloadButton = document.getElementById('downloadButton');
+    if (downloadButton) {
+        downloadButton.addEventListener('click', () => {
+            try {
+                const htmlContent = document.documentElement.outerHTML;
+                const blob = new Blob(['\ufeff', htmlContent], { type: 'text/html;charset=utf-8' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'simulering.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(a.href);
+            } catch (error) {
+                console.error("Feil ved nedlasting av fil:", error);
+            }
+        });
+    }
+});
+</script>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p>Copyright 2026 - Skolesim</p>
+      <nav><a href="#">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
+</body>
+</html>

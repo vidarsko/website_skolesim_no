@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Châtelier — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/#fagoversikt">Fagoversikt</a></li>
+          <li><a href="#">Om meg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <span class="post-category"><a href="/alle-simuleringer/?kategori=kjemi-1">Kjemi 1</a></span>
+      <h1>Le Châtelier</h1>
+<p class="wp-block-paragraph">Juster temperatur, trykk og konsentrasjon for reaksjonen N₂(g) + 3H₂(g) ⇌ 2NH₃(g). Utforsk hvordan systemet dynamisk forskyver likevekten for å motvirke endringene og gjenopprette balansen (K-verdien).</p>
+
+
+
+<p class="wp-block-paragraph">I denne simuleringen vil du kanskje legge merke til at Likevektskonstanten (K) endrer seg litt når du legger til stoffer (f.eks. <code>+N₂</code>). I en ekte kjemisk reaksjon skal K <em>kun</em> endre seg med temperaturen. Dette har med å gjøre at simuleringen bruker et veldig lavt antall molekyler (rundt 150) istedenfor milliarder på milliarder (mol). Fordi simuleringen må runde til nærmeste <em>heltall</em> av molekyler, skaper dette en liten avrundingsfeil som gjør at K-verdien ikke treffer 100% nøyaktig hver gang. Hovedpoenget er å se <em>hvordan </em>systemet forskyver seg for å komme <em>tilbake mot</em> K-verdien, og at K <em>kun</em> endrer seg fundamentalt med <strong>temperatur</strong>.</p>
+
+
+
+<!-- 1. FONT-LENKER -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&family=Geologica:wght@700&display=swap" rel="stylesheet">
+
+<!-- 2. CSS-STILER -->
+<style>
+    /* --- 1. CSS-Stil (Raft Tema) --- */
+    :root {
+        /* Hovedfarger */
+        --raft-bg: #EBE8E6;        /* Hovedbakgrunn (lys grå/beige) */
+        --raft-fg: #1D1F25;        /* Hovedtekstfarge (mørk grå) */
+        --raft-accent: #C26148;   /* Aksentfarge (rustrød) */
+        --raft-accent-dark: #AC5039; /* Mørkere aksent for hover */
+        --raft-bg-alt: rgba(255, 255, 255, 0.6); /* Gjennomsiktig hvit for container */
+        --raft-bg-controls: rgba(255, 255, 255, 0.8); /* Litt mindre gjennomsiktig for kontroller */
+        --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
+
+        /* Skrifttyper */
+        --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --raft-font-heading: "Geologica", var(--raft-font);
+
+        /* Farger for gasser - for grenser/tekst i legend */
+        --color-n2-main: #3498db;    /* Blå (for N2 blob og NH3 senter) */
+        --color-h2-main: #2ecc71;    /* Grønn (for H2 blob og NH3 hydrogen) */
+    }
+
+    /* Generell Layout */
+    /* Vi styler body *innenfor* containeren for å unngå konflikt med WordPress */
+    .sim-body-wrapper {
+        background-color: var(--raft-bg);
+        color: var(--raft-fg);
+        font-family: var(--raft-font);
+        margin: 0;
+        padding: 2rem;
+        line-height: 1.6;
+    }
+
+    .sim-body-wrapper .container {
+        background: var(--raft-bg-alt);
+        max-width: 1100px; /* Litt bredere for canvas */
+        margin: 0 auto;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* Typografi */
+    .sim-body-wrapper h1, .sim-body-wrapper h2 {
+        font-family: var(--raft-font-heading);
+        font-weight: 700;
+    }
+
+    .sim-body-wrapper h1 {
+        color: var(--raft-fg);
+        border-bottom: 2px solid var(--raft-accent);
+        padding-bottom: 0.5rem;
+        font-size: 2.5rem;
+        text-align: center;
+    }
+    
+    .sim-body-wrapper h1 span {
+        font-family: var(--raft-font);
+        font-weight: 400;
+        font-size: 1.5rem;
+        color: var(--raft-fg);
+        display: block; /* Sørger for at likningen kommer på egen linje på mindre skjermer */
+    }
+
+    .sim-body-wrapper h2 {
+        color: var(--raft-accent);
+        margin-top: 1.5rem;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+    }
+
+    .sim-body-wrapper h3 {
+        font-family: var(--raft-font-heading);
+        margin-bottom: 0.5rem;
+    }
+
+    /* Simulering Layout */
+    .sim-body-wrapper .sim-wrapper {
+        display: grid;
+        grid-template-columns: 2fr 1fr; /* Canvas tar mer plass */
+        gap: 2rem;
+    }
+
+    .sim-body-wrapper .visualization-area {
+        background-color: var(--raft-bg-box);
+        padding: 1.5rem;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative; /* For absolute posisjonering av info */
+    }
+
+    .sim-body-wrapper canvas {
+        border: 2px solid var(--raft-fg);
+        background-color: #f0f0f0; /* Bakgrunn for reaktor */
+        border-radius: 8px;
+        width: 100%;
+        height: 450px; /* Fast høyde */
+        display: block;
+    }
+
+    .sim-body-wrapper .legend {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 1rem;
+        font-weight: bold;
+        font-size: 0.95rem;
+    }
+
+    .sim-body-wrapper .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .sim-body-wrapper .legend-item canvas {
+        width: 30px;  /* Tvinger ekstern CSS-størrelse */
+        height: 30px; /* Tvinger ekstern CSS-størrelse */
+        border: none;
+        background-color: transparent;
+    }
+
+
+    /* Kontroller */
+    .sim-body-wrapper .controls {
+        background-color: var(--raft-bg-controls);
+        padding: 1.5rem;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .sim-body-wrapper .control-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .sim-body-wrapper .control-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+    
+    .sim-body-wrapper .slider-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        color: #555;
+    }
+
+    .sim-body-wrapper .button-group {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 kolonner for add/remove knapper */
+        gap: 0.5rem;
+    }
+
+    /* Interaktive Elementer */
+    .sim-body-wrapper button {
+        background-color: var(--raft-accent);
+        color: white;
+        border: none;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: var(--raft-font);
+        font-weight: bold;
+        font-size: 0.9rem;
+        transition: background-color 0.2s ease;
+    }
+
+    .sim-body-wrapper button:hover {
+        background-color: var(--raft-accent-dark);
+    }
+    
+    .sim-body-wrapper button.secondary {
+        background-color: #777;
+    }
+    .sim-body-wrapper button.secondary:hover {
+        background-color: #555;
+    }
+    .sim-body-wrapper button.remove { /* NY REGEL */
+        background-color: #aaa;
+        color: #333;
+    }
+    .sim-body-wrapper button.remove:hover { /* NY REGEL */
+        background-color: #999;
+    }
+    .sim-body-wrapper button#resetButton {
+        grid-column: 1 / -1; /* Få reset-knappen til å ta full bredde */
+    }
+
+    .sim-body-wrapper input[type="range"] {
+        width: 100%;
+        cursor: pointer;
+        accent-color: var(--raft-accent); /* Farger glideren */
+    }
+    
+    .sim-body-wrapper .current-values {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        text-align: center;
+        font-weight: bold;
+        color: var(--raft-fg);
+        background-color: var(--raft-bg-box);
+        padding: 0.75rem;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+    }
+    
+    .sim-body-wrapper .k-value-box {
+        font-size: 0.9rem;
+        font-family: var(--raft-font);
+        margin-top: 0.5rem;
+    }
+    .sim-body-wrapper .k-value-box span {
+        font-family: "Geologica", "Figtree", sans-serif;
+        font-weight: 700;
+    }
+    .sim-body-wrapper .k-formula {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        margin-top: 4px;
+    }
+
+    /* Forklaringsboks */
+    .sim-body-wrapper .explanation-box {
+        background-color: var(--raft-bg-box);
+        border-radius: 8px;
+        padding: 1rem 1.5rem;
+        margin-top: 1rem;
+        border: 1px solid #ddd;
+        grid-column: 1 / -1; /* Spenn over begge kolonner */
+    }
+    
+    .sim-body-wrapper #explanation {
+        font-size: 1.1rem;
+        text-align: center;
+        font-weight: bold;
+        color: var(--raft-fg);
+    }
+    
+    /* Nedlastingsknapp */
+    .sim-body-wrapper #downloadButton {
+        margin-top: 2rem;
+    }
+
+    /* Responsivitet */
+    @media (max-width: 768px) {
+        .sim-body-wrapper .sim-wrapper {
+            grid-template-columns: 1fr; /* Stabler vertikalt */
+        }
+
+        .sim-body-wrapper canvas {
+            height: 300px; /* Lavere høyde på mobil */
+        }
+
+        .sim-body-wrapper h1 {
+            font-size: 1.8rem;
+        }
+        .sim-body-wrapper h1 span {
+            font-size: 1.1rem;
+            display: block;
+        }
+    }
+</style>
+
+<!-- 3. HTML-INNHOLD -->
+<div class="sim-body-wrapper">
+    <div class="container">
+        <h1>Le Chateliers Prinsipp
+            <span>N₂(g) + 3H₂(g) ⇌ 2NH₃(g) + Varme</span>
+        </h1>
+
+        <div class="sim-wrapper">
+            <div class="visualization-area">
+                <canvas id="reactionCanvas"></canvas>
+                <div class="legend">
+                    <div class="legend-item"><canvas id="n2-legend-icon" width="30" height="30"></canvas> N₂</div>
+                    <div class="legend-item"><canvas id="h2-legend-icon" width="30" height="30"></canvas> H₂</div>
+                    <div class="legend-item"><canvas id="nh3-legend-icon" width="30" height="30"></canvas> NH₃</div>
+                </div>
+                <div class="current-values">
+                    <p>Antall: N₂: <span id="n2-count">0</span> | H₂: <span id="h2-count">0</span> | NH₃: <span id="nh3-count">0</span> | Volum: <span id="volume-display">6.0</span> L</p>
+                    <div class="k-value-box">
+                        Likevektskonstant: <span>K = <span id="k-value">0</span></span>
+                        <div class="k-formula">K = [NH₃]² / ([N₂]∙[H₂]³)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <h2>Påvirkning (Stress)</h2>
+                
+                <div class="control-group">
+                    <h3>🌡️ Temperatur</h3>
+                    <label for="temp-slider">Juster temperaturen (reaksjonen er eksoterm)</label>
+                    <input type="range" id="temp-slider" min="0" max="100" value="50">
+                    <div class="slider-labels">
+                        <span>Kaldt (Høy K)</span>
+                        <span>Varmt (Lav K)</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>📏 Volum</h3>
+                    <label for="volume-slider">Juster volumet på beholderen</label>
+                    <input type="range" id="volume-slider" min="0" max="100" value="50">
+                    <div class="slider-labels">
+                        <span>Lite volum</span>
+                        <span>Stort volum</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>🧪 Konsentrasjon</h3>
+                    <label>Legg til eller fjern stoffer</label>
+                    <div class="button-group">
+                        <button id="add-n2">+ N₂</button>
+                        <button id="add-h2">+ H₂</button>
+                        <button id="add-nh3">+ NH₃</button>
+                        <button id="remove-n2" class="remove">- N₂</button>
+                        <button id="remove-h2" class="remove">- H₂</button>
+                        <button id="remove-nh3" class="remove">- NH₃</button>
+                        <button id="resetButton" class="secondary">Nullstill systemet</button>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="explanation-box">
+                <p id="explanation">Systemet er i likevekt. Gjør en endring for å se hvordan likevekten forskyves.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <button id="downloadButton">Last ned denne filen</button>
+        </div>
+    </div>
+</div>
+
+<!-- 4. JAVASCRIPT -->
+<script>
+    // Funksjon for å starte hele simuleringen
+    function startSimulation() {
+        // Vi må finne elementene *innenfor* den unike wrapperen for å unngå konflikter
+        const wrapper = document.querySelector('.sim-body-wrapper');
+        if (!wrapper) {
+            console.warn("Sim-wrapper not found. Simulation cannot start.");
+            return;
+        }
+
+        const tempSlider = wrapper.querySelector('#temp-slider');
+        const volumeSlider = wrapper.querySelector('#volume-slider'); // ENDRET
+        
+        const addN2Button = wrapper.querySelector('#add-n2');
+        const addH2Button = wrapper.querySelector('#add-h2');
+        const addNH3Button = wrapper.querySelector('#add-nh3');
+        const resetButton = wrapper.querySelector('#resetButton');
+
+        const removeN2Button = wrapper.querySelector('#remove-n2');
+        const removeH2Button = wrapper.querySelector('#remove-h2');
+        const removeNH3Button = wrapper.querySelector('#remove-nh3');
+
+        const n2CountSpan = wrapper.querySelector('#n2-count');
+        const h2CountSpan = wrapper.querySelector('#h2-count');
+        const nh3CountSpan = wrapper.querySelector('#nh3-count');
+        const kValueSpan = wrapper.querySelector('#k-value');
+        const volumeDisplaySpan = wrapper.querySelector('#volume-display'); // NY
+
+        const explanation = wrapper.querySelector('#explanation');
+
+        const canvas = wrapper.querySelector('#reactionCanvas');
+        // Sjekker om canvas-elementet finnes før vi prøver å hente context
+        if (!canvas) {
+            console.warn("reactionCanvas not found. Simulation cannot start.");
+            return; 
+        }
+        const ctx = canvas.getContext('2d');
+        
+        // Legend icons - sjekker også her
+        const n2LegendIconCanvas = wrapper.querySelector('#n2-legend-icon');
+        const h2LegendIconCanvas = wrapper.querySelector('#h2-legend-icon');
+        const nh3LegendIconCanvas = wrapper.querySelector('#nh3-legend-icon');
+
+        if (!n2LegendIconCanvas || !h2LegendIconCanvas || !nh3LegendIconCanvas) {
+            console.warn("Legend canvas elements not found. Legend icons will not draw.");
+            return;
+        }
+
+        const n2LegendIcon = n2LegendIconCanvas.getContext('2d');
+        const h2LegendIcon = h2LegendIconCanvas.getContext('2d');
+        const nh3LegendIcon = nh3LegendIconCanvas.getContext('2d');
+
+
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+
+        // --- Tilstandsvariabler ---
+        let currentConcentrations = { n2: 0, h2: 0, nh3: 0 };
+        let totalAtoms = { N: 60, H: 180 }; // Start-antall atomer
+        let K_target = 0.01; // Mål-K, bestemmes av temperatur
+        
+        // NYE VOLUMVARIABLER
+        const V_MIN = 2.0; // Minimum volum (L)
+        const V_MAX = 10.0; // Maksimum volum (L)
+        let currentVolume = 6.0; // Startvolum (midten av slideren)
+
+        // Størrelser
+        const N_ATOM_RADIUS = 6;
+        const H_ATOM_RADIUS = 4;
+        const BOND_LENGTH = N_ATOM_RADIUS * 1.2;
+        const MOLECULE_RADIUS = N_ATOM_RADIUS + H_ATOM_RADIUS; // Ytre radius for kollisjon
+        
+        const INITIAL_SPEED = 0.5; // Basishastighet
+        const MAX_PARTICLES = 150; // Maksimalt antall partikler på skjermen for ytelse
+        const REACTION_SPEED_MS = 100; // Hvor ofte reaksjons-solveren kjører
+        
+        let molecules = [];
+        let reactionInterval = null;
+        let animationFrameId = null; // For å stoppe animasjonen
+
+        // Farger basert på brukerens ønsker
+        const atomColors = {
+            N: getComputedStyle(document.documentElement).getPropertyValue('--color-n2-main').trim(), // Blå
+            H: getComputedStyle(document.documentElement).getPropertyValue('--color-h2-main').trim()  // Grønn
+        };
+
+        // --- Molekylklasse ---
+        class Molecule {
+            constructor(type, x, y, vx, vy) {
+                this.type = type;
+                this.x = x;
+                this.y = y;
+                this.vx = vx;
+                this.vy = vy;
+                this.radius = MOLECULE_RADIUS; // Ytre radius for kollisjon
+            }
+
+            draw(context, x_override = null, y_override = null, scale = 1) {
+                const drawX = x_override !== null ? x_override : this.x;
+                const drawY = y_override !== null ? y_override : this.y;
+
+                context.save();
+                context.translate(drawX, drawY);
+                context.scale(scale, scale);
+
+                const nRad = N_ATOM_RADIUS;
+                const hRad = H_ATOM_RADIUS;
+                const bLen = BOND_LENGTH / 2; // Halv bindingslengde
+
+                if (this.type === 'n2') { // N₂: To blå baller (N-størrelse)
+                    context.fillStyle = atomColors.N;
+                    context.beginPath();
+                    context.arc(-bLen, 0, nRad, 0, Math.PI * 2); context.fill();
+                    context.beginPath();
+                    context.arc(bLen, 0, nRad, 0, Math.PI * 2); context.fill();
+                } else if (this.type === 'h2') { // H₂: To grønne baller (H-størrelse)
+                    context.fillStyle = atomColors.H;
+                    context.beginPath();
+                    context.arc(-bLen * (hRad/nRad), 0, hRad, 0, Math.PI * 2); context.fill();
+                    context.beginPath();
+                    context.arc(bLen * (hRad/nRad), 0, hRad, 0, Math.PI * 2); context.fill();
+                } else if (this.type === 'nh3') { // NH₃: En blå, tre grønne
+                    // Sentral N (Blå)
+                    context.fillStyle = atomColors.N;
+                    context.beginPath();
+                    context.arc(0, 0, nRad, 0, Math.PI * 2); context.fill();
+                    
+                    // Hydrogenatomer (Grønn)
+                    context.fillStyle = atomColors.H;
+                    context.beginPath();
+                    context.arc(0, nRad, hRad, 0, Math.PI * 2); context.fill();
+                    context.beginPath();
+                    context.arc(nRad * Math.cos(Math.PI / 6), -nRad * Math.sin(Math.PI / 6), hRad, 0, Math.PI * 2); context.fill();
+                    context.beginPath();
+                    context.arc(-nRad * Math.cos(Math.PI / 6), -nRad * Math.sin(Math.PI / 6), hRad, 0, Math.PI * 2); context.fill();
+                }
+                
+                context.restore(); // Gjenopprett Canvas-tilstanden
+            }
+
+            update(speedMultiplier) {
+                this.x += this.vx * speedMultiplier;
+                this.y += this.vy * speedMultiplier;
+            }
+        }
+        
+        /**
+         * NY FUNKSJON: Oppdaterer currentVolume basert på slider
+         */
+        function updateCurrentVolume() {
+            const volumeLevel = parseInt(volumeSlider.value); // 0-100
+            currentVolume = (volumeLevel / 100) * (V_MAX - V_MIN) + V_MIN;
+            volumeDisplaySpan.textContent = currentVolume.toFixed(1);
+        }
+
+        /**
+         * Genererer et tilfeldig antall molekyler av hver type.
+         */
+        function generateMolecules() {
+            molecules = [];
+            
+            // Bestem reaktorstørrelse basert på VOLUM
+            const volumeLevel = parseInt(volumeSlider.value); // 0-100
+            // 0 -> 0.6 scale, 100 -> 1.0 scale
+            const reactorScale = 0.6 + (volumeLevel / 100 * 0.4); 
+            const effectiveWidth = canvas.width * reactorScale;
+            const effectiveHeight = canvas.height * reactorScale;
+
+            // Sentrer reaktoren
+            const offsetX = (canvas.width - effectiveWidth) / 2;
+            const offsetY = (canvas.height - effectiveHeight) / 2;
+
+            function addRandomMolecule(type, count) {
+                for (let i = 0; i < count; i++) {
+                    // Juster spawn-området slik at molekyler ikke spawner i veggen
+                    const spawnWidth = Math.max(0, effectiveWidth - (MOLECULE_RADIUS * 2));
+                    const spawnHeight = Math.max(0, effectiveHeight - (MOLECULE_RADIUS * 2));
+
+                    let x = (offsetX + MOLECULE_RADIUS) + Math.random() * spawnWidth;
+                    let y = (offsetY + MOLECULE_RADIUS) + Math.random() * spawnHeight;
+                    let angle = Math.random() * Math.PI * 2;
+                    let vx = Math.cos(angle) * INITIAL_SPEED;
+                    let vy = Math.sin(angle) * INITIAL_SPEED;
+                    molecules.push(new Molecule(type, x, y, vx, vy));
+                }
+            }
+
+            addRandomMolecule('n2', currentConcentrations.n2);
+            addRandomMolecule('h2', currentConcentrations.h2);
+            addRandomMolecule('nh3', currentConcentrations.nh3);
+        }
+        
+        /**
+         * Tegner statiske ikoner i legenden
+         */
+        function drawLegendIcons() {
+            const iconScale = 0.7; // Skaler ned ikoner
+            const iconX = 15; // Senter X
+            const iconY = 15; // Senter Y
+            
+            if (n2LegendIcon) {
+                n2LegendIcon.clearRect(0,0,30,30);
+                new Molecule('n2',0,0,0,0).draw(n2LegendIcon, iconX, iconY, iconScale);
+            }
+            if (h2LegendIcon) {
+                h2LegendIcon.clearRect(0,0,30,30);
+                new Molecule('h2',0,0,0,0).draw(h2LegendIcon, iconX, iconY, iconScale);
+            }
+            if (nh3LegendIcon) {
+                nh3LegendIcon.clearRect(0,0,30,30);
+                new Molecule('nh3',0,0,0,0).draw(nh3LegendIcon, iconX, iconY, iconScale);
+            }
+        }
+
+        /**
+         * Oppdaterer tilstanden til simuleringen (animasjon).
+         */
+        function updateSimulation() {
+            // Sjekk om canvaset fortsatt er i DOM
+            if (!document.body.contains(canvas)) {
+                console.warn("Canvas removed from DOM. Stopping simulation.");
+                if (reactionInterval) clearInterval(reactionInterval);
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                return;
+            }
+
+            const temp = parseInt(tempSlider.value); // 0-100
+            const speedMultiplier = 0.5 + (temp / 100) * 2; // Treg ved kaldt, rask ved varmt
+
+            // Bestem reaktorstørrelse basert på VOLUM
+            const volumeLevel = parseInt(volumeSlider.value); // 0-100
+            // 0 -> 0.6 scale, 100 -> 1.0 scale
+            const reactorScale = 0.6 + (volumeLevel / 100 * 0.4); 
+            const effectiveWidth = canvas.width * reactorScale;
+            const effectiveHeight = canvas.height * reactorScale;
+
+            // Sentrer reaktoren
+            const offsetX = (canvas.width - effectiveWidth) / 2;
+            const offsetY = (canvas.height - effectiveHeight) / 2;
+
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Tøm canvas
+            
+            // Tegn reaktorbeholderen
+            ctx.strokeStyle = var_to_css('raft-fg');
+            ctx.lineWidth = 3;
+            ctx.strokeRect(offsetX, offsetY, effectiveWidth, effectiveHeight);
+
+            // Definer grensene INKLUDERT radius
+            const leftBoundary = offsetX + MOLECULE_RADIUS;
+            const rightBoundary = offsetX + effectiveWidth - MOLECULE_RADIUS;
+            const topBoundary = offsetY + MOLECULE_RADIUS;
+            const bottomBoundary = offsetY + effectiveHeight - MOLECULE_RADIUS;
+
+
+            for (const mol of molecules) {
+                mol.update(speedMultiplier); // Oppdaterer kun posisjon basert på hastighet
+
+                // Kollisjon med veggene (flyttet fra Molecule.update)
+                if (mol.x < leftBoundary) {
+                    mol.x = leftBoundary;
+                    mol.vx *= -1;
+                } else if (mol.x > rightBoundary) {
+                    mol.x = rightBoundary;
+                    mol.vx *= -1;
+                }
+
+                if (mol.y < topBoundary) {
+                    mol.y = topBoundary;
+                    mol.vy *= -1;
+                } else if (mol.y > bottomBoundary) {
+                    mol.y = bottomBoundary;
+                    mol.vy *= -1;
+                }
+                
+                mol.draw(ctx);
+            }
+
+            // Oppdater antall i displayet
+            n2CountSpan.textContent = currentConcentrations.n2;
+            h2CountSpan.textContent = currentConcentrations.h2;
+            nh3CountSpan.textContent = currentConcentrations.nh3;
+
+            // Oppdater K-verdi
+            const Q_current = calculateK(currentConcentrations.n2, currentConcentrations.h2, currentConcentrations.nh3, currentVolume);
+            kValueSpan.textContent = Q_current.toExponential(2);
+
+
+            animationFrameId = requestAnimationFrame(updateSimulation); // Fortsett animasjonsloopen
+        }
+        
+        /**
+         * ENDRET: Beregner K-verdien (K) basert på konsentrasjoner.
+         * K = [NH₃]² / ([N₂]∙[H₂]³)
+         * [X] = n_X / V
+         * K = (n_nh3² * V²) / (n_n2 * n_h2³)
+         */
+        function calculateK(n_n2, n_h2, n_nh3, V) {
+            // Unngå deling på null
+            if (n_n2 === 0 || n_h2 === 0 || V === 0) return Infinity; 
+            
+            const numerator = Math.pow(n_nh3, 2) * Math.pow(V, 2);
+            const denominator = n_n2 * Math.pow(n_h2, 3);
+            
+            if (denominator === 0) return Infinity;
+            
+            return numerator / denominator;
+        }
+
+        /**
+         * Kjører én "tick" av reaksjons-solveren.
+         */
+        function runReactionSolver() {
+            try {
+                // 1. BESTEM MÅL-K (K_target) BASERT PÅ TEMPERATUR
+                const temp = parseInt(tempSlider.value); // 0-100
+                const K_MAX = 0.36; // Ved T=0 (kaldt)
+                const K_MIN = 0.0009; // Ved T=100 (varmt)
+                const tempRatio = temp / 100; // 0 til 1
+                K_target = K_MAX - (tempRatio * (K_MAX - K_MIN));
+
+                // 2. VELG TILFELDIG REAKSJONSRETNING
+                const n_n2 = currentConcentrations.n2;
+                const n_h2 = currentConcentrations.h2;
+                const n_nh3 = currentConcentrations.nh3;
+                
+                // K-beregningen MÅ nå inkludere volum
+                const Q_current = calculateK(n_n2, n_h2, n_nh3, currentVolume);
+                const current_error = Math.abs(Q_current - K_target);
+                
+                let direction = Math.random() < 0.5 ? 'forward' : 'reverse';
+                
+                let n_n2_new = n_n2, n_h2_new = n_h2, n_nh3_new = n_nh3;
+                let reaction_possible = false;
+
+                // 3. PRØV REAKSJONEN
+                if (direction === 'forward' && n_n2 >= 1 && n_h2 >= 3) {
+                    // Prøv N₂ + 3H₂ -> 2NH₃
+                    n_n2_new -= 1;
+                    n_h2_new -= 3;
+                    n_nh3_new += 2;
+                    reaction_possible = true;
+                } else if (direction === 'reverse' && n_nh3 >= 2) {
+                    // Prøv 2NH₃ -> N₂ + 3H₂
+                    n_n2_new += 1;
+                    n_h2_new += 3;
+                    n_nh3_new -= 2;
+                    reaction_possible = true;
+                }
+
+                // 4. SJEKK OM REAKSJONEN VAR MULIG OG FORBEDRET K
+                if (reaction_possible) {
+                    // K-beregningen MÅ nå inkludere volum
+                    const Q_new = calculateK(n_n2_new, n_h2_new, n_nh3_new, currentVolume);
+                    const new_error = Math.abs(Q_new - K_target);
+
+                    // Aksepter endringen HVIS den er bedre (nærmere K_target)
+                    if (new_error < current_error) {
+                        currentConcentrations = { n2: n_n2_new, h2: n_h2_new, nh3: n_nh3_new };
+                        generateMolecules(); // Regenerer molekyl-listen
+                    }
+                }
+            
+            } catch (error) {
+                console.error("Feil i reaksjons-solver:", error);
+            }
+        }
+        
+        /**
+         * Initialiserer eller nullstiller systemet basert på totalAtoms og K_target
+         */
+        function initializeSystem() {
+            // Stopper den gamle solveren hvis den kjører
+            if (reactionInterval) clearInterval(reactionInterval);
+            
+            // Oppdater volumet først
+            updateCurrentVolume();
+
+            // 1. BESTEM MÅL-K (K_target) BASERT PÅ TEMPERATUR
+            const temp = parseInt(tempSlider.value); // 0-100
+            const K_MAX = 0.36; 
+            const K_MIN = 0.0009; 
+            const tempRatio = temp / 100;
+            K_target = K_MAX - (tempRatio * (K_MAX - K_MIN));
+
+            // 2. LØS LIKEVEKTEN (RASK "SOLVER" KUN FOR INITIALISERING)
+            let bestFit = { n2: 0, h2: 0, nh3: 0, error: Infinity };
+            
+            // Iterer gjennom alle mulige antall NH3-molekyler
+            const max_nh3_by_N = Math.floor(totalAtoms.N);
+            const max_nh3_by_H = Math.floor(totalAtoms.H / 3);
+            const max_nh3 = Math.min(max_nh3_by_N, max_nh3_by_H);
+            
+            for (let n_nh3 = 0; n_nh3 <= max_nh3; n_nh3 += 2) { // Gå i steg av 2
+                // Beregn gjenværende N2 og H2
+                let n_n2_calc = (totalAtoms.N - n_nh3) / 2;
+                let n_h2_calc = (totalAtoms.H - (3 * n_nh3)) / 2;
+
+                // Sjekk om dette er en gyldig tilstand (ingen negative eller halve molekyler)
+                if (n_n2_calc >= 0 && n_h2_calc >= 0 && Number.isInteger(n_n2_calc) && Number.isInteger(n_h2_calc)) {
+                    // K-beregningen MÅ nå inkludere volum
+                    const test_K = calculateK(n_n2_calc, n_h2_calc, n_nh3, currentVolume);
+                    const error = Math.abs(test_K - K_target);
+                    
+                    // Hvis denne løsningen er bedre (nærmere K_target), lagre den
+                    if (error < bestFit.error) {
+                        bestFit = { n2: n_n2_calc, h2: n_h2_calc, nh3: n_nh3, error: error };
+                    }
+                }
+            }
+            
+            // Sett de beste start-konsentrasjonene
+            currentConcentrations = { n2: bestFit.n2, h2: bestFit.h2, nh3: bestFit.nh3 };
+
+            // 3. GENERER MOLEKYLER OG START SOLVER
+            generateMolecules();
+            updateExplanation();
+            
+            // Start den dynamiske solveren som kjører kontinuerlig
+            reactionInterval = setInterval(runReactionSolver, REACTION_SPEED_MS);
+        }
+
+        /**
+         * Oppdaterer forklaringsboksen
+         */
+        function updateExplanation(stress = null) {
+            if (stress) {
+                explanation.textContent = stress;
+                return;
+            }
+            const temp = parseInt(tempSlider.value);
+            
+            let tempText = "middels temperatur";
+            if (temp < 30) tempText = "lav temperatur (forskyver mot HØYRE)";
+            else if (temp > 70) tempText = "høy temperatur (forskyver mot VENSTRE)";
+            
+            explanation.textContent = `Systemet søker likevekt ved ${tempText}.`;
+        }
+
+        // Hjelpefunksjon for å hente CSS-variabler i JS
+        function var_to_css(varName) {
+            return getComputedStyle(document.documentElement).getPropertyValue(`--${varName}`).trim();
+        }
+
+        // --- Hendelseslyttere ---
+
+        tempSlider.addEventListener('input', () => initializeSystem());
+        volumeSlider.addEventListener('input', () => {
+             updateCurrentVolume();
+             updateExplanation("STRESS: Volum endret. Systemet vil nå forskyve seg for å gjenopprette K.");
+        }); 
+
+        addN2Button.addEventListener('click', () => {
+            totalAtoms.N += 2;
+            currentConcentrations.n2 += 1; 
+            generateMolecules();
+            updateExplanation("STRESS: +N₂. Systemet vil nå forskyve seg mot høyre for å gjenopprette K.");
+        });
+
+        addH2Button.addEventListener('click', () => {
+            totalAtoms.H += 2; 
+            currentConcentrations.h2 += 1; 
+            generateMolecules();
+            updateExplanation("STRESS: +H₂. Systemet vil nå forskyve seg mot høyre for å gjenopprette K.");
+        });
+
+        addNH3Button.addEventListener('click', () => {
+            totalAtoms.N += 1;
+            totalAtoms.H += 3; 
+            currentConcentrations.nh3 += 1; 
+            generateMolecules();
+            updateExplanation("STRESS: +NH₃. Systemet vil nå forskyve seg mot venstre for å gjenopprette K.");
+        });
+
+        removeN2Button.addEventListener('click', () => {
+            if (currentConcentrations.n2 >= 1) { // Kan ikke fjerne hvis det ikke finnes
+                totalAtoms.N -= 2;
+                currentConcentrations.n2 -= 1;
+                generateMolecules();
+                updateExplanation("STRESS: -N₂. Systemet vil nå forskyve seg mot venstre for å gjenopprette K.");
+            }
+        });
+
+        removeH2Button.addEventListener('click', () => {
+            if (currentConcentrations.h2 >= 1) { // Kan ikke fjerne hvis det ikke finnes
+                totalAtoms.H -= 2;
+                currentConcentrations.h2 -= 1;
+                generateMolecules();
+                updateExplanation("STRESS: -H₂. Systemet vil nå forskyve seg mot venstre for å gjenopprette K.");
+            }
+        });
+
+        removeNH3Button.addEventListener('click', () => {
+            if (currentConcentrations.nh3 >= 1) { // Kan ikke fjerne hvis det ikke finnes
+                totalAtoms.N -= 1;
+                totalAtoms.H -= 3;
+                currentConcentrations.nh3 -= 1;
+                generateMolecules();
+                updateExplanation("STRESS: -NH₃. Systemet vil nå forskyve seg mot høyre for å gjenopprette K.");
+            }
+        });
+
+        resetButton.addEventListener('click', () => {
+            totalAtoms = { N: 60, H: 180 };
+            tempSlider.value = 50;
+            volumeSlider.value = 50; // Tilbakestill volum-slider
+            initializeSystem();
+            updateExplanation("Systemet er nullstilt til likevekt.");
+        });
+        
+        window.addEventListener('resize', () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            drawLegendIcons(); 
+            generateMolecules(); 
+        });
+
+        // --- Initialiser simuleringen ---
+        drawLegendIcons();
+        initializeSystem();
+        animationFrameId = requestAnimationFrame(updateSimulation); // Start animasjonsloopen
+
+
+        // --- "Last Ned"-Knapp JavaScript ---
+        const downloadButton = wrapper.querySelector('#downloadButton');
+        if (downloadButton) { // Sjekker om knappen eksisterer
+            downloadButton.addEventListener('click', () => {
+                try {
+                    // Vi kan ikke laste ned "documentElement" lenger, da det er WordPress-siden.
+                    // I stedet laster vi ned innholdet i selve simulerings-wrapperen.
+                    const simHtml = wrapper.outerHTML;
+                    // Vi må også ta med stilene og font-lenkene
+                    const styles = document.head.querySelectorAll('link[href*="fonts.googleapis"]');
+                    let headHtml = "";
+                    styles.forEach(styleNode => {
+                        if (styleNode.href && styleNode.href.includes("fonts.googleapis")) {
+                            headHtml += styleNode.outerHTML + "\n";
+                        }
+                    });
+                    
+                    // Finner og legger til den spesifikke stilen
+                    const simStyle = document.querySelector('style'); // Antar at det er den vi nettopp la til
+                    if (simStyle) {
+                        headHtml += simStyle.outerHTML;
+                    }
+
+                    const fullHtml = `<!DOCTYPE html>\n<html lang="no">\n<head>\n<meta charset="UTF-8">\n<title>Simulering</title>\n${headHtml}\n</head>\n<body>\n${simHtml}\n</body>\n</html>`;
+
+                    
+                    const blob = new Blob(['\ufeff', fullHtml], { type: 'text/html;charset=utf-8' });
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = 'le-chatelier-volum-simulering.html';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(a.href);
+                } catch (error) {
+                    console.error("Feil ved nedlasting av fil:", error);
+                }
+            });
+        }
+    } // End startSimulation function
+
+    // --- Ny logikk for å håndtere DOMContentLoaded / umiddelbar kjøring ---
+    if (document.readyState === 'loading') { // Hvis DOM er under lasting
+        document.addEventListener('DOMContentLoaded', startSimulation);
+    } else { // Hvis DOM allerede er lastet
+        startSimulation();
+    }
+</script>
+
+
+
+<h1 class="wp-block-heading">KI-generert forklaring</h1>
+
+
+
+<h2 class="wp-block-heading">🔬 Hva skjer i simuleringen?</h2>
+
+
+
+<p class="wp-block-paragraph">Molekyler av nitrogen (N₂), hydrogen (H₂) og ammoniakk (NH₃) beveger seg i en lukket beholder. Disse molekylene kolliderer og reagerer konstant med hverandre. Reaksjonen de deltar i er en kjent kjemisk likevekt, Haber-Bosch-prosessen: N₂(g) + 3H₂(g) ⇌ 2NH₃(g). Simuleringen visualiserer hvordan dette systemet hele tiden søker en dynamisk balanse mellom reaktantene på venstre side og produktet på høyre side.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">🎛️ Hva kan du utforske?</h2>
+
+
+
+<p class="wp-block-paragraph">Du kan påføre systemet ulike typer "stress" for å se hvordan likevekten reagerer. Dette lar deg teste Le Chateliers prinsipp i praksis. Du kontrollerer tre hovedvariabler:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Konsentrasjon:</strong> Du kan legge til eller fjerne molekyler (N₂, H₂ eller NH₃). Følg med på hvordan systemet kompenserer for å gjenopprette balansen.</li>
+
+
+
+<li><strong>Temperatur:</strong> Reaksjonen mot høyre er <strong>eksoterm</strong> (frigjør varme). Du justerer temperaturen for å se hvordan systemet favoriserer enten reaktanter eller produkter.</li>
+
+
+
+<li><strong>Volum:</strong> Du endrer størrelsen på beholderen. En volumendring endrer også trykket, noe som tvinger systemet til å favorisere siden med færrest gassmolekyler, eller motsatt.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Kontrollene gir deg makten til å forstyrre balansen og observere systemets mottrekk direkte.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">⚖️ Teorien bak: Le Chateliers Prinsipp</h2>
+
+
+
+<p class="wp-block-paragraph">En kjemisk likevekt oppstår når reaksjonsfarten forover (mot produkter) er lik reaksjonsfarten bakover (mot reaktanter). Dette er en <strong>dynamisk</strong> tilstand; reaksjonene stopper aldri, men nettoendringen i konsentrasjon er null. Denne balansen beskrives av <strong>likevektskonstanten</strong> (K).</p>
+
+
+
+<p class="wp-block-paragraph">Likevektskonstanten (K) viser det matematiske forholdet mellom konsentrasjonene av produkter og reaktanter når systemet er i balanse ved en <em>gitt temperatur</em>. <strong>Le Chateliers prinsipp</strong> forklarer hva som skjer når vi endrer betingelsene. Prinsippet sier at hvis et system i likevekt blir utsatt for en ytre påvirkning (stress), vil systemet forskyve seg for å motvirke effekten av denne påvirkningen.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Endre konsentrasjon/volum:</strong> Systemet forskyver seg for å gjenopprette K-verdien.</li>
+
+
+
+<li><strong>Endre temperatur:</strong> Systemet forskyver seg <em>og</em> <strong>selve K-verdien endres</strong>.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Prinsippet oppsummerer systemets evne til å motsette seg endring.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p>Copyright 2026 - Skolesim</p>
+      <nav><a href="#">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
+</body>
+</html>

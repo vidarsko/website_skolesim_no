@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vinddannelse — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/#fagoversikt">Fagoversikt</a></li>
+          <li><a href="#">Om meg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <span class="post-category"><a href="/alle-simuleringer/?kategori=vaer-og-klima">Vær og klima</a></span>
+      <h1>Vinddannelse</h1>
+<p class="wp-block-paragraph">Juster trykkforskjellen for å se hvordan luften sirkulerer mellom høytrykk og lavtrykk. Utforsk hvordan partiklene og skyene beveger seg i det åpne landskapet.</p>
+
+
+
+<p class="wp-block-paragraph">Innsendt av Erling Midtgard.</p>
+
+
+
+<style>
+    :root {
+        /* Hovedfarger */
+        --raft-bg: #EBE8E6;        /* Hovedbakgrunn (lys grå/beige) */
+        --raft-fg: #1D1F25;        /* Hovedtekstfarge (mørk grå) */
+        --raft-accent: #C26148;   /* Aksentfarge (rustrød) */
+        --raft-accent-dark: #AC5039; /* Mørkere aksent for hover */
+        --raft-bg-alt: rgba(255, 255, 255, 0.6); /* Gjennomsiktig hvit for container */
+        --raft-bg-controls: rgba(255, 255, 255, 0.8); /* Litt mindre gjennomsiktig for kontroller */
+        --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
+
+        /* Skrifttyper */
+        --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --raft-font-heading: "Geologica", var(--raft-font);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 20px;
+        background-color: var(--raft-bg);
+        color: var(--raft-fg);
+        font-family: var(--raft-font);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+    }
+
+    .container {
+        background: var(--raft-bg-alt);
+        max-width: 1000px;
+        width: 100%;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    h1 {
+        font-family: var(--raft-font-heading);
+        color: var(--raft-fg);
+        border-bottom: 2px solid var(--raft-accent);
+        margin: 0 0 10px 0;
+        padding-bottom: 10px;
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-family: var(--raft-font-heading);
+        color: var(--raft-accent);
+        margin-top: 0;
+        font-size: 1.2rem;
+    }
+
+    .simulation-layout {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 20px;
+    }
+
+    #canvas-container {
+        position: relative;
+        background: #87CEEB; 
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        aspect-ratio: 16 / 9;
+    }
+
+    canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    .controls {
+        background-color: var(--raft-bg-controls);
+        padding: 24px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .control-label {
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .val-pill {
+        background: var(--raft-accent);
+        color: white;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+    }
+
+    input[type="range"] {
+        accent-color: var(--raft-accent);
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .info-box {
+        background: var(--raft-bg-box);
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        border-left: 4px solid var(--raft-accent);
+    }
+
+    .stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .stat-item {
+        background: white;
+        padding: 10px;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 0.85rem;
+    }
+
+    .stat-val {
+        display: block;
+        font-weight: bold;
+        color: var(--raft-accent);
+        font-size: 1.1rem;
+    }
+
+    button {
+        background-color: var(--raft-accent);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.2s;
+        width: 100%;
+    }
+
+    button:hover {
+        background-color: var(--raft-accent-dark);
+    }
+
+    @media (max-width: 768px) {
+        .simulation-layout {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="container">
+    <h1>Hvordan vind dannes</h1>
+    
+    <div class="simulation-layout">
+        <div id="canvas-container">
+            <canvas id="simCanvas"></canvas>
+        </div>
+
+        <div class="controls">
+            <div>
+                <h2>Innstillinger</h2>
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Høytrykk (H)</span>
+                        <span id="hp-val" class="val-pill">1030 hPa</span>
+                    </div>
+                    <input type="range" id="hp-slider" min="950" max="1050" value="1030">
+                    <p style="font-size: 0.75rem; margin: 0; opacity: 0.7;">Kald, tung luft som synker.</p>
+                </div>
+
+                <div class="control-group" style="margin-top: 20px;">
+                    <div class="control-label">
+                        <span>Lavtrykk (L)</span>
+                        <span id="lp-val" class="val-pill">990 hPa</span>
+                    </div>
+                    <input type="range" id="lp-slider" min="950" max="1050" value="990">
+                    <p style="font-size: 0.75rem; margin: 0; opacity: 0.7;">Varm, lett luft som stiger og danner skyer.</p>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    Diff
+                    <span id="diff-val" class="stat-val">40 hPa</span>
+                </div>
+                <div class="stat-item">
+                    Vind
+                    <span id="speed-val" class="stat-val">Bris</span>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>Prinsipp:</strong> Luft strømmer fra høyt til lavt trykk. Ved lavtrykk stiger luften, kjøles ned og danner skyer.
+            </div>
+
+            <div style="text-align: center; margin-top: auto;">
+                <button id="downloadButton">Last ned denne filen</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('simCanvas');
+    const ctx = canvas.getContext('2d');
+    const hpSlider = document.getElementById('hp-slider');
+    const lpSlider = document.getElementById('lp-slider');
+    const hpDisplay = document.getElementById('hp-val');
+    const lpDisplay = document.getElementById('lp-val');
+    const diffDisplay = document.getElementById('diff-val');
+    const speedDisplay = document.getElementById('speed-val');
+    const downloadButton = document.getElementById('downloadButton');
+
+    let width, height;
+    let particles = [];
+    let clouds = [];
+    const PARTICLE_COUNT = 300;
+    const CLOUD_COUNT = 8;
+
+    let hp = parseInt(hpSlider.value);
+    let lp = parseInt(lpSlider.value);
+
+    function resize() {
+        const container = document.getElementById('canvas-container');
+        width = container.clientWidth;
+        height = container.clientHeight;
+        canvas.width = width;
+        canvas.height = height;
+        initParticles();
+        initClouds();
+    }
+
+    class Cloud {
+        constructor() {
+            this.reset();
+            this.x = Math.random() * width;
+        }
+
+        reset() {
+            this.x = width * 0.8 + (Math.random() * 100 - 50);
+            this.y = height * 0.15 + (Math.random() * 60 - 30);
+            this.size = 20 + Math.random() * 30;
+            this.opacity = 0;
+            this.speed = 0.2 + Math.random() * 0.3;
+            this.maxOpacity = 0.5 + Math.random() * 0.3;
+        }
+
+        update() {
+            const diff = hp - lp;
+            const flowStrength = (diff / 50);
+            this.x -= (this.speed + flowStrength * 0.8);
+
+            if (this.x > width * 0.7 && this.opacity < this.maxOpacity) {
+                this.opacity += 0.01;
+            }
+            if (this.x < width * 0.3) {
+                this.opacity -= 0.005;
+                this.y += 0.05;
+            }
+
+            if (this.x < -150 || this.opacity <= 0) {
+                this.reset();
+            }
+        }
+
+        draw() {
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.arc(this.x + this.size * 0.6, this.y - this.size * 0.2, this.size * 0.8, 0, Math.PI * 2);
+            ctx.arc(this.x + this.size * 1.2, this.y, this.size * 0.9, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    class AirParticle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = 0;
+            this.vy = 0;
+            this.size = 1 + Math.random() * 1.5;
+            this.alpha = 0.3 + Math.random() * 0.3;
+        }
+
+        update() {
+            const diff = hp - lp;
+            const flowStrength = (diff / 50) * 1.5;
+            const groundY = height * 0.8;
+            const skyY = height * 0.2;
+
+            let ax = 0;
+            let ay = 0;
+
+            if (this.x < width * 0.4) {
+                const distToH = 1 - (this.x / (width * 0.4));
+                ay += distToH * 0.08;
+            } else if (this.x > width * 0.6) {
+                const distToL = (this.x - width * 0.6) / (width * 0.4);
+                ay -= distToL * 0.08;
+            }
+
+            if (this.y > height * 0.5) {
+                const surfaceWeight = (this.y - height * 0.5) / (height * 0.5);
+                ax += surfaceWeight * 0.12 * flowStrength;
+            } else {
+                const upperWeight = (height * 0.5 - this.y) / (height * 0.5);
+                ax -= upperWeight * 0.1 * flowStrength;
+            }
+
+            if (this.y > groundY) ay -= 0.15;
+            if (this.y < skyY) ay += 0.15;
+
+            ax += (Math.random() - 0.5) * 0.04;
+            ay += (Math.random() - 0.5) * 0.04;
+
+            this.vx = (this.vx + ax) * 0.95;
+            this.vy = (this.vy + ay) * 0.95;
+
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < 0) this.x = width;
+            if (this.x > width) this.x = 0;
+            if (this.y < 0) { this.y = 0; this.vy *= -0.5; }
+            if (this.y > height) { this.y = height; this.vy *= -0.5; }
+        }
+
+        draw() {
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push(new AirParticle());
+        }
+    }
+
+    function initClouds() {
+        clouds = [];
+        for (let i = 0; i < CLOUD_COUNT; i++) {
+            clouds.push(new Cloud());
+        }
+    }
+
+    function drawEnvironment() {
+        // Himmel
+        const grd = ctx.createLinearGradient(0, 0, 0, height);
+        grd.addColorStop(0, '#4facfe');
+        grd.addColorStop(0.8, '#87CEEB');
+        grd.addColorStop(1, '#a1c4fd');
+        ctx.fillStyle = grd;
+        ctx.fillRect(0, 0, width, height);
+
+        // Bakke
+        ctx.fillStyle = '#6ab04c';
+        ctx.fillRect(0, height * 0.85, width, height * 0.15);
+
+        // --- MERKING UTEN BOKSER ---
+        ctx.textAlign = 'center';
+        ctx.shadowBlur = 4;
+        ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+        
+        // Høytrykk Markør (H)
+        const hx = width * 0.2;
+        const hy = height * 0.7;
+        ctx.fillStyle = 'rgba(0, 60, 180, 1)';
+        ctx.font = 'bold 50px Geologica';
+        ctx.fillText('H', hx, hy);
+        ctx.font = 'bold 13px Geologica';
+        ctx.fillText('KJØLIG / TUNGT', hx, hy + 28);
+
+        // Lavtrykk Markør (L)
+        const lx = width * 0.8;
+        const ly = height * 0.7;
+        ctx.fillStyle = 'rgba(180, 40, 0, 1)';
+        ctx.font = 'bold 50px Geologica';
+        ctx.fillText('L', lx, ly);
+        ctx.font = 'bold 13px Geologica';
+        ctx.fillText('VARMT / LETT', lx, ly + 28);
+        
+        // Reset skygge for andre elementer
+        ctx.shadowBlur = 0;
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        drawEnvironment();
+
+        clouds.forEach(c => {
+            c.update();
+            c.draw();
+        });
+
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    function updateStats() {
+        const diff = hp - lp;
+        diffDisplay.textContent = diff + ' hPa';
+        let desc = "";
+        if (diff < 5) desc = "Stille";
+        else if (diff < 15) desc = "Svak";
+        else if (diff < 30) desc = "Bris";
+        else if (diff < 50) desc = "Kuling";
+        else desc = "Storm";
+        speedDisplay.textContent = desc;
+    }
+
+    hpSlider.addEventListener('input', (e) => {
+        let val = parseInt(e.target.value);
+        // Sørg for at HP ikke er lavere enn LP
+        if (val < lp) {
+            val = lp;
+            hpSlider.value = val;
+        }
+        hp = val;
+        hpDisplay.textContent = hp + ' hPa';
+        updateStats();
+    });
+
+    lpSlider.addEventListener('input', (e) => {
+        let val = parseInt(e.target.value);
+        // Sørg for at LP ikke er høyere enn HP
+        if (val > hp) {
+            val = hp;
+            lpSlider.value = val;
+        }
+        lp = val;
+        lpDisplay.textContent = lp + ' hPa';
+        updateStats();
+    });
+
+    downloadButton.addEventListener('click', () => {
+        try {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob(['\ufeff', htmlContent], { type: 'text/html;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'vind_simulering_begrensninger.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+        } catch (error) {
+            console.error("Feil ved nedlasting:", error);
+        }
+    });
+
+    window.addEventListener('resize', resize);
+    resize();
+    animate();
+});
+</script>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p>Copyright 2026 - Skolesim</p>
+      <nav><a href="#">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
+</body>
+</html>

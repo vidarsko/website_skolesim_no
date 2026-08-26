@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bohrs atommodell — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/#fagoversikt">Fagoversikt</a></li>
+          <li><a href="#">Om meg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <span class="post-category"><a href="/alle-simuleringer/?kategori=atomfysikk">Atomfysikk</a></span>
+      <h1>Bohrs atommodell</h1>
+<p class="wp-block-paragraph">Juster den kontinuerlige energislideren for å velge fotonenergi (i aJ). Treff de nøyaktige energinivåene (vist som streker) for å eksitere atomet, eller se fotonet passere tvers gjennom hvis energien ikke passer.</p>
+
+
+
+<p class="wp-block-paragraph">Innsendt av Magnus Østgård Olderøy.</p>
+
+
+
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bohr-modell: Hydrogen-simulering</title>
+    <!-- Importer skrifttyper for Raft-temaet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&family=Geologica:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. CSS-Stil (Raft-tema) */
+        :root {
+            /* Hovedfarger */
+            --raft-bg: #EBE8E6;        /* Hovedbakgrunn (lys grå/beige) */
+            --raft-fg: #1D1F25;        /* Hovedtekstfarge (mørk grå) */
+            --raft-accent: #C26148;   /* Aksentfarge (rustrød) */
+            --raft-accent-dark: #AC5039; /* Mørkere aksent for hover */
+            --raft-bg-alt: rgba(255, 255, 255, 0.6); /* Gjennomsiktig hvit for container */
+            --raft-bg-controls: rgba(255, 255, 255, 0.8); /* Litt mindre gjennomsiktig for kontroller */
+            --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
+
+            /* Skrifttyper */
+            --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --raft-font-heading: "Geologica", var(--raft-font);
+        }
+
+        /* B. Generell Layout (body og .container) */
+        body {
+            margin: 0;
+            padding: 2rem 1rem;
+            background-color: var(--raft-bg);
+            color: var(--raft-fg);
+            font-family: var(--raft-font);
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1200px; /* Økt bredde for denne layouten */
+            margin: 0 auto;
+            background: var(--raft-bg-alt);
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* C. Typografi */
+        h1, h2, h3 {
+            font-family: var(--raft-font-heading);
+            font-weight: 700;
+        }
+
+        h1 {
+            color: var(--raft-fg);
+            border-bottom: 2px solid var(--raft-accent);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+            font-size: 2.2rem;
+        }
+
+        h2 {
+            color: var(--raft-accent);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 4px;
+        }
+
+        h3 {
+            color: var(--raft-fg);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Layout for simulering */
+        .simulation-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 1.5rem;
+        }
+
+        /* D. Interaktive Elementer */
+        .controls {
+            background-color: var(--raft-bg-controls);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        button {
+            background-color: var(--raft-accent);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--raft-font);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+            margin-bottom: 0.5rem; /* For wrapping */
+        }
+
+        button:hover {
+            background-color: var(--raft-accent-dark);
+        }
+
+        button.reset {
+            background-color: var(--raft-fg);
+        }
+        button.reset:hover {
+            background-color: #3a3d45;
+        }
+        
+        button:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap; /* Tillat wrapping */
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Styling for slider med "hakk" */
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-top: 0.5rem;
+            accent-color: var(--raft-accent); /* Farger selve glideren */
+        }
+        
+        /* Vis datalist-hakk */
+        datalist {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        /* Innholdsbokser */
+        .visual-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .canvas-wrap, .spectrum-wrap, .status-box {
+            background: var(--raft-bg-box);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .canvas-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+            background: var(--raft-fg); /* Endret for mørk bakgrunn */
+        }
+
+        canvas {
+            background: transparent;
+            display: block;
+            max-width: 100%;
+        }
+
+        #spectrumCanvas {
+            width: 100%;
+            height: 140px;
+            background: #000;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+        }
+
+        .spec-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        
+        .status-box {
+             background-color: var(--raft-bg-controls);
+        }
+
+        #status {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        #transitions {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #333;
+            min-height: 1.2em;
+        }
+
+        /* E. Responsivitet */
+        @media (max-width: 900px) { /* Endret fra 768px for bedre layout */
+            .simulation-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Bohrs Atommodell: Hydrogen</h1>
+        
+        <div class="simulation-layout">
+            
+            <!-- Kontroll-kolonne -->
+            <div class="controls">
+                <h2>Kontroller</h2>
+                
+                <div>
+                    <label for="energySlider">Velg fotonenergi: <strong id="energyVal">0.000</strong> </label>
+                    <input id="energySlider" type="range" min="0" max="2.4" step="0.001" value="0" list="energy-levels">
+                    <datalist id="energy-levels">
+                        <option value="0"></option>
+                        <option value="1.634"></option>
+                        <option value="1.937"></option>
+                        <option value="2.043"></option>
+                        <option value="2.092"></option>
+                        <option value="2.118"></option>
+                        <option value="2.139"></option>
+                        <option value="2.179"></option>
+                        <option value="2.4"></option>
+                    </datalist>
+                </div>
+
+                <div class="button-row">
+                    <button id="startBtn">Send 1 Foton</button>
+                    <button id="multiPhotonBtn">Simuler mange fotoner</button>
+                    <button id="resetBtn" class="reset">Reset</button>
+                </div>
+                
+                <!-- Status-boks flyttet hit -->
+                <div class="status-box">
+                    <h3>Status</h3>
+                    <div id="status">Atom: H, Elektron i n=1</div>
+                    <div id="transitions"></div>
+                </div>
+
+            </div>
+
+            <!-- Visuell kolonne -->
+            <div class="visual-section">
+                
+                <!-- Atom-visning -->
+                <div class="canvas-wrap">
+                    <canvas id="atomCanvas" width="500" height="500"></canvas>
+                </div>
+
+                <!-- Spektrum-visning -->
+                <div class="spectrum-wrap">
+                    <h3>Emisjonsspekter</h3>
+                    <div class="spec-top">
+                        <span>100 nm — 1500 nm</span>
+                        <span>Synlig: 380–750 nm</span>
+                    </div>
+                    <canvas id="spectrumCanvas"></canvas>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- 2. "Last Ned"-Knapp HTML -->
+        <div style="text-align: center; margin-top: 2rem;">
+            <button id="downloadButton">Last ned denne filen</button>
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 2. "Last Ned"-Knapp JavaScript
+    const downloadButton = document.getElementById('downloadButton');
+    downloadButton.addEventListener('click', () => {
+        try {
+            // Hent hele HTML-innholdet til det nåværende dokumentet
+            const htmlContent = document.documentElement.outerHTML;
+            
+            // Lag en Blob (en fil-lignende objekt i minnet)
+            // \ufeff er en BOM (Byte Order Mark) for å sikre at UTF-8-koding gjenkjennes korrekt
+            const blob = new Blob(['\ufeff', htmlContent], { type: 'text/html;charset=utf-8' });
+            
+            // Lag en midlertidig lenke for nedlasting
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'bohr_simulering.html'; // Filnavn
+            
+            // Legg til i DOM (nødvendig for noen nettlesere), klikk, og fjern
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            // Frigjør minne
+            URL.revokeObjectURL(a.href);
+        } catch (error) {
+            console.error("Feil ved nedlasting av fil:", error);
+        }
+    });
+
+
+    // --- Simulering-skript (Oppdatert) ---
+
+    // --- Fysikk-konstanter ---
+    const h = 6.62607015e-34; // J*s
+    const c = 299792458; // m/s
+    const eV = 1.602176634e-19; // J
+    const aJ = 1e-18; // J
+
+    // --- DOM ---
+    const energySlider = document.getElementById('energySlider');
+    const energyVal = document.getElementById('energyVal');
+    const startBtn = document.getElementById('startBtn');
+    const multiPhotonBtn = document.getElementById('multiPhotonBtn'); // NY
+    const resetBtn = document.getElementById('resetBtn');
+    const status = document.getElementById('status');
+    const transitionsDiv = document.getElementById('transitions');
+
+    // --- Tilstandsvariabler ---
+    let isMultiPhotonSimRunning = false; // NY
+    let multiPhotonInterval = null; // NY
+    let electronN = 1;
+    let photonCounter = 0; // NY teller
+
+    // --- Ny slider-logikk ---
+    energySlider.addEventListener('input', () => {
+        energyVal.textContent = parseFloat(energySlider.value).toFixed(3) + ' aJ';
+    });
+
+    // --- Canvas setup ---
+    const atomCanvas = document.getElementById('atomCanvas');
+    const ac = atomCanvas.getContext('2d');
+    const specCanvas = document.getElementById('spectrumCanvas');
+    const sc = specCanvas.getContext('2d');
+
+    // Tilpass spektrum-canvas
+    function fitSpec(){ 
+        if (!specCanvas) return;
+        specCanvas.width = specCanvas.clientWidth * devicePixelRatio; 
+        specCanvas.height = specCanvas.clientHeight * devicePixelRatio; 
+        sc.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0); 
+        drawSpectrumBase(); 
+        drawEmissionLines(); // Tegn linjer på nytt ved resize
+    }
+    window.addEventListener('resize', fitSpec);
+    
+    // Tegn spektrum-base (gradient for bølgelengder)
+    function drawSpectrumBase(){
+        const W = specCanvas.width / devicePixelRatio; 
+        const H = specCanvas.height / devicePixelRatio;
+        sc.clearRect(0,0,W,H);
+        sc.fillStyle='#000'; 
+        sc.fillRect(0,0,W,H);
+        
+        const grad = sc.createLinearGradient(0,0,W,0);
+        function posFor(lambda){ return (lambda - 100) / (1500-100); }
+        
+        // Fargestopp for synlig region
+        for (let lam=380; lam<=750; lam+=10){ 
+            grad.addColorStop(posFor(lam), wavelengthToCSS(lam)); 
+        }
+        grad.addColorStop(0, '#111'); 
+        grad.addColorStop(posFor(380)-0.02, '#000'); 
+        grad.addColorStop(posFor(750)+0.02, '#000'); 
+        grad.addColorStop(1, '#111');
+        
+        sc.fillStyle = grad; 
+        sc.globalAlpha = 0.25; 
+        sc.fillRect(0,0,W,H);
+        sc.globalAlpha = 1;
+        
+        // Aksetegn
+        sc.fillStyle='#444'; 
+        sc.font='12px monospace'; 
+        sc.textAlign='left';
+        const ticks = [100, 400, 700, 1000, 1500];
+        ticks.forEach(nm => {
+            const x = posFor(nm) * W;
+            sc.fillRect(x, H - 6, 1, 6);
+            sc.fillText(nm, x + 4, H - 8);
+        });
+
+        // Merk synlig region
+        const vx1 = posFor(380)*W, vx2 = posFor(750)*W;
+        sc.fillStyle='rgba(255,255,255,0.06)'; 
+        sc.fillRect(vx1,0,vx2-vx1,H);
+    }
+
+    // Lagre emisjonslinjer
+    const emissionCounts = new Map();
+    function addEmissionLine(lambda){ 
+        const key = Math.round(lambda*100)/100; 
+        emissionCounts.set(key, (emissionCounts.get(key)||0)+1); 
+        drawEmissionLines(); 
+    }
+
+    function drawEmissionLines(){ 
+        drawSpectrumBase(); 
+        const W = specCanvas.width/devicePixelRatio; 
+        const H = specCanvas.height/devicePixelRatio; 
+        const posFor = lambda => (lambda-100)/(1500-100);
+        
+        emissionCounts.forEach((count,key)=>{
+            const lambda = Number(key);
+            const x = posFor(lambda)*W;
+            let col = (lambda>=380 && lambda<=750) ? wavelengthToCSS(lambda) : '#fff';
+            const alpha = Math.min(0.9, 0.25 + 0.15*count);
+            
+            sc.beginPath(); 
+            sc.moveTo(x,6); 
+            sc.lineTo(x,H-6); 
+            sc.lineWidth = 2 + Math.log10(1+count); 
+            sc.strokeStyle = col; 
+            sc.globalAlpha = alpha; 
+            sc.stroke(); 
+            sc.globalAlpha=1;
+        });
+    }
+
+    // --- Bohr atom-tegning ---
+    const W = atomCanvas.width; 
+    const H = atomCanvas.height; 
+    const cx = W/2; 
+    const cy = H/2; 
+    const maxR = Math.min(W,H)/2 - 40; 
+    const shellCount = 7; 
+    const baseRadius = maxR / (shellCount * shellCount);
+    const shellRadii = Array.from({length:shellCount},(_,i) => baseRadius * (i+1)*(i+1));
+    
+    function drawAtom(){ 
+        ac.clearRect(0,0,W,H);
+        
+        // Kjerne
+        ac.fillStyle = 'var(--raft-accent)'; // Bruk temafarge
+        ac.beginPath(); 
+        ac.arc(cx,cy,10,0,Math.PI*2); 
+        ac.fill(); // Fyll kjernen
+        
+        // Skall
+        ac.fillStyle='var(--raft-fg)';
+        ac.font = '13px var(--raft-font)';
+        
+        for(let i=0; i<shellCount; i++){
+            ac.beginPath(); 
+            ac.lineWidth = (i+1 === electronN && electronN <= shellCount) ? 3 : 1.5; // Uthev nåværende skall
+            ac.strokeStyle = (i+1 === electronN && electronN <= shellCount) ? 'var(--raft-accent)' : 'rgba(255,255,255,0.15)'; // Lysere skall på mørk BG
+            ac.arc(cx,cy, shellRadii[i],0,Math.PI*2); 
+            ac.stroke();
+            
+            ac.textAlign='left'; 
+            ac.fillStyle = 'rgba(255,255,255,0.5)'; // Lysere tekst
+            ac.fillText('n='+(i+1), cx + shellRadii[i]+6, cy);
+        }
+        
+        // Ikke tegn elektron hvis ionisert
+        if (electronN > shellCount) return; 
+
+        // Elektron
+        const angle = performance.now() / 5000 * (1 / electronN); // Roter saktere i høyere baner
+        const r = shellRadii[electronN-1]; 
+        const ex = cx + r * Math.cos(angle); 
+        const ey = cy + r * Math.sin(angle);
+        
+        ac.beginPath(); 
+        ac.fillStyle='var(--raft-fg)'; 
+        ac.arc(ex,ey,6,0,Math.PI*2); 
+        ac.fill();
+    }
+
+    // Animasjon av innkommende energi
+    let anims = [];
+    function animate(){ 
+        drawAtom(); 
+        const t = performance.now()/1000;
+        for(let i=anims.length-1; i>=0; i--){ 
+            const a = anims[i]; 
+            if(a.step(t)===false) anims.splice(i,1); 
+        }
+        requestAnimationFrame(animate);
+    }
+    
+    // Hjelper: lag en sinusbølge som kommer inn fra venstre mot atomet
+    function createRadiationIn(direction){ 
+        const dir = Math.PI; // Kommer fra venstre
+        const startR = W/2 + 50;
+        const born = performance.now()/1000; 
+        const duration = 1.0;
+        const sx = cx + Math.cos(dir)*startR; 
+        const sy = cy;
+        
+        const wave = {
+            type: 'photon',
+            step: (t)=>{
+                const p = (t-born)/duration; 
+                if(p>1) return false;
+                const x = sx + (cx-sx)*p; 
+                const y = sy;
+                drawSineAt(x,y,0, 40*(1-p), 0.9*(1-p), '255, 255, 255'); // Hvit farge
+                return true;
+            }
+        };
+        anims.push(wave);
+    }
+    
+    // NY funksjon: Foton passerer tvers gjennom
+    function createPhotonPassThrough(){
+        const dir = 0; // Gå mot høyre
+        const born = performance.now()/1000;
+        const duration = 1.5; // Litt lenger varighet for hele skjermen
+        const sx = cx - (W/2 + 50); // Start utenfor venstre kant
+        const ex = cx + (W/2 + 50); // Slutt utenfor høyre kant
+
+        const wave = {
+            type: 'photon',
+            step: (t)=>{
+                const p = (t-born)/duration;
+                if(p > 1) return false;
+                // Animer fra venstre til høyre
+                const x = sx + (ex - sx) * p;
+                const y = cy;
+                // Ingen fade-out, bare konstant bølge
+                drawSineAt(x, y, 0, 40, 0.9, '255, 255, 255'); // Hvit farge
+                return true;
+            }
+        };
+        anims.push(wave);
+    }
+
+    function drawSineAt(x,y,angle, amplitude, alpha, baseColor = '60, 120, 250'){ 
+        const len = 180; 
+        const segments=100; 
+        ac.save(); 
+        ac.translate(x,y); 
+        ac.rotate(angle); 
+        ac.beginPath(); 
+        for(let i=0;i<segments;i++){ 
+            const u = i/(segments-1); 
+            const xx = (u-0.5)*len; 
+            const yy = Math.sin(u*8*Math.PI)* (amplitude); 
+            if(i===0) ac.moveTo(xx,yy); 
+            else ac.lineTo(xx,yy); 
+        } 
+        ac.lineWidth=2; 
+        ac.strokeStyle = `rgba(${baseColor}, ${alpha})`; // Bruk baseColor
+        ac.stroke(); 
+        ac.restore(); 
+    }
+
+    // --- Eksitasjon + de-eksitasjon logikk ---
+    
+    function energy_eV(n1,n2){ return 13.6*(1/(n1*n1) - 1/(n2*n2)); }
+    
+    // Nøyaktige energier (n=1 -> n) i AttoJoules (aJ)
+    function getRequiredEnergy_aJ(n) {
+        if (n === 8) return 13.6 * eV / aJ; // Ionization ~2.179 aJ
+        const dE_eV = energy_eV(1, n); // 13.6 * (1 - 1/(n*n))
+        const dE_J = dE_eV * eV;
+        return dE_J / aJ;
+    }
+
+    const requiredEnergies_aJ = {
+        2: getRequiredEnergy_aJ(2), // ~1.634 aJ
+        3: getRequiredEnergy_aJ(3), // ~1.937 aJ
+        4: getRequiredEnergy_aJ(4), // ~2.043 aJ
+        5: getRequiredEnergy_aJ(5), // ~2.092 aJ
+        6: getRequiredEnergy_aJ(6), // ~2.118 aJ
+        7: getRequiredEnergy_aJ(7), // ~2.139 aJ
+        8: getRequiredEnergy_aJ(8)  // ~2.179 aJ
+    };
+    // NY: Lag en array av de nøyaktige energinivåene
+    const energyLevelsArray = Object.values(requiredEnergies_aJ);
+    
+    const energyTolerance_aJ = 0.015; // Toleranse i aJ
+    
+    function findTargetN(selectedEnergy_aJ) {
+        // Sjekk n=7 ned til 2
+        for (let n = 7; n >= 2; n--) {
+            if (Math.abs(selectedEnergy_aJ - requiredEnergies_aJ[n]) < energyTolerance_aJ) {
+                return n;
+            }
+        }
+        // Sjekk ionisering
+        if (Math.abs(selectedEnergy_aJ - requiredEnergies_aJ[8]) < energyTolerance_aJ) {
+            return 8; // Ionization
+        }
+        return 1; // Ingen treff
+    }
+
+    function wavelengthFor(n_from,n_to){ 
+        const Efrom = -13.6/(n_from*n_from); 
+        const Eto = -13.6/(n_to*n_to); 
+        const dE_eV = Math.abs((Eto - Efrom)); 
+        const dEJ = dE_eV * eV; 
+        const lambda = h*c / dEJ; 
+        return lambda*1e9; // nm
+    }
+
+    function wavelengthToCSS(lambda){ 
+        let R=0,G=0,B=0;
+        if(lambda>=380 && lambda<440){ R = -(lambda-440)/(440-380); G=0; B=1; }
+        else if(lambda>=440 && lambda<490){ R=0; G=(lambda-440)/(490-440); B=1; }
+        else if(lambda>=490 && lambda<510){ R=0; G=1; B=-(lambda-510)/(510-490); }
+        else if(lambda>=510 && lambda<580){ R=(lambda-510)/(580-510); G=1; B=0; }
+        else if(lambda>=580 && lambda<645){ R=1; G=-(lambda-645)/(645-580); B=0; }
+        else if(lambda>=645 && lambda<=750){ R=1; G=0; B=0; }
+        R = Math.round(clamp(R,0,1)*255); G = Math.round(clamp(G,0,1)*255); B = Math.round(clamp(B,0,1)*255);
+        return `rgb(${R},${G},${B})`;
+    }
+    function clamp(x,a,b){ return Math.min(b,Math.max(a,x)); }
+
+    // Når Start trykkes
+    startBtn.addEventListener('click', ()=>{
+        if (isMultiPhotonSimRunning) return; // Ikke gjør noe hvis sim kjører
+
+        // Tilbakestill til grunntilstand før ny eksitasjon
+        electronN = 1;
+        updateStatus();
+        transitionsDiv.innerHTML = '';
+        anims = []; // Tøm animasjoner
+
+        const selectedEnergy_aJ = parseFloat(energySlider.value);
+        const targetN = findTargetN(selectedEnergy_aJ); // Få målet (1 hvis bom)
+        
+        status.textContent = `Sender foton med ${selectedEnergy_aJ.toFixed(3)} aJ...`;
+        
+        if (targetN > 1) { 
+            // TREFF!
+            createRadiationIn();
+            setTimeout(() => {
+                if (targetN === 8) { // Ionisering
+                    electronN = 8; // 8 = ionisert
+                    updateStatus();
+                    transitionsDiv.innerHTML = `Atom ionisert! (Energi >= 2.179 aJ)`;
+                } else {
+                    // Vanlig eksitasjon
+                    electronN = targetN; 
+                    transitionsDiv.innerHTML = `Elektron eksitert til n=${targetN}!`; 
+                    updateStatus();
+                    setTimeout(()=>{ runCascade(targetN); }, 800);
+                }
+            }, 1000); // Vent til foton-inn-animasjonen er ferdig
+        } else {
+            // BOM!
+            createPhotonPassThrough(); // Animer foton tvers gjennom
+            transitionsDiv.innerHTML = 'Ingen eksitasjon: Energien passer ikke.';
+            updateStatus(); // Sørg for at den fortsatt er n=1
+        }
+    });
+    
+    // --- NY FUNKSJONALITET ---
+    
+    multiPhotonBtn.addEventListener('click', () => {
+        if (isMultiPhotonSimRunning) {
+            // Stopp simuleringen
+            clearInterval(multiPhotonInterval);
+            isMultiPhotonSimRunning = false;
+            multiPhotonBtn.textContent = 'Simuler mange fotoner';
+            startBtn.disabled = false;
+            energySlider.disabled = false;
+            anims = []; // Fjern alle animasjoner
+        } else {
+            // Start simuleringen
+            isMultiPhotonSimRunning = true;
+            multiPhotonBtn.textContent = 'Stopp strømmen';
+            startBtn.disabled = true; // Deaktiver enkelt-foton-knapp
+            energySlider.disabled = true; // Deaktiver slider
+            
+            multiPhotonInterval = setInterval(simulateOneRandomPhoton, 400); // Send foton ca 2.5x/sek
+        }
+    });
+
+    function simulateOneRandomPhoton() {
+        // Bare kjør hvis atomet er i grunntilstanden
+        if (electronN > 1) {
+            return; // Atomet er "opptatt", vent til det de-eksiterer
+        }
+
+        // Rydd opp i gamle foton-animasjoner (ikke emisjoner)
+        anims = anims.filter(a => a.type !== 'photon');
+
+        photonCounter++; // Øk telleren
+        
+        let selectedEnergy_aJ = 0;
+
+        if (photonCounter % 3 === 0) {
+            // Hvert tredje foton: Velg en tilfeldig energi fra de *definerte* nivåene
+            const randomIndex = Math.floor(Math.random() * energyLevelsArray.length);
+            selectedEnergy_aJ = energyLevelsArray[randomIndex];
+        } else {
+            // Ellers: Velg en helt tilfeldig energi
+            selectedEnergy_aJ = Math.random() * 2.4; 
+        }
+
+        const targetN = findTargetN(selectedEnergy_aJ); // Denne vil *alltid* treffe hvis (photonCounter % 3 === 0)
+
+        status.textContent = `Foton-strøm: ${selectedEnergy_aJ.toFixed(3)} aJ`;
+
+        if (targetN > 1) {
+            // TREFF!
+            createRadiationIn(); // type: 'photon'
+            
+            // Eksiter atomet umiddelbart (intervallet er tregt nok)
+            electronN = targetN; 
+            transitionsDiv.innerHTML = `Absorbert! Eksitert til n=${targetN}`; 
+            updateStatus();
+            // Start kaskade etter en forsinkelse
+            setTimeout(() => runCascade(targetN), 800);
+
+        } else {
+            // BOM!
+            createPhotonPassThrough(); // type: 'photon'
+            transitionsDiv.innerHTML = 'Ingen eksitasjon: Energien passer ikke.';
+        }
+    }
+
+    function updateStatus(){ 
+        if (electronN > shellCount) { // Håndter ionisering
+            status.textContent = 'Atom: H, Elektron er IONISERT';
+        } else {
+            status.textContent = `Atom: H, Elektron i n=${electronN}`; 
+        }
+    }
+
+    // Kaskade: tilfeldig vei ned til n=1
+    function runCascade(startN){ 
+        let current = startN; 
+        const path = [];
+        while(current > 1){ 
+            // Velg et *tilfeldig* lavere nivå
+            const next = Math.floor(Math.random() * (current - 1)) + 1; 
+            path.push({from: current, to: next}); 
+            current = next; 
+        }
+        
+        // Animer hver overgang sekvensielt
+        let delay = 0;
+        path.forEach((tr,i)=>{
+            setTimeout(()=>{
+                // Sjekk om sim er stoppet i mellomtiden
+                if (electronN !== tr.from) {
+                     // En reset har skjedd, avbryt kaskaden
+                    return;
+                }
+                
+                const dir = Math.random()*Math.PI*2; 
+                animateEmissionWave(dir, tr.from, tr.to); // Animer utgående foton
+                
+                const lam = wavelengthFor(tr.from, tr.to); 
+                addEmissionLine(lam); // Legg til i spekteret
+                
+                transitionsDiv.innerHTML = `Overgang: n=${tr.from} → n=${tr.to} &nbsp; (${lam.toFixed(1)} nm)`;
+                electronN = tr.to; 
+                updateStatus();
+                
+                if(tr.to===1 && i === path.length - 1) {
+                    transitionsDiv.innerHTML += ' — Grunntilstand nådd.';
+                }
+            }, delay);
+            delay += 700 + Math.random()*500;
+        });
+    }
+
+    // Animer utgående foton
+    function animateEmissionWave(direction, from, to){ 
+        const born = performance.now()/1000; 
+        const dur = 1.2; 
+        const lambda = wavelengthFor(from,to); 
+        const visible = lambda>=380 && lambda<=750; 
+        const color = visible ? wavelengthToCSS(lambda) : '#fff'; 
+        const startX = cx; 
+        const startY = cy; 
+        const amp = 30 + (from-to)*8;
+        
+        const anim = {
+            type: 'emission',
+            step: (t)=>{ 
+                const p=(t-born)/dur; 
+                if(p>1) return false; 
+                const dist = 60 + p*300; 
+                const x = startX + Math.cos(direction)*dist; 
+                const y = startY + Math.sin(direction)*dist; 
+                
+                // Tegn sinusbølge-pakke
+                ac.save(); 
+                ac.translate(x,y); 
+                ac.rotate(direction); // Orientert i bevegelsesretningen
+                ac.beginPath(); 
+                const seg=60; 
+                for(let i=0;i<seg;i++){ 
+                    const u=i/(seg-1); 
+                    const xx = (u-0.5)*120; 
+                    const yy = Math.sin(u*4*Math.PI)* amp * (1-p); 
+                    if(i===0) ac.moveTo(xx,yy); 
+                    else ac.lineTo(xx,yy); 
+                } 
+                ac.lineWidth = 3; 
+                ac.strokeStyle = color; 
+                ac.globalAlpha = 0.9*(1-p); 
+                ac.stroke(); 
+                ac.restore(); 
+                return true; 
+            }
+        };
+        anims.push(anim);
+    }
+
+    // Reset
+    resetBtn.addEventListener('click', ()=>{ 
+        // Stopp også multi-foton-simuleringen
+        clearInterval(multiPhotonInterval);
+        isMultiPhotonSimRunning = false;
+        multiPhotonBtn.textContent = 'Simuler mange fotoner';
+        startBtn.disabled = false;
+        energySlider.disabled = false;
+
+        emissionCounts.clear(); 
+        drawSpectrumBase(); 
+        electronN=1; 
+        updateStatus(); 
+        transitionsDiv.innerHTML=''; 
+        energySlider.value = 0; 
+        energyVal.textContent = '0.000 aJ';
+        anims = []; // Fjern alle pågående animasjoner
+        photonCounter = 0; // Nullstill telleren
+    });
+
+    // Første tegning
+    fitSpec();
+    drawAtom(); 
+    updateStatus();
+    requestAnimationFrame(animate);
+});
+</script>
+
+</body>
+</html>
+
+
+
+<h1 class="wp-block-heading">KI-generert forklaring</h1>
+
+
+
+<h2 class="wp-block-heading">Hva skjer i simuleringen?</h2>
+
+
+
+<p class="wp-block-paragraph">Du starter med et hydrogenatom i grunntilstanden (n=1). Du bruker kontrollene til å sende lyspartikler, kalt fotoner, mot atomet. Fotonet bærer en spesifikk energimengde som du velger. Elektronet i atomet kan kun absorbere fotonet hvis energien er <em>nøyaktig</em> riktig. Riktig energi tilsvarer spranget fra n=1 til et høyere skall (n=2, n=3, osv.). Elektronet hopper da opp til dette høyere energinivået, og vi kaller atomet "eksitert". Et foton med feil energi ignorerer atomet fullstendig. <strong>Simuleringen viser altså hvordan et atom kun absorberer spesifikke energipakker.</strong></p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<p class="wp-block-paragraph">Et eksitert atom forblir ikke lenge i sin ustabile tilstand. Elektronet vil falle tilbake mot grunntilstanden (n=1). Dette fallet skjer ofte i tilfeldige steg, kalt en kaskade. Et elektron i n=4 kan for eksempel hoppe 4→2, og deretter 2→1. Hvert enkelt hopp (f.eks. 4→2) frigjør energiforskjellen som et nytt foton. Energien (og dermed fargen) på dette utsendte fotonet er unikt for akkurat <em>det</em> hoppet. Simulasjonens emisjonsspekter fanger opp disse utsendte fotonene. Hver farget linje du ser i spekteret, representerer én spesifikk overgang. <strong>De-eksitasjon produserer dermed atomets unike "fingeravtrykk" av lys.</strong></p>
+
+
+
+<h2 class="wp-block-heading">Hva kan du utforske?</h2>
+
+
+
+<p class="wp-block-paragraph">Du kan først bruke energiglideren for å teste nøyaktige verdier. Glideren har "hakk" som viser de nøyaktige energiene som trengs for å eksitere atomet fra n=1. Prøv å velge en energi som <em>ikke</em> er et hakk (f.eks. 1.700 aJ) og trykk "Send 1 Foton". Fotonet ditt vil passere rett gjennom atomet. Velg deretter nøyaktig energi for n=3 (1.937 aJ). Atomet absorberer fotonet, og elektronet hopper til n=3. Du kan nå observere den tilfeldige kaskaden (f.eks. 3→1, eller 3→2 fulgt av 2→1) og se hvilke linjer som dukker opp i spekteret. <strong>Enkelt-foton-modusen lar deg verifisere absorpsjonsprinsippet og se individuelle kaskader.</strong></p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<p class="wp-block-paragraph">Knappen "Simuler mange fotoner" demonstrerer hvordan et fullt emisjonsspekter bygges opp. Simuleringen sender en kontinuerlig strøm av fotoner mot atomet. Noen fotoner har riktig energi for eksitasjon (og treffer), mens de fleste har tilfeldig energi (og bommer). Hver gang atomet eksiteres (til ulike nivåer) og de-eksiteres (via ulike kaskader), legges de utsendte fotonene til spekteret. Du vil se hvordan spekteret gradvis fylles med de distinkte linjene for hydrogen. <strong>Denne modusen viser hvordan milliarder av atomer sammen skaper de observerbare spektrallinjene.</strong></p>
+
+
+
+<h2 class="wp-block-heading">Teorien bak</h2>
+
+
+
+<p class="wp-block-paragraph">Niels Bohr foreslo en modell hvor atomets energi er "kvantisert". Kvantisering betyr at elektronet <em>kun</em> kan eksistere i bestemte, faste baner (energinivåer), kalt stasjonære tilstander (n=1, n=2, osv.). Elektronet kan ikke befinne seg <em>mellom</em> disse banene. Hvert nivå har en fast, diskret energiverdi, der n=1 (grunntilstanden) har lavest energi. <strong>Bohrs hovedidé var at energien i atomet er delt opp i nøyaktige trinn.</strong></p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<p class="wp-block-paragraph">Denne trinnvise energimodellen forklarer de skarpe spektrallinjene. Et elektron må absorbere en presis energimengde (et foton) for å hoppe fra et lavt nivå til et høyt nivå (absorpsjon). Energien må nøyaktig tilsvare differansen mellom nivåene ($E_{\text{foton}} = E_{\text{høy}} - E_{\text{lav}}$). Når elektronet faller ned igjen (emisjon), frigjør det et foton med nøyaktig den samme energidifferansen. Siden det bare finnes et bestemt antall tillatte hopp, sender hydrogenatomet kun ut lys ved helt bestemte bølgelengder (farger). <strong>Simuleringen lar deg visualisere nøyaktig disse kvantiserte hoppene.</strong></p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p>Copyright 2026 - Skolesim</p>
+      <nav><a href="#">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
+</body>
+</html>

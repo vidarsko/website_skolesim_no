@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newtons 2. lov — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/#fagoversikt">Fagoversikt</a></li>
+          <li><a href="#">Om meg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <span class="post-category"><a href="/alle-simuleringer/?kategori=fysikk-1">Fysikk 1</a></span>
+      <h1>Newtons 2. lov</h1>
+<p class="wp-block-paragraph">Juster kraft og masse med sliderne for å se hvordan akselerasjonen påvirker hastighet og posisjon over tid. Følg med på grafene for å observere sammenhengen mellom kreftene og bevegelsesligningene i sanntid.</p>
+
+
+
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newtons Andre Lov Simulering</title>
+    <style>
+        :root {
+            /* Hovedfarger */
+            --raft-bg: #EBE8E6;        /* Hovedbakgrunn (lys grå/beige) */
+            --raft-fg: #1D1F25;        /* Hovedtekstfarge (mørk grå) */
+            --raft-accent: #C26148;   /* Aksentfarge (rustrød) */
+            --raft-accent-dark: #AC5039; /* Mørkere aksent for hover */
+            --raft-bg-alt: rgba(255, 255, 255, 0.6); /* Gjennomsiktig hvit for container */
+            --raft-bg-controls: rgba(255, 255, 255, 0.8); /* Litt mindre gjennomsiktig for kontroller */
+            --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
+
+            /* Skrifttyper */
+            --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --raft-font-heading: "Geologica", var(--raft-font);
+        }
+
+        /* Google Fonts Import */
+        @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&family=Geologica:wght@400;700&display=swap');
+
+        body {
+            background-color: var(--raft-bg);
+            color: var(--raft-fg);
+            font-family: var(--raft-font);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: var(--raft-bg-alt);
+            max-width: 1000px;
+            width: 100%;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        h1, h2 {
+            font-family: var(--raft-font-heading);
+        }
+
+        h1 {
+            color: var(--raft-fg);
+            border-bottom: 2px solid var(--raft-accent);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        h2 {
+            color: var(--raft-accent);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Simuleringsvindu */
+        .sim-window {
+            position: relative;
+            height: 250px;
+            background: var(--raft-bg-box);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .sim-status-icon {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            color: var(--raft-fg);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .sim-time {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: var(--raft-fg);
+            font-weight: bold;
+            background: rgba(255,255,255,0.9);
+            padding: 2px 8px;
+            border-radius: 4px;
+            z-index: 10;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .ruler {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            border-top: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 10px;
+            box-sizing: border-box;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #666;
+            background: rgba(0,0,0,0.02);
+        }
+
+        .box {
+            position: absolute;
+            bottom: 40px; /* Plassert over linjalen */
+            background-color: var(--raft-fg);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: width 0.2s, height 0.2s; /* Glatt endring av størrelse */
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        /* Kraftpil */
+        .force-arrow-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .force-arrow {
+            height: 4px;
+            background-color: var(--raft-accent);
+            transform-origin: left center;
+            position: absolute;
+            top: -2px; /* Sentrer vertikalt i container */
+            left: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Pilhode */
+        .force-arrow::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: -4px;
+            width: 0; 
+            height: 0; 
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 8px solid var(--raft-accent);
+        }
+
+        /* Kontroller */
+        .controls {
+            background-color: var(--raft-bg-controls);
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--raft-accent);
+            cursor: pointer;
+        }
+
+        button {
+            background-color: var(--raft-accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 6px;
+            font-family: var(--raft-font);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            height: fit-content;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        button:hover {
+            background-color: var(--raft-accent-dark);
+        }
+
+        button.secondary {
+            background-color: #666;
+        }
+
+        button.secondary:hover {
+            background-color: #444;
+        }
+
+        /* Grafer */
+        .graphs-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .graph-box {
+            background: var(--raft-bg-box);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        canvas {
+            width: 100%;
+            height: 150px;
+            display: block;
+        }
+
+        .value-display {
+            color: var(--raft-accent);
+            font-family: monospace;
+            font-size: 1rem;
+        }
+
+        /* Responsivitet */
+        @media (max-width: 768px) {
+            .controls {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .graphs-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Kraft, Masse og Akselerasjon</h1>
+    <p>Utforsk Newtons andre lov ($F = ma$). Bruk "Start"-knappen for å sette i gang. Du kan eksportere dataene til CSV for videre analyse.</p>
+
+    <!-- Simuleringsområde -->
+    <div class="sim-window" id="simWindow">
+        <div class="sim-time" id="timeDisplay">t = 0.00 s</div>
+        <div class="sim-status-icon" id="statusIcon">⏸</div>
+        <div class="box" id="box">
+            <div class="force-arrow-container">
+                <div class="force-arrow" id="forceArrow"></div>
+            </div>
+            <span id="massText">2kg</span>
+        </div>
+        <div class="ruler" id="ruler">
+            <span id="rulerStart">-5m</span>
+            <span id="rulerMid">0m</span>
+            <span id="rulerEnd">5m</span>
+        </div>
+    </div>
+
+    <!-- Kontroller -->
+    <div class="controls">
+        <div class="control-group">
+            <label>Kraft (F): <span class="value-display" id="forceVal">0 N</span></label>
+            <input type="range" id="forceSlider" min="-50" max="50" value="0" step="1">
+        </div>
+        
+        <div class="control-group">
+            <label>Masse (m): <span class="value-display" id="massVal">2 kg</span></label>
+            <input type="range" id="massSlider" min="1" max="20" value="2" step="1">
+        </div>
+
+        <div class="control-group button-group">
+            <button id="startPauseBtn">
+                <span id="btnIcon">▶</span> <span id="btnText">Start</span>
+            </button>
+            <button id="resetBtn" class="secondary">Nullstill</button>
+            <button id="exportBtn" class="secondary" title="Last ned data som CSV">
+                💾 CSV
+            </button>
+        </div>
+    </div>
+
+    <!-- Grafer -->
+    <div class="graphs-container">
+        <div class="graph-box">
+            <h2>Posisjon (x)</h2>
+            <canvas id="posGraph"></canvas>
+        </div>
+        <div class="graph-box">
+            <h2>Hastighet (v)</h2>
+            <canvas id="velGraph"></canvas>
+        </div>
+        <div class="graph-box">
+            <h2>Akselerasjon (a)</h2>
+            <canvas id="accGraph"></canvas>
+        </div>
+    </div>
+
+    <!-- Last ned knapp -->
+    <div style="text-align: center; margin-top: 1rem;">
+        <button id="downloadButton">Last ned denne filen</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Elementer ---
+    const box = document.getElementById('box');
+    const forceArrow = document.getElementById('forceArrow');
+    const rulerStart = document.getElementById('rulerStart');
+    const rulerMid = document.getElementById('rulerMid');
+    const rulerEnd = document.getElementById('rulerEnd');
+    const massText = document.getElementById('massText');
+    const statusIcon = document.getElementById('statusIcon');
+    const timeDisplay = document.getElementById('timeDisplay');
+    
+    const forceSlider = document.getElementById('forceSlider');
+    const massSlider = document.getElementById('massSlider');
+    const forceVal = document.getElementById('forceVal');
+    const massVal = document.getElementById('massVal');
+    
+    const startPauseBtn = document.getElementById('startPauseBtn');
+    const btnIcon = document.getElementById('btnIcon');
+    const btnText = document.getElementById('btnText');
+    const resetBtn = document.getElementById('resetBtn');
+    const exportBtn = document.getElementById('exportBtn');
+
+    const canvases = {
+        pos: document.getElementById('posGraph'),
+        vel: document.getElementById('velGraph'),
+        acc: document.getElementById('accGraph')
+    };
+    
+    const ctxs = {
+        pos: canvases.pos.getContext('2d'),
+        vel: canvases.vel.getContext('2d'),
+        acc: canvases.acc.getContext('2d')
+    };
+
+    // --- Tilstand ---
+    const viewWidth = 10; 
+    const startPos = 0;
+
+    let isRunning = false; // Starter i pause
+
+    let state = {
+        mass: 2,
+        force: 0,
+        acc: 0,
+        vel: 0,
+        pos: startPos, 
+        time: 0
+    };
+
+    // Graf historikk (inkludert tid for CSV eksport)
+    let history = {
+        time: [],
+        pos: [],
+        vel: [],
+        acc: []
+    };
+
+    // --- Setup Canvas Størrelse ---
+    function resizeCanvases() {
+        Object.values(canvases).forEach(canvas => {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+        });
+    }
+    window.addEventListener('resize', resizeCanvases);
+    setTimeout(resizeCanvases, 100);
+
+    // --- Fysikk Loop ---
+    let lastTime = performance.now();
+
+    function updatePhysics() {
+        const now = performance.now();
+        
+        // Hvis vi kjører, oppdater fysikken
+        if (isRunning) {
+            let dt = (now - lastTime) / 1000; // sekunder
+            
+            // Begrens dt for å unngå store hopp
+            if (dt > 0.05) dt = 0.05;
+
+            state.acc = state.force / state.mass;
+            state.vel += state.acc * dt;
+            state.pos += state.vel * dt;
+            state.time += dt;
+
+            updateGraphs();
+        }
+        
+        // Oppdater alltid lastTime for å unngå hopp når vi unpauser
+        lastTime = now;
+
+        // Oppdater alltid det visuelle (f.eks. sliders kan endres i pause)
+        updateVisuals();
+        requestAnimationFrame(updatePhysics);
+    }
+
+    // --- Start / Pause Funksjonalitet ---
+    function togglePlayPause() {
+        isRunning = !isRunning;
+        updateUIState();
+        
+        // Reset lastTime når vi starter igjen for å unngå dt-hopp
+        if (isRunning) {
+            lastTime = performance.now();
+        }
+    }
+
+    function updateUIState() {
+        if (isRunning) {
+            statusIcon.textContent = "▶"; // Play symbol i sim
+            btnIcon.textContent = "⏸";
+            btnText.textContent = "Pause";
+        } else {
+            statusIcon.textContent = "⏸"; // Pause symbol i sim
+            btnIcon.textContent = "▶";
+            btnText.textContent = "Start";
+        }
+    }
+
+    // --- Tegning / Visualisering ---
+    function updateVisuals() {
+        // Oppdater tid display
+        timeDisplay.innerText = `t = ${state.time.toFixed(2)} s`;
+
+        // 1. Oppdater boksens størrelse
+        const minSize = 40;
+        const maxSize = 120;
+        const size = minSize + ((state.mass - 1) / 19) * (maxSize - minSize);
+        
+        box.style.width = `${size}px`;
+        box.style.height = `${size}px`;
+        
+        // 2. Oppdater kraft-pil
+        const arrowScale = 3;
+        const arrowLength = Math.abs(state.force) * arrowScale;
+        
+        forceArrow.style.width = `${arrowLength}px`;
+        
+        if (state.force < 0) {
+            forceArrow.style.transform = "rotate(180deg)";
+            forceArrow.style.transformOrigin = "left center"; 
+        } else {
+            forceArrow.style.transform = "rotate(0deg)";
+        }
+        
+        forceArrow.style.opacity = Math.abs(state.force) < 0.1 ? 0 : 1;
+
+        // 3. Rullebane logikk (Sentrert rundt 0)
+        const shiftedPos = state.pos + (viewWidth / 2);
+        const windowIndex = Math.floor(shiftedPos / viewWidth);
+        
+        const currentWindowStart = (windowIndex * viewWidth) - (viewWidth / 2);
+        const currentWindowEnd = currentWindowStart + viewWidth;
+
+        rulerStart.innerText = `${currentWindowStart}m`;
+        rulerMid.innerText = `${currentWindowStart + viewWidth/2}m`;
+        rulerEnd.innerText = `${currentWindowEnd}m`;
+
+        const simWindowWidth = document.getElementById('simWindow').offsetWidth;
+        const positionInWindow = state.pos - currentWindowStart;
+        const pxPerMeter = simWindowWidth / viewWidth;
+        const pxPos = positionInWindow * pxPerMeter;
+
+        box.style.left = `calc(${pxPos}px - ${size/2}px)`;
+    }
+
+    // --- Graf Tegning ---
+    function updateGraphs() {
+        history.time.push(state.time);
+        history.pos.push(state.pos);
+        history.vel.push(state.vel);
+        history.acc.push(state.acc);
+
+        drawGraph(ctxs.pos, history.pos, history.time, canvases.pos.width, canvases.pos.height, "#1D1F25", "m");
+        drawGraph(ctxs.vel, history.vel, history.time, canvases.vel.width, canvases.vel.height, "#C26148", "m/s");
+        drawGraph(ctxs.acc, history.acc, history.time, canvases.acc.width, canvases.acc.height, "#AC5039", "m/s²");
+    }
+
+    function drawGraph(ctx, data, timeData, width, height, color, unit) {
+        ctx.clearRect(0, 0, width, height);
+        
+        // 1. Header (Enhet & Nåværende verdi)
+        ctx.fillStyle = "#666";
+        ctx.font = "12px monospace";
+        ctx.textAlign = "left";
+        ctx.fillText(`Enhet: ${unit}`, 5, 15);
+        
+        if (data.length > 0) {
+            ctx.fillStyle = color;
+            ctx.font = "bold 12px monospace";
+            ctx.textAlign = "right";
+            ctx.fillText(data[data.length-1].toFixed(2), width - 5, 15);
+        }
+
+        if (data.length < 2) return;
+
+        // 2. Skalering Logic
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+
+        let min = Math.min(...data);
+        let max = Math.max(...data);
+        
+        if (max - min < 0.001) {
+            max += 1;
+            min -= 1;
+        }
+
+        const range = max - min;
+        const padding = range * 0.2; // Litt mer plass for labels
+        const drawMin = min - padding;
+        const drawMax = max + padding;
+        const drawRange = drawMax - drawMin;
+
+        // 3. Y-Akse etiketter
+        ctx.fillStyle = "#666";
+        ctx.font = "10px monospace";
+        ctx.textAlign = "left";
+        ctx.fillText(`Max: ${max.toFixed(1)}`, 5, 30);
+        ctx.fillText(`Min: ${min.toFixed(1)}`, 5, height - 20);
+
+        // 4. X-Akse etiketter (Tid)
+        const startTime = timeData[0];
+        const endTime = timeData[timeData.length - 1];
+
+        ctx.textAlign = "left";
+        ctx.fillText(`${startTime.toFixed(1)}s`, 5, height - 5);
+
+        ctx.textAlign = "right";
+        ctx.fillText(`${endTime.toFixed(1)}s`, width - 5, height - 5);
+        
+        // Midtstilt etikett
+        ctx.textAlign = "center";
+        ctx.fillText("Tid", width / 2, height - 5);
+
+        // 5. Tegn linjen
+        const stepX = width / (data.length - 1);
+
+        data.forEach((val, i) => {
+            const x = i * stepX;
+            const normalizedY = (val - drawMin) / drawRange;
+            const y = height - (normalizedY * height);
+            
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        });
+
+        ctx.stroke();
+
+        // Null-linje (hvis synlig)
+        if (drawMin < 0 && drawMax > 0) {
+            const zeroY = height - ((0 - drawMin) / drawRange * height);
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+            ctx.lineWidth = 1;
+            ctx.moveTo(0, zeroY);
+            ctx.lineTo(width, zeroY);
+            ctx.stroke();
+        }
+    }
+
+    // --- Input Håndtering ---
+    forceSlider.addEventListener('input', (e) => {
+        state.force = parseFloat(e.target.value);
+        forceVal.innerText = `${state.force} N`;
+    });
+
+    massSlider.addEventListener('input', (e) => {
+        state.mass = parseFloat(e.target.value);
+        massVal.innerText = `${state.mass} kg`;
+        massText.innerText = `${state.mass}kg`;
+    });
+    
+    startPauseBtn.addEventListener('click', togglePlayPause);
+
+    resetBtn.addEventListener('click', () => {
+        // Sett til pause ved reset
+        isRunning = false;
+        updateUIState();
+        
+        state.pos = startPos;
+        state.vel = 0;
+        state.acc = 0;
+        state.force = 0;
+        state.mass = 2;
+        state.time = 0;
+        
+        forceSlider.value = 0;
+        forceVal.innerText = "0 N";
+        massSlider.value = 2;
+        massVal.innerText = "2 kg";
+        massText.innerText = "2kg";
+
+        history.time = [];
+        history.pos = [];
+        history.vel = [];
+        history.acc = [];
+        
+        // Tegn en gang for å fjerne gamle grafer
+        ctxs.pos.clearRect(0, 0, canvases.pos.width, canvases.pos.height);
+        ctxs.vel.clearRect(0, 0, canvases.vel.width, canvases.vel.height);
+        ctxs.acc.clearRect(0, 0, canvases.acc.width, canvases.acc.height);
+        
+        updateVisuals();
+    });
+
+    // --- CSV Eksport ---
+    exportBtn.addEventListener('click', () => {
+        if (history.time.length === 0) {
+            alert("Ingen data å eksportere ennå. Start simuleringen først.");
+            return;
+        }
+
+        const headers = ["Tid (s)", "Posisjon (m)", "Hastighet (m/s)", "Akselerasjon (m/s^2)"];
+        
+        // Slå sammen dataene rad for rad
+        const rows = history.time.map((t, i) => {
+            return [
+                t.toFixed(3),
+                history.pos[i].toFixed(3),
+                history.vel[i].toFixed(3),
+                history.acc[i].toFixed(3)
+            ].join(",");
+        });
+
+        const csvContent = [headers.join(","), ...rows].join("\n");
+        const blob = new Blob(['\ufeff', csvContent], { type: 'text/csv;charset=utf-8' });
+        
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'fysikk_data.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(a.href);
+    });
+
+    // --- Last Ned Knapp ---
+    const downloadButton = document.getElementById('downloadButton');
+    downloadButton.addEventListener('click', () => {
+        try {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob(['\ufeff', htmlContent], { type: 'text/html;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'newton_simulering.html'; 
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+        } catch (error) {
+            console.error("Feil ved nedlasting av fil:", error);
+        }
+    });
+
+    // Initialiser UI
+    updateUIState();
+    requestAnimationFrame(updatePhysics);
+});
+</script>
+</body>
+</html>
+
+
+
+<h2 class="wp-block-heading">Hva skjer i simuleringen?</h2>
+
+
+
+<p class="wp-block-paragraph"><strong>Kraftspaken dikterer handlingen.</strong> Du påfører en netto kraft på boksen ved å dra i glideren merket "Kraft (F)". En positiv verdi skyver boksen mot høyre, mens en negativ verdi trekker den mot venstre. Den røde pilen på selve boksen visualiserer denne kraftvektoren umiddelbart. Simuleringen oversetter din fysiske input direkte til bevegelse på skjermen.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Massen agerer motstander.</strong> Glideren for "Masse (m)" bestemmer hvor tung og treg boksen er å flytte. En lett boks reagerer momentant på selv små krefter, mens en tung boks krever stor kraft for å endre hastighet. Denne motstanden mot endring i bevegelse kalles treghet.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Grafene forteller historien.</strong> Nederst i vinduet tegnes bevegelsen opp i sanntid fordelt på posisjon ($x$), hastighet ($v$) og akselerasjon ($a$). Disse tre grafene henger matematisk sammen og viser hvordan kraften din forplanter seg gjennom fysikkens lover over tid.</p>
+
+
+
+<h2 class="wp-block-heading">Hva kan man utforske?</h2>
+
+
+
+<p class="wp-block-paragraph"><strong>Treghetens lov i praksis.</strong> Prøv å sette massen til maksimal verdi (20 kg) og gi boksen et lite dytt. Du vil se at hastigheten øker smertefullt sakte. Gjør du det samme med minimal masse (1 kg), skyter boksen fart umiddelbart. Dette eksperimentet demonstrerer at akselerasjon er omvendt proporsjonal med massen.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Kunsten å bremse.</strong> Få boksen opp i høy hastighet mot høyre, og dra deretter kraftspaken raskt over til negative verdier. Legg merke til at boksen ikke snur med en gang; den fortsetter fremover mens den bremser ned, helt til hastigheten treffer null. Grafene vil her vise at posisjonen fortsatt øker mens hastigheten synker. Observasjonen bekrefter at kraft og bevegelsesretning kan være motsatt rettet.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Newtons første lov.</strong> Gi boksen fart, og sett deretter kraften nøyaktig til 0 N. Boksen vil fortsette å gli med konstant hastighet i det uendelige (eller til den treffer en vegg), og akselerasjonsgrafen flater ut på nulllinjen. Dette illustrerer at et objekt forblir i bevegelse når ingen ytre krefter virker på det.</p>
+
+
+
+<h2 class="wp-block-heading">Teorien bak</h2>
+
+
+
+<p class="wp-block-paragraph"><strong>Kjernen er Newtons andre lov.</strong> Hele simuleringen er bygget rundt en av fysikkens mest fundamentale ligninger. Loven sier at summen av kreftene på et legeme er lik massen ganget med akselerasjonen:</p>
+
+
+
+<p class="wp-block-paragraph">$$\sum F = ma$$</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Fra kraft til bevegelse.</strong> I simuleringen er det akselerasjonen ($a$) vi egentlig kontrollerer, selv om vi justerer kraften. Programmet regner kontinuerlig ut akselerasjonen ved å snu på formelen:</p>
+
+
+
+<p class="wp-block-paragraph">$$a = \frac{F}{m}$$</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Sammenhengen mellom grafene.</strong> Matematisk sett viser grafene kalkulus i praksis. Akselerasjonen er den deriverte av hastigheten ($a = v'$), og hastigheten er den deriverte av posisjonen ($v = x'$).</p>
+
+
+
+<ul class="wp-block-list">
+<li>En konstant verdi i akselerasjonsgrafen gir en rett linje (lineær stigning) i hastighetsgrafen.</li>
+
+
+
+<li>En rett linje i hastighetsgrafen gir en buet linje (parabel) i posisjonsgrafen.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Simuleringen beregner dette ved numerisk integrasjon, hvor den legger til små endringer tusenvis av ganger i sekundet for å oppdatere posisjonen.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p>Copyright 2026 - Skolesim</p>
+      <nav><a href="#">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
+</body>
+</html>

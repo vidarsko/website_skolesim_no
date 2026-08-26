@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Økosystem i ubalanse — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/#fagoversikt">Fagoversikt</a></li>
+          <li><a href="#">Om meg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <span class="post-category"><a href="/alle-simuleringer/?kategori=biologisk-mangfold">Biologisk mangfold</a></span>
+      <h1>Økosystem i ubalanse</h1>
+<p class="wp-block-paragraph">Fjern en art fra næringskjeden og observer hvordan det drastisk påvirker bestanden til de andre artene.</p>
+
+
+
+<style>
+:root {
+    /* Hovedfarger */
+    --raft-bg: #EBE8E6;        /* Hovedbakgrunn (lys grå/beige) */
+    --raft-fg: #1D1F25;        /* Hovedtekstfarge (mørk grå) */
+    --raft-accent: #C26148;   /* Aksentfarge (rustrød) */
+    --raft-accent-dark: #AC5039; /* Mørkere aksent for hover */
+    --raft-bg-alt: rgba(255, 255, 255, 0.6); /* Gjennomsiktig hvit for container */
+    --raft-bg-controls: rgba(255, 255, 255, 0.8); /* Litt mindre gjennomsiktig for kontroller */
+    --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
+
+    /* Skrifttyper */
+    --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --raft-font-heading: "Geologica", var(--raft-font);
+}
+
+body {
+    background-color: var(--raft-bg);
+    color: var(--raft-fg);
+    font-family: var(--raft-font);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: var(--raft-bg-alt);
+    max-width: 1000px;
+    width: 100%;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+h1, h2 {
+    font-family: var(--raft-font-heading);
+}
+
+h1 {
+    color: var(--raft-fg);
+    border-bottom: 2px solid var(--raft-accent);
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: var(--raft-accent);
+    font-size: 1.2rem;
+    margin-top: 0;
+}
+
+/* Simulerings-spesifikk CSS */
+.ecosystem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.species-card {
+    background: var(--raft-bg-box);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.2s;
+    border: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.icon {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.population-bar-container {
+    height: 150px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    margin: 15px 0;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.population-bar {
+    width: 100%;
+    background-color: var(--raft-accent);
+    transition: height 0.5s ease-in-out, background-color 0.3s;
+    border-radius: 0 0 4px 4px;
+}
+
+.population-count {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Arrows between trophic levels */
+.arrow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: var(--raft-fg);
+    opacity: 0.5;
+}
+
+button {
+    background-color: var(--raft-accent);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: var(--raft-font);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: var(--raft-accent-dark);
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+button.reset-btn {
+    background-color: var(--raft-fg);
+    margin-top: 20px;
+    width: auto;
+    padding: 12px 30px;
+}
+
+.controls {
+    background-color: var(--raft-bg-controls);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.status-message {
+    min-height: 60px;
+    padding: 15px;
+    background: var(--raft-bg-box);
+    border-left: 4px solid var(--raft-accent);
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+/* Dynamiske klasser for tilstander */
+.dead .icon { opacity: 0.3; filter: grayscale(100%); }
+.dead .population-bar { height: 0 !important; }
+.overpopulated .population-bar { background-color: #d93025; }
+
+@media (max-width: 768px) {
+    .ecosystem-grid {
+        grid-template-columns: 1fr;
+    }
+    .arrow-container {
+        transform: rotate(90deg);
+        margin: 10px 0;
+        display: none; /* Skjuler piler på mobil for renere look */
+    }
+}
+</style>
+
+<div class="container">
+    <h1>Næringsnettet i Ubalanse</h1>
+    <p>Utforsk hva som skjer med balansen i økosystemet når du fjerner en art fullstendig. Dette er en forenklet næringskjede: Gress (Produsent) → Kanin (1. forbruker) → Rev (2. forbruker).</p>
+
+    <div class="status-message" id="statusMessage">
+        Systemet er i balanse. Alle arter trives.
+    </div>
+
+    <div class="ecosystem-grid">
+        <!-- Gress -->
+        <div class="species-card" id="card-grass">
+            <div>
+                <h2>Produsent</h2>
+                <span class="icon">🌿</span>
+                <span class="population-count" id="count-grass">Mye</span>
+            </div>
+            <div class="population-bar-container">
+                <div class="population-bar" id="bar-grass" style="height: 60%; background-color: #4CAF50;"></div>
+            </div>
+            <button onclick="removeSpecies('grass')" id="btn-grass">Fjern Gress</button>
+        </div>
+
+        <!-- Kanin -->
+        <div class="species-card" id="card-rabbit">
+            <div>
+                <h2>1. Forbruker</h2>
+                <span class="icon">🐰</span>
+                <span class="population-count" id="count-rabbit">Middels</span>
+            </div>
+            <div class="population-bar-container">
+                <div class="population-bar" id="bar-rabbit" style="height: 40%; background-color: #FF9800;"></div>
+            </div>
+            <button onclick="removeSpecies('rabbit')" id="btn-rabbit">Fjern Kanin</button>
+        </div>
+
+        <!-- Rev -->
+        <div class="species-card" id="card-fox">
+            <div>
+                <h2>2. Forbruker</h2>
+                <span class="icon">🦊</span>
+                <span class="population-count" id="count-fox">Få</span>
+            </div>
+            <div class="population-bar-container">
+                <div class="population-bar" id="bar-fox" style="height: 20%; background-color: var(--raft-accent);"></div>
+            </div>
+            <button onclick="removeSpecies('fox')" id="btn-fox">Fjern Rev</button>
+        </div>
+    </div>
+
+    <div class="controls" style="text-align: center;">
+        <button class="reset-btn" onclick="resetSimulation()">Nullstill Økosystem</button>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+        <button id="downloadButton" style="background-color: #666; font-size: 0.8rem; width: auto;">Last ned denne filen</button>
+    </div>
+</div>
+
+<script>
+    // Tilstandsvariabler
+    let state = {
+        grass: { alive: true, level: 60, color: '#4CAF50', label: "Mye" },
+        rabbit: { alive: true, level: 40, color: '#FF9800', label: "Middels" },
+        fox: { alive: true, level: 20, color: '#C26148', label: "Få" }
+    };
+
+    const statusEl = document.getElementById('statusMessage');
+
+    function updateView() {
+        // Oppdater Gress
+        updateCard('grass', state.grass);
+        updateCard('rabbit', state.rabbit);
+        updateCard('fox', state.fox);
+    }
+
+    function updateCard(type, data) {
+        const bar = document.getElementById(`bar-${type}`);
+        const count = document.getElementById(`count-${type}`);
+        const card = document.getElementById(`card-${type}`);
+        const btn = document.getElementById(`btn-${type}`);
+
+        if (!data.alive) {
+            bar.style.height = '0%';
+            count.innerText = "Utryddet";
+            card.classList.add('dead');
+            btn.disabled = true;
+            btn.innerText = "Utryddet";
+        } else {
+            bar.style.height = `${data.level}%`;
+            bar.style.backgroundColor = data.color;
+            count.innerText = data.label;
+            card.classList.remove('dead');
+            btn.disabled = false;
+            btn.innerText = `Fjern ${type === 'grass' ? 'Gress' : type === 'rabbit' ? 'Kanin' : 'Rev'}`;
+            
+            // Visuell advarsel hvis nivået er veldig lavt men ikke 0
+            if (data.level < 10) count.innerText = "Kritisk lavt!";
+        }
+    }
+
+    function removeSpecies(species) {
+        if (!state[species].alive) return;
+
+        // Drep den valgte arten
+        state[species].alive = false;
+        
+        // Start kjedereaksjon
+        calculateConsequences(species);
+        updateView();
+    }
+
+    function calculateConsequences(triggerSpecies) {
+        // Scenario 1: Gress fjernes
+        if (triggerSpecies === 'grass') {
+            statusEl.innerText = "KRISE! Uten produsenter (gress) kollapser hele næringskjeden. Kaninene sulter, og revene dør ut.";
+            setTimeout(() => {
+                state.rabbit.level = 0; state.rabbit.alive = false;
+                state.rabbit.label = "Sultet i hjel";
+                updateView();
+            }, 1500);
+            setTimeout(() => {
+                state.fox.level = 0; state.fox.alive = false;
+                state.fox.label = "Sultet i hjel";
+                updateView();
+            }, 3000);
+        }
+
+        // Scenario 2: Kanin fjernes
+        else if (triggerSpecies === 'rabbit') {
+            statusEl.innerText = "Uten planteetere (kaniner) får gresset vokse fritt. Men revene mister matkilden sin og vil dø ut.";
+            
+            // Gresset vokser vilt
+            state.grass.level = 100; 
+            state.grass.label = "Overgrodd!";
+            state.grass.color = "#2E7D32"; // Mørkere grønn
+
+            // Reven dør
+            setTimeout(() => {
+                state.fox.level = 0; state.fox.alive = false;
+                state.fox.label = "Sultet i hjel";
+                updateView();
+                statusEl.innerText += " Revene har nå forsvunnet på grunn av matmangel.";
+            }, 2000);
+        }
+
+        // Scenario 3: Rev fjernes (Klassisk trofisk kaskade)
+        else if (triggerSpecies === 'fox') {
+            statusEl.innerText = "TROFISK KASKADE! Uten rovdyr (rev) eksploderer kaninbestanden. De spiser opp alt gresset til det er tomt.";
+            
+            // Kaniner eksploderer
+            state.rabbit.level = 100;
+            state.rabbit.label = "Pest-nivåer!";
+            state.rabbit.color = "#d93025"; // Rød farefarge
+
+            setTimeout(() => {
+                // Gresset blir spist opp
+                state.grass.level = 5;
+                state.grass.label = "Nedbeitet";
+                state.grass.color = "#8D6E63"; // Brun/død
+                updateView();
+                statusEl.innerText = "Kaninbestanden ble for stor og spiste opp alt gresset. Nå vil kaninene også begynne å sulte...";
+            }, 2000);
+
+            setTimeout(() => {
+                // Kaniner dør av sult etter å ha spist alt
+                state.rabbit.level = 10;
+                state.rabbit.label = "Sulter";
+                updateView();
+            }, 4000);
+        }
+    }
+
+    function resetSimulation() {
+        state = {
+            grass: { alive: true, level: 60, color: '#4CAF50', label: "Mye" },
+            rabbit: { alive: true, level: 40, color: '#FF9800', label: "Middels" },
+            fox: { alive: true, level: 20, color: '#C26148', label: "Få" }
+        };
+        statusEl.innerText = "Systemet er i balanse. Alle arter trives.";
+        updateView();
+    }
+
+    // Initialiser ved start
+    document.addEventListener('DOMContentLoaded', () => {
+        updateView();
+
+        // --- Last ned knapp logikk ---
+        const downloadButton = document.getElementById('downloadButton');
+        downloadButton.addEventListener('click', () => {
+            try {
+                const htmlContent = document.documentElement.outerHTML;
+                const blob = new Blob(['\ufeff', htmlContent], { type: 'text/html;charset=utf-8' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'okosystem_simulering.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(a.href);
+            } catch (error) {
+                console.error("Feil ved nedlasting av fil:", error);
+            }
+        });
+    });
+</script>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p>Copyright 2026 - Skolesim</p>
+      <nav><a href="#">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
+</body>
+</html>

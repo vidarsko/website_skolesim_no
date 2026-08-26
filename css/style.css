@@ -130,6 +130,28 @@ a:hover { color: var(--accent); }
 }
 .tile a { position: absolute; inset: 0; z-index: 1; }
 
+/* Filter bar (category filter for the simulations listing) */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 0 0 32px;
+}
+.filter-btn {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg);
+  background: var(--bg-alt);
+  border: 2px solid transparent;
+  border-radius: 3px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+.filter-btn:hover { color: var(--accent); }
+.filter-btn.is-active { background: var(--accent); color: var(--fg-alt); }
+
 /* Posts grid (Otter Blocks "posts grid" equivalent) */
 .posts-section { padding: 48px 24px 80px; }
 .posts-grid {

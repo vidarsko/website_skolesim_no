@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blodtyper — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/#fagoversikt">Fagoversikt</a></li>
+          <li><a href="#">Om meg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <span class="post-category"><a href="/alle-simuleringer/?kategori=genetikk-og-dna">Genetikk og DNA</a></span>
+      <h1>Blodtyper</h1>
+<p class="wp-block-paragraph">Utforsk de fire blodtypene (A, B, AB, 0) og Rh-faktoren gjennom seks interaktive faner – fra antigen/antistoff-oversikter og Punnett-firkant-arvekalkulator til kompatibilitetsmatrise og en levende animasjon som viser agglutinasjon i sanntid når feil blodtype overføres.</p>
+
+
+
+<p class="wp-block-paragraph">Simulering innsendt av Liv Aanesland Arlander</p>
+
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;600;700&family=Geologica:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   ALLE STILER ER SCOPED TIL .sim-blod – påvirker ikke resten av siden
+   ============================================================ */
+
+.sim-blod {
+  /* Raft-variabler – definert på wrapperen, ikke :root */
+  --raft-bg: #EBE8E6;
+  --raft-fg: #1D1F25;
+  --raft-accent: #C26148;
+  --raft-accent-dark: #AC5039;
+  --raft-bg-alt: rgba(255,255,255,0.6);
+  --raft-bg-controls: rgba(255,255,255,0.8);
+  --raft-bg-box: #ffffff;
+  --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --raft-font-heading: "Geologica", var(--raft-font);
+  --accent-pale: rgba(194,97,72,0.10);
+  --accent-light: rgba(194,97,72,0.22);
+  --border: #d5cfc9;
+  --mid: #7a6860;
+  --safe: #27ae60;
+  --danger: #c0392b;
+  --gold: #d4a843;
+
+  /* Body-stiler på wrapperen */
+  background-color: var(--raft-bg);
+  color: var(--raft-fg);
+  font-family: var(--raft-font);
+  font-weight: 400;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Reset kun innenfor wrapperen */
+.sim-blod * { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* HEADER */
+.sim-blod header {
+  background: linear-gradient(135deg, var(--raft-fg) 0%, #2c2228 55%, #3d2f2b 100%);
+  color: white;
+  text-align: center;
+  padding: 3rem 2rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.sim-blod header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(194,97,72,0.25) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 50%, rgba(212,168,67,0.10) 0%, transparent 60%);
+}
+.sim-blod header h1 {
+  font-family: var(--raft-font-heading);
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: -1px;
+  position: relative;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  border-bottom: none;
+  color: white;
+}
+.sim-blod header h1 span { color: var(--raft-accent); }
+.sim-blod header p {
+  margin-top: 0.75rem;
+  font-size: 1.05rem;
+  opacity: 0.8;
+  position: relative;
+  font-family: var(--raft-font);
+}
+
+/* BLOOD DROPS */
+.sim-blod .drops { display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; position: relative; }
+.sim-blod .drop {
+  width: 18px; height: 24px;
+  background: var(--raft-accent);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  transform: rotate(180deg);
+  animation: sim-drip 2s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(194,97,72,0.5);
+}
+.sim-blod .drop:nth-child(2) { animation-delay: 0.3s; background: var(--raft-accent-dark); }
+.sim-blod .drop:nth-child(3) { animation-delay: 0.6s; }
+.sim-blod .drop:nth-child(4) { animation-delay: 0.9s; background: var(--raft-accent-dark); }
+.sim-blod .drop:nth-child(5) { animation-delay: 1.2s; }
+@keyframes sim-drip {
+  0%,100% { transform: rotate(180deg) scale(1); opacity: 1; }
+  50% { transform: rotate(180deg) scale(1.15); opacity: 0.75; }
+}
+
+/* NAV TABS */
+.sim-blod nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1.25rem 1rem;
+  background: var(--raft-bg-box);
+  border-bottom: 2px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+.sim-blod .tab-btn {
+  padding: 0.5rem 1.25rem;
+  border: 2px solid var(--border);
+  background: white;
+  color: var(--mid);
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--raft-font);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.sim-blod .tab-btn:hover { background: var(--accent-pale); border-color: var(--raft-accent); color: var(--raft-accent); }
+.sim-blod .tab-btn.active { background: var(--raft-accent); border-color: var(--raft-accent); color: white; box-shadow: 0 4px 12px rgba(194,97,72,0.3); }
+
+/* SECTIONS */
+.sim-blod .section { display: none; padding: 2.5rem 1rem; max-width: 960px; margin: 0 auto; }
+.sim-blod .section.active { display: block; animation: sim-fadeIn 0.35s ease; }
+@keyframes sim-fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.sim-blod .section-title {
+  font-family: var(--raft-font-heading);
+  font-size: 1.8rem;
+  color: var(--raft-accent);
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+.sim-blod .section-intro {
+  color: var(--mid);
+  font-size: 0.98rem;
+  margin-bottom: 2rem;
+  max-width: 700px;
+}
+
+/* CARDS */
+.sim-blod .card {
+  background: var(--raft-bg-box);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+.sim-blod .card h3 {
+  font-family: var(--raft-font-heading);
+  font-size: 1.15rem;
+  color: var(--raft-fg);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+/* BLOOD GRID */
+.sim-blod .blood-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.sim-blod .blood-card {
+  background: var(--raft-bg-box);
+  border-radius: 16px;
+  border: 2px solid var(--border);
+  padding: 1.2rem;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: default;
+}
+.sim-blod .blood-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(194,97,72,0.15); }
+.sim-blod .blood-type-badge {
+  font-family: var(--raft-font-heading);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--raft-accent);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.sim-blod .blood-rh { font-size: 0.82rem; color: var(--mid); font-weight: 600; margin-bottom: 0.6rem; }
+.sim-blod .antigen-row { display: flex; justify-content: center; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
+.sim-blod .antigen-tag {
+  font-size: 0.73rem; font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+  background: var(--accent-pale);
+  color: var(--raft-accent);
+  border: 1px solid var(--accent-light);
+}
+.sim-blod .antigen-tag.absent { background: #f0f0f0; color: #999; border-color: #ddd; }
+
+.sim-blod .info-box {
+  background: linear-gradient(135deg, var(--accent-pale), rgba(212,168,67,0.05));
+  border-left: 4px solid var(--raft-accent);
+  border-radius: 0 12px 12px 0;
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+.sim-blod .info-box strong { color: var(--raft-accent); }
+
+/* ABO TABLE */
+.sim-blod .abo-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+.sim-blod .abo-table th {
+  background: var(--raft-fg);
+  color: white;
+  padding: 0.65rem 1rem;
+  text-align: center;
+  font-family: var(--raft-font-heading);
+  font-weight: 700;
+}
+.sim-blod .abo-table td { border: 1px solid var(--border); padding: 0.6rem 1rem; text-align: center; background: var(--raft-bg-box); }
+.sim-blod .abo-table tr:hover td { background: var(--accent-pale); }
+.sim-blod .yes { color: var(--safe); font-weight: 700; }
+.sim-blod .no  { color: var(--danger); font-weight: 700; }
+
+/* ARV */
+.sim-blod .inherit-controls { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 1.5rem; align-items: flex-end; }
+.sim-blod .inherit-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.sim-blod .inherit-group label { font-size: 0.8rem; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.5px; font-family: var(--raft-font); }
+.sim-blod .inherit-group select {
+  padding: 0.55rem 0.9rem;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  font-size: 0.95rem;
+  font-family: var(--raft-font);
+  color: var(--raft-fg);
+  cursor: pointer;
+}
+.sim-blod .inherit-group select:focus { outline: none; border-color: var(--raft-accent); }
+
+.sim-blod button {
+  padding: 0.6rem 1.5rem;
+  background-color: var(--raft-accent);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  font-family: var(--raft-font);
+}
+.sim-blod button:hover { background-color: var(--raft-accent-dark); transform: translateY(-1px); }
+
+.sim-blod .punnett-wrapper { display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start; margin-top: 1.5rem; }
+.sim-blod .punnett-square { border-collapse: collapse; font-size: 1rem; min-width: 220px; }
+.sim-blod .punnett-square th,
+.sim-blod .punnett-square td { width: 70px; height: 58px; border: 2px solid var(--mid); text-align: center; vertical-align: middle; font-weight: 700; font-family: var(--raft-font-heading); }
+.sim-blod .punnett-square th { background: var(--raft-fg); color: white; font-size: 0.88rem; }
+.sim-blod .punnett-square td { background: var(--raft-bg-box); font-size: 1rem; color: var(--mid); transition: background 0.3s; }
+.sim-blod .punnett-square td.highlight { background: var(--accent-pale); color: var(--raft-accent); }
+
+.sim-blod .offspring-results { flex: 1; min-width: 220px; }
+.sim-blod .offspring-bar { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
+.sim-blod .off-label { font-weight: 700; min-width: 50px; font-family: var(--raft-font-heading); color: var(--raft-accent); }
+.sim-blod .off-pct { font-size: 0.82rem; color: var(--mid); min-width: 35px; }
+.sim-blod .off-bar-bg { flex: 1; height: 12px; background: var(--accent-pale); border-radius: 6px; overflow: hidden; }
+.sim-blod .off-bar-fill { height: 100%; background: linear-gradient(90deg, var(--raft-accent), var(--raft-accent-dark)); border-radius: 6px; transition: width 0.6s ease; }
+
+/* DONASJON */
+.sim-blod .donor-matrix { overflow-x: auto; margin: 1rem 0; }
+.sim-blod .matrix-table { border-collapse: collapse; min-width: 400px; font-size: 0.88rem; }
+.sim-blod .matrix-table th { padding: 0.55rem 0.75rem; background: var(--raft-fg); color: white; text-align: center; font-family: var(--raft-font-heading); font-weight: 700; }
+.sim-blod .matrix-table td { border: 1px solid var(--border); width: 52px; height: 42px; text-align: center; vertical-align: middle; font-size: 1.1rem; }
+.sim-blod .matrix-table td.ok { background: #eafaf1; }
+.sim-blod .matrix-table td.nok { background: #fdedec; }
+.sim-blod .matrix-table tr td:first-child { background: #f5f3f1; font-weight: 700; font-family: var(--raft-font-heading); color: var(--mid); }
+
+.sim-blod .donate-sim { margin-top: 1.5rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.sim-blod .donate-panel { flex: 1; min-width: 240px; }
+.sim-blod .donate-panel label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--mid); display: block; margin-bottom: 0.35rem; font-family: var(--raft-font); }
+.sim-blod .donate-panel select { width: 100%; padding: 0.55rem 0.9rem; border: 2px solid var(--border); border-radius: 10px; font-size: 1rem; font-family: var(--raft-font); margin-bottom: 1rem; color: var(--raft-fg); background: white; }
+.sim-blod .donate-result { text-align: center; padding: 1.4rem; border-radius: 16px; border: 3px solid var(--border); background: white; transition: all 0.35s; min-height: 120px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.4rem; }
+.sim-blod .donate-result.safe { border-color: var(--safe); background: #eafaf1; }
+.sim-blod .donate-result.danger { border-color: var(--danger); background: #fdedec; }
+.sim-blod .donate-result .big-icon { font-size: 2.8rem; line-height: 1; }
+.sim-blod .donate-result .result-text { font-size: 1.05rem; font-weight: 600; font-family: var(--raft-font-heading); }
+.sim-blod .donate-result.safe .result-text { color: var(--safe); }
+.sim-blod .donate-result.danger .result-text { color: var(--danger); }
+.sim-blod .donate-result .result-sub { font-size: 0.83rem; color: var(--mid); }
+
+/* ANIMASJON */
+.sim-blod #anim-canvas-wrapper {
+  position: relative; width: 100%; height: 380px;
+  background: linear-gradient(180deg, #140508 0%, #200a0a 100%);
+  border-radius: 18px; overflow: hidden; margin-bottom: 1.25rem;
+  border: 2px solid var(--border);
+}
+.sim-blod #animCanvas { width: 100%; height: 100%; }
+.sim-blod .anim-controls { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; margin-bottom: 1rem; background: var(--raft-bg-controls); padding: 1rem; border-radius: 12px; border: 1px solid var(--border); }
+.sim-blod .anim-controls select { padding: 0.5rem 0.8rem; border: 2px solid var(--border); border-radius: 8px; font-size: 0.92rem; font-family: var(--raft-font); background: white; color: var(--raft-fg); }
+.sim-blod .anim-legend { display: flex; gap: 1rem; flex-wrap: wrap; font-size: 0.8rem; color: var(--mid); margin-bottom: 0.75rem; align-items: center; }
+.sim-blod .leg-item { display: flex; align-items: center; gap: 0.4rem; }
+.sim-blod .leg-dot { width: 13px; height: 13px; border-radius: 50%; }
+.sim-blod .anim-log { background: var(--raft-fg); color: #e0c8bf; font-family: monospace; font-size: 0.8rem; padding: 0.9rem; border-radius: 10px; min-height: 58px; max-height: 78px; overflow-y: auto; line-height: 1.55; }
+
+/* FAGSTOFF */
+.sim-blod .fag-article h3 { font-family: var(--raft-font-heading); font-size: 1.2rem; color: var(--raft-accent); margin-bottom: 0.45rem; margin-top: 1.5rem; font-weight: 700; }
+.sim-blod .fag-article p { color: #333; margin-bottom: 0.8rem; font-size: 0.95rem; }
+.sim-blod .fag-article ul { padding-left: 1.4rem; margin-bottom: 0.8rem; }
+.sim-blod .fag-article ul li { margin-bottom: 0.3rem; font-size: 0.93rem; }
+.sim-blod .fact-box { background: linear-gradient(135deg,#fffbf0,#fdf5e0); border: 2px solid var(--gold); border-radius: 12px; padding: 0.9rem 1.1rem; margin: 1rem 0; font-size: 0.91rem; }
+.sim-blod .fact-box strong { color: #8a6000; }
+
+/* QUIZ */
+.sim-blod .quiz-card { background: var(--raft-bg-box); border: 2px solid var(--border); border-radius: 16px; padding: 1.4rem; margin-bottom: 1.4rem; transition: border-color 0.3s; }
+.sim-blod .quiz-card.correct { border-color: var(--safe); }
+.sim-blod .quiz-card.wrong { border-color: var(--danger); }
+.sim-blod .quiz-q { font-family: var(--raft-font-heading); font-size: 1rem; margin-bottom: 1rem; color: var(--raft-fg); font-weight: 700; }
+.sim-blod .quiz-options { display: flex; flex-direction: column; gap: 0.45rem; }
+.sim-blod .quiz-opt { padding: 0.55rem 1rem; border: 2px solid var(--border); border-radius: 10px; cursor: pointer; background: white; font-size: 0.92rem; font-family: var(--raft-font); text-align: left; transition: all 0.2s; color: var(--raft-fg); }
+.sim-blod .quiz-opt:hover:not(:disabled) { background: var(--accent-pale); border-color: var(--raft-accent); }
+.sim-blod .quiz-opt.correct-ans { background: #eafaf1; border-color: var(--safe); color: var(--safe); font-weight: 700; }
+.sim-blod .quiz-opt.wrong-ans { background: #fdedec; border-color: var(--danger); color: var(--danger); }
+.sim-blod .quiz-feedback { margin-top: 0.8rem; font-size: 0.88rem; font-weight: 600; display: none; }
+.sim-blod .quiz-feedback.show { display: block; }
+.sim-blod .quiz-feedback.correct { color: var(--safe); }
+.sim-blod .quiz-feedback.wrong { color: var(--danger); }
+.sim-blod #quiz-score { text-align: center; padding: 1.5rem; background: linear-gradient(135deg, var(--raft-fg), #3d2f2b); color: white; border-radius: 16px; font-family: var(--raft-font-heading); font-size: 1.35rem; display: none; margin-top: 1rem; }
+.sim-blod #quiz-score.show { display: block; }
+.sim-blod #quiz-score span { color: var(--raft-accent); font-size: 2rem; }
+.sim-blod #submit-quiz { display: block; margin: 1.5rem auto 0; padding: 0.75rem 2.5rem; background: var(--raft-accent); color: white; border: none; border-radius: 50px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: var(--raft-font); transition: background 0.2s; }
+.sim-blod #submit-quiz:hover { background: var(--raft-accent-dark); }
+
+/* FOOTER */
+.sim-blod footer { background: var(--raft-fg); color: #b0a09a; text-align: center; padding: 1.5rem; font-size: 0.83rem; margin-top: 2rem; font-family: var(--raft-font); }
+
+/* LAST NED */
+.sim-blod .download-wrap { text-align: center; padding: 1.5rem 1rem; background: var(--raft-bg-controls); border-top: 1px solid var(--border); }
+.sim-blod #downloadButton { padding: 0.65rem 1.8rem; background-color: var(--raft-accent); color: white; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; font-family: var(--raft-font); transition: background 0.2s, transform 0.15s; }
+.sim-blod #downloadButton:hover { background-color: var(--raft-accent-dark); transform: translateY(-1px); }
+
+/* RESPONSIVT */
+@media (max-width: 768px) {
+  .sim-blod .inherit-controls { flex-direction: column; }
+  .sim-blod .anim-controls { flex-direction: column; }
+  .sim-blod .donate-sim { flex-direction: column; }
+  .sim-blod .punnett-wrapper { flex-direction: column; }
+  .sim-blod .blood-grid { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 480px) {
+  .sim-blod nav { gap: 0.3rem; }
+  .sim-blod .tab-btn { padding: 0.4rem 0.8rem; font-size: 0.78rem; }
+}
+</style>
+
+<!-- WRAPPER START – alt innenfor her er isolert fra resten av siden -->
+<div class="sim-blod">
+
+<header>
+  <h1>🩸 <span>Blodtyper</span> – Arv, Donasjon & Immunreaksjon</h1>
+  <p>Interaktiv læringsressurs for videregående biologi</p>
+  <div class="drops">
+    <div class="drop"></div><div class="drop"></div><div class="drop"></div>
+    <div class="drop"></div><div class="drop"></div>
+  </div>
+</header>
+
+<nav>
+  <button class="tab-btn active" onclick="simBlodTab('info',this)">🔬 Blodtyper</button>
+  <button class="tab-btn" onclick="simBlodTab('arv',this)">🧬 Arv</button>
+  <button class="tab-btn" onclick="simBlodTab('donasjon',this)">💉 Donasjon</button>
+  <button class="tab-btn" onclick="simBlodTab('animasjon',this)">⚡ Immunreaksjon</button>
+  <button class="tab-btn" onclick="simBlodTab('fagstoff',this)">📖 Fagstoff</button>
+  <button class="tab-btn" onclick="simBlodTab('quiz',this)">✏️ Quiz</button>
+</nav>
+
+<!-- TAB 1 -->
+<div id="sim-tab-info" class="section active">
+  <h2 class="section-title">ABO-blodtypesystemet</h2>
+  <p class="section-intro">Blodtypen din bestemmes av hvilke antigener du har på overflaten av de røde blodcellene, og hvilke antistoffer du har i blodplasmaet.</p>
+  <div class="blood-grid">
+    <div class="blood-card">
+      <div class="blood-type-badge">A</div>
+      <div class="blood-rh">+/−</div>
+      <div style="font-size:0.78rem;color:var(--mid);margin-bottom:0.5rem;">Ca. 44% av nordmenn</div>
+      <div class="antigen-row"><span class="antigen-tag">A-antigen ✓</span><span class="antigen-tag absent">B-antigen ✗</span></div>
+      <div class="antigen-row" style="margin-top:0.3rem;"><span class="antigen-tag" style="background:#e8f5e9;color:#27ae60;border-color:#a9dfbf;">Anti-B ✓</span></div>
+    </div>
+    <div class="blood-card">
+      <div class="blood-type-badge">B</div>
+      <div class="blood-rh">+/−</div>
+      <div style="font-size:0.78rem;color:var(--mid);margin-bottom:0.5rem;">Ca. 8% av nordmenn</div>
+      <div class="antigen-row"><span class="antigen-tag absent">A-antigen ✗</span><span class="antigen-tag">B-antigen ✓</span></div>
+      <div class="antigen-row" style="margin-top:0.3rem;"><span class="antigen-tag" style="background:#e8f5e9;color:#27ae60;border-color:#a9dfbf;">Anti-A ✓</span></div>
+    </div>
+    <div class="blood-card">
+      <div class="blood-type-badge">AB</div>
+      <div class="blood-rh">+/−</div>
+      <div style="font-size:0.78rem;color:var(--mid);margin-bottom:0.5rem;">Ca. 4% av nordmenn</div>
+      <div class="antigen-row"><span class="antigen-tag">A-antigen ✓</span><span class="antigen-tag">B-antigen ✓</span></div>
+      <div class="antigen-row" style="margin-top:0.3rem;"><span class="antigen-tag absent">Ingen antistoffer</span></div>
+    </div>
+    <div class="blood-card">
+      <div class="blood-type-badge">0</div>
+      <div class="blood-rh">+/−</div>
+      <div style="font-size:0.78rem;color:var(--mid);margin-bottom:0.5rem;">Ca. 44% av nordmenn</div>
+      <div class="antigen-row"><span class="antigen-tag absent">A-antigen ✗</span><span class="antigen-tag absent">B-antigen ✗</span></div>
+      <div class="antigen-row" style="margin-top:0.3rem;"><span class="antigen-tag" style="background:#e8f5e9;color:#27ae60;border-color:#a9dfbf;">Anti-A + Anti-B ✓</span></div>
+    </div>
+  </div>
+  <div class="info-box"><strong>Rh-faktoren:</strong> Ca. 85% har <strong>D-antigen (Rh-faktor)</strong> på røde blodceller og er Rh-positive (+). Rh-negativ person som får Rh-positivt blod vil danne anti-D antistoffer!</div>
+  <div class="card">
+    <h3>Antigener og antistoffer – oversikt</h3>
+    <div style="overflow-x:auto;">
+    <table class="abo-table">
+      <thead><tr><th>Blodtype</th><th>Antigener på celle</th><th>Antistoffer i plasma</th><th>Genotype(r)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>A+</strong></td><td>A, Rh(D)</td><td>Anti-B</td><td>I^A I^A / I^A i, RR/Rr</td></tr>
+        <tr><td><strong>A−</strong></td><td>A</td><td>Anti-B, Anti-D</td><td>I^A I^A / I^A i, rr</td></tr>
+        <tr><td><strong>B+</strong></td><td>B, Rh(D)</td><td>Anti-A</td><td>I^B I^B / I^B i, RR/Rr</td></tr>
+        <tr><td><strong>B−</strong></td><td>B</td><td>Anti-A, Anti-D</td><td>I^B I^B / I^B i, rr</td></tr>
+        <tr><td><strong>AB+</strong></td><td>A, B, Rh(D)</td><td>Ingen</td><td>I^A I^B, RR/Rr</td></tr>
+        <tr><td><strong>AB−</strong></td><td>A, B</td><td>Anti-D</td><td>I^A I^B, rr</td></tr>
+        <tr><td><strong>0+</strong></td><td>Rh(D)</td><td>Anti-A, Anti-B</td><td>ii, RR/Rr</td></tr>
+        <tr><td><strong>0−</strong></td><td>Ingen</td><td>Anti-A, Anti-B, Anti-D</td><td>ii, rr</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2 -->
+<div id="sim-tab-arv" class="section">
+  <h2 class="section-title">Arv av blodtype</h2>
+  <p class="section-intro">Blodtype arves etter kodominant og recessivt mønster. Velg foreldrenes blodtyper for å se Punnett-firkant og sannsynlighet for barnets blodtype.</p>
+  <div class="card">
+    <div class="inherit-controls">
+      <div class="inherit-group"><label>Far sin blodtype</label>
+        <select id="sim-far-type">
+          <option value="A">A (I^A i)</option><option value="AA">A (I^A I^A)</option>
+          <option value="B">B (I^B i)</option><option value="BB">B (I^B I^B)</option>
+          <option value="AB">AB (I^A I^B)</option><option value="0">0 (ii)</option>
+        </select></div>
+      <div class="inherit-group"><label>Mor sin blodtype</label>
+        <select id="sim-mor-type">
+          <option value="A">A (I^A i)</option><option value="AA">A (I^A I^A)</option>
+          <option value="B">B (I^B i)</option><option value="BB">B (I^B I^B)</option>
+          <option value="AB">AB (I^A I^B)</option><option value="0">0 (ii)</option>
+        </select></div>
+      <div class="inherit-group"><label>Rh-faktor far</label>
+        <select id="sim-far-rh"><option value="Rr">+ (Rr)</option><option value="RR">+ (RR)</option><option value="rr">− (rr)</option></select></div>
+      <div class="inherit-group"><label>Rh-faktor mor</label>
+        <select id="sim-mor-rh"><option value="Rr">+ (Rr)</option><option value="RR">+ (RR)</option><option value="rr">− (rr)</option></select></div>
+      <button onclick="simCalcArv()">Beregn</button>
+    </div>
+    <div class="punnett-wrapper">
+      <div>
+        <p style="font-size:0.8rem;font-weight:600;color:var(--mid);margin-bottom:0.5rem;">ABO Punnett-firkant</p>
+        <table class="punnett-square">
+          <thead><tr><th></th><th id="sim-p-col1">—</th><th id="sim-p-col2">—</th></tr></thead>
+          <tbody>
+            <tr><th id="sim-p-row1">—</th><td id="sim-p11" class="highlight">—</td><td id="sim-p12" class="highlight">—</td></tr>
+            <tr><th id="sim-p-row2">—</th><td id="sim-p21" class="highlight">—</td><td id="sim-p22" class="highlight">—</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.8rem;font-weight:600;color:var(--mid);margin:1rem 0 0.5rem;">Rh Punnett-firkant</p>
+        <table class="punnett-square">
+          <thead><tr><th></th><th id="sim-r-col1">—</th><th id="sim-r-col2">—</th></tr></thead>
+          <tbody>
+            <tr><th id="sim-r-row1">—</th><td id="sim-r11">—</td><td id="sim-r12">—</td></tr>
+            <tr><th id="sim-r-row2">—</th><td id="sim-r21">—</td><td id="sim-r22">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="offspring-results" id="sim-offspring-results">
+        <p style="font-size:0.8rem;font-weight:600;color:var(--mid);margin-bottom:0.8rem;">Sannsynlighet for barnets blodtype</p>
+        <p style="color:#bbb;font-size:0.88rem;">Trykk «Beregn» for å se resultater.</p>
+      </div>
+    </div>
+  </div>
+  <div class="info-box"><strong>Kodominans:</strong> I^A og I^B er begge dominante – et barn med begge alleler får blodtype AB. Det lille <em>i</em> (type 0) er recessivt og maskeres av I^A eller I^B.</div>
+</div>
+
+<!-- TAB 3 -->
+<div id="sim-tab-donasjon" class="section">
+  <h2 class="section-title">Bloddonasjon og kompatibilitet</h2>
+  <p class="section-intro">Ikke alle blodtyper kan blandes fritt. Se oversiktsmatrisen og test kombinasjoner.</p>
+  <div class="card">
+    <h3>Kompatibilitetsmatrise (fullblod)</h3>
+    <div class="donor-matrix"><table class="matrix-table">
+      <thead><tr><th>Giver ↓ / Mottaker →</th><th>0−</th><th>0+</th><th>A−</th><th>A+</th><th>B−</th><th>B+</th><th>AB−</th><th>AB+</th></tr></thead>
+      <tbody id="sim-matrix-body"></tbody>
+    </table></div>
+    <p style="font-size:0.78rem;color:var(--mid);margin-top:0.5rem;">✅ = Trygt &nbsp; ❌ = Farlig reaksjon</p>
+  </div>
+  <div class="card donate-sim">
+    <div class="donate-panel">
+      <label>Giverens blodtype</label>
+      <select id="sim-giver-type" onchange="simCheckDonation()">
+        <option>0−</option><option>0+</option><option>A−</option><option>A+</option>
+        <option>B−</option><option>B+</option><option>AB−</option><option>AB+</option>
+      </select>
+      <label>Mottakerens blodtype</label>
+      <select id="sim-mottaker-type" onchange="simCheckDonation()">
+        <option>0−</option><option>0+</option><option>A−</option><option>A+</option>
+        <option>B−</option><option>B+</option><option>AB−</option><option>AB+</option>
+      </select>
+    </div>
+    <div style="flex:1;min-width:240px;display:flex;flex-direction:column;justify-content:center;">
+      <div class="donate-result" id="sim-donate-result">
+        <div class="big-icon">💉</div>
+        <div class="result-text">Velg blodtyper ovenfor</div>
+        <div class="result-sub">for å sjekke kompatibilitet</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Universalgivere og universalmottakere</h3>
+    <div class="info-box"><strong>0− = Universalgiver</strong> for røde blodceller – mangler alle A, B og Rh-antigener.</div>
+    <div class="info-box" style="border-color:var(--safe);background:linear-gradient(135deg,#eafaf1,#d5f5e3);"><strong style="color:var(--safe);">AB+ = Universalmottaker</strong> – lager ikke anti-A, anti-B eller anti-D.</div>
+  </div>
+</div>
+
+<!-- TAB 4 -->
+<div id="sim-tab-animasjon" class="section">
+  <h2 class="section-title">Immunreaksjon – animasjon</h2>
+  <p class="section-intro">Se hva som skjer når feil blodtype overføres. Antistoffer angriper fremmede blodceller i en prosess kalt agglutinasjon.</p>
+  <div class="anim-controls">
+    <div class="inherit-group"><label>Mottakerens blodtype</label>
+      <select id="sim-anim-mottaker"><option>A+</option><option>B+</option><option>AB+</option><option>0+</option><option>A−</option><option>B−</option><option>AB−</option><option>0−</option></select></div>
+    <div class="inherit-group"><label>Giverens blodtype</label>
+      <select id="sim-anim-giver"><option>0−</option><option>0+</option><option>A−</option><option>A+</option><option>B−</option><option>B+</option><option>AB−</option><option>AB+</option></select></div>
+    <button onclick="simStartAnimation()">▶ Start animasjon</button>
+    <button onclick="simResetAnimation()" style="background:var(--mid);">↺ Reset</button>
+  </div>
+  <div id="anim-canvas-wrapper"><canvas id="animCanvas"></canvas></div>
+  <div class="anim-legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#e74c3c;"></div> Mottakers blodceller</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#3498db;"></div> Giverceller (fremmede)</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#f1c40f;border-radius:2px;"></div> Antistoffer</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#8e44ad;"></div> Agglutinerte celler</div>
+  </div>
+  <div class="anim-log" id="sim-anim-log">Velg blodtyper og trykk «Start animasjon»...</div>
+</div>
+
+<!-- TAB 5 -->
+<div id="sim-tab-fagstoff" class="section">
+  <h2 class="section-title">Fagstoff</h2>
+  <div class="card fag-article">
+    <h3>Hva er blodtyper?</h3>
+    <p>Blodtype er en klassifisering av blod basert på <strong>antigener</strong> på overflaten av de røde blodcellene. De viktigste systemene er <strong>ABO-systemet</strong> og <strong>Rh-systemet</strong>.</p>
+    <h3>ABO-systemet</h3>
+    <p>Oppdaget av Karl Landsteiner i 1901 (Nobelpris 1930). Systemet bygger på A- og B-antigener på røde blodcellers cellemembran.</p>
+    <ul>
+      <li><strong>Type A:</strong> A-antigener + anti-B antistoffer</li>
+      <li><strong>Type B:</strong> B-antigener + anti-A antistoffer</li>
+      <li><strong>Type AB:</strong> Begge antigener – ingen antistoffer (universalmottaker)</li>
+      <li><strong>Type 0:</strong> Ingen antigener – anti-A og anti-B (universalgiver)</li>
+    </ul>
+    <div class="fact-box"><strong>💡 Visste du?</strong> Antistoffer mot A og B dannes uten eksponering for fremmede blodceller – trolig via tarmbakterier med lignende overflatemolekyler.</div>
+    <h3>Rh-systemet</h3>
+    <p>Ca. 85% er Rh(D)-positive. Rh-negative danner anti-D kun etter eksponering (sensitisering). <strong>Hemolytisk sykdom hos nyfødte (HDN)</strong> oppstår når sensitisert Rh-negativ mor har anti-D-antistoffer som krysser morkaken.</p>
+    <h3>Agglutinasjon</h3>
+    <p>Ved feil blodtype binder Y-formede antistoffer (IgM/IgG) seg til to celler og limer dem til klumper – <strong>agglutinasjon</strong>. Komplementsystemet lyserer cellene (<strong>hemolyse</strong>), fritt hemoglobin skader nyrene. I alvorlige tilfeller: sjokk og organsvikt.</p>
+    <h3>Genetikk</h3>
+    <p>ABO styres av gen på kromosom 9: alleler I^A, I^B (kodominante) og i (recessivt). Rh styres av RHD-genet på kromosom 1 – R dominant over r.</p>
+    <div class="fact-box"><strong>🔬 Blodtypefrekvens i Norge:</strong> 0+: 38% · A+: 40% · B+: 7% · AB+: 4% · 0−: 6% · A−: 4% · B−: 1% · AB−: 0,5%</div>
+  </div>
+</div>
+
+<!-- TAB 6 -->
+<div id="sim-tab-quiz" class="section">
+  <h2 class="section-title">Test kunnskapene dine</h2>
+  <p class="section-intro">Svar på spørsmålene nedenfor – få tilbakemelding med forklaring.</p>
+  <div id="sim-quiz-container"></div>
+  <button id="submit-quiz" onclick="simSubmitQuiz()">Se resultat</button>
+  <div id="quiz-score"></div>
+</div>
+
+<div class="download-wrap">
+  <button id="downloadButton">⬇ Last ned denne filen</button>
+</div>
+
+<footer>Interaktiv læringsressurs for videregående biologi &nbsp;|&nbsp; ABO-systemet oppdaget av Karl Landsteiner, 1901</footer>
+
+</div><!-- /sim-blod -->
+
+<script>
+(function() {
+  // Scoped i IIFE – ingen globale variabler forurenser siden
+
+  // TAB
+  function simBlodTab(name, btn) {
+    document.querySelectorAll('.sim-blod .section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.sim-blod .tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('sim-tab-' + name).classList.add('active');
+    if (btn) btn.classList.add('active');
+  }
+  window.simBlodTab = simBlodTab;
+
+  // MATRIX
+  const types = ['0−','0+','A−','A+','B−','B+','AB−','AB+'];
+  const compat = {
+    '0−': ['0−','0+','A−','A+','B−','B+','AB−','AB+'],
+    '0+': ['0+','A+','B+','AB+'],
+    'A−': ['A−','A+','AB−','AB+'],
+    'A+': ['A+','AB+'],
+    'B−': ['B−','B+','AB−','AB+'],
+    'B+': ['B+','AB+'],
+    'AB−': ['AB−','AB+'],
+    'AB+': ['AB+'],
+  };
+  function canDonate(g, r) { return compat[g] && compat[g].includes(r); }
+
+  function buildMatrix() {
+    const tbody = document.getElementById('sim-matrix-body');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    types.forEach(g => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td><strong>${g}</strong></td>`;
+      types.forEach(r => {
+        const td = document.createElement('td');
+        td.className = canDonate(g,r) ? 'ok' : 'nok';
+        td.textContent = canDonate(g,r) ? '✅' : '❌';
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+  }
+  buildMatrix();
+
+  function simCheckDonation() {
+    const g = document.getElementById('sim-giver-type').value;
+    const m = document.getElementById('sim-mottaker-type').value;
+    const ok = canDonate(g, m);
+    const div = document.getElementById('sim-donate-result');
+    div.className = 'donate-result ' + (ok ? 'safe' : 'danger');
+    div.innerHTML = ok
+      ? `<div class="big-icon">✅</div><div class="result-text">Trygt å overføre</div><div class="result-sub">${g} kan gi til ${m}</div>`
+      : `<div class="big-icon">⛔</div><div class="result-text">Farlig reaksjon!</div><div class="result-sub">${m} har antistoffer mot ${g}-blod</div>`;
+  }
+  window.simCheckDonation = simCheckDonation;
+
+  // ARV
+  const alleles = { A:['I^A','i'], AA:['I^A','I^A'], B:['I^B','i'], BB:['I^B','I^B'], AB:['I^A','I^B'], 0:['i','i'] };
+  const rhAl = { RR:['R','R'], Rr:['R','r'], rr:['r','r'] };
+  function gtp(a1,a2) {
+    const s=new Set([a1,a2]);
+    if(s.has('I^A')&&s.has('I^B')) return 'AB';
+    if(s.has('I^A')) return 'A';
+    if(s.has('I^B')) return 'B';
+    return '0';
+  }
+  function rhP(r1,r2){ return (r1==='R'||r2==='R')?'+':'−'; }
+
+  function simCalcArv() {
+    const fa=alleles[document.getElementById('sim-far-type').value];
+    const ma=alleles[document.getElementById('sim-mor-type').value];
+    const fr=rhAl[document.getElementById('sim-far-rh').value];
+    const mr=rhAl[document.getElementById('sim-mor-rh').value];
+    document.getElementById('sim-p-col1').textContent=fa[0];
+    document.getElementById('sim-p-col2').textContent=fa[1];
+    document.getElementById('sim-p-row1').textContent=ma[0];
+    document.getElementById('sim-p-row2').textContent=ma[1];
+    [['sim-p11',fa[0],ma[0]],['sim-p21',fa[1],ma[0]],['sim-p12',fa[0],ma[1]],['sim-p22',fa[1],ma[1]]].forEach(([id,a,b])=>{ document.getElementById(id).textContent=`${a}${b}`; });
+    document.getElementById('sim-r-col1').textContent=fr[0];
+    document.getElementById('sim-r-col2').textContent=fr[1];
+    document.getElementById('sim-r-row1').textContent=mr[0];
+    document.getElementById('sim-r-row2').textContent=mr[1];
+    [['sim-r11',fr[0],mr[0]],['sim-r21',fr[1],mr[0]],['sim-r12',fr[0],mr[1]],['sim-r22',fr[1],mr[1]]].forEach(([id,a,b])=>{ document.getElementById(id).textContent=`${a}${b}`; });
+    const counts={};
+    for(let i=0;i<2;i++) for(let j=0;j<2;j++){
+      const abo=gtp(fa[i],ma[j]);
+      for(let p=0;p<2;p++) for(let q=0;q<2;q++){
+        const k=abo+rhP(fr[p],mr[q]);
+        counts[k]=(counts[k]||0)+1;
+      }
+    }
+    const total=Object.values(counts).reduce((a,b)=>a+b,0);
+    const div=document.getElementById('sim-offspring-results');
+    div.innerHTML='<p style="font-size:0.8rem;font-weight:600;color:var(--mid);margin-bottom:0.8rem;">Sannsynlighet for barnets blodtype</p>';
+    Object.entries(counts).sort((a,b)=>b[1]-a[1]).forEach(([type,cnt])=>{
+      const pct=Math.round(cnt/total*100);
+      div.innerHTML+=`<div class="offspring-bar"><div class="off-label">${type}</div><div class="off-bar-bg"><div class="off-bar-fill" style="width:${pct}%"></div></div><div class="off-pct">${pct}%</div></div>`;
+    });
+  }
+  window.simCalcArv = simCalcArv;
+
+  // ANIMASJON
+  const canvas = document.getElementById('animCanvas');
+  const ctx = canvas.getContext('2d');
+  let particles=[], antibodies=[], animFrame=null, animRunning=false, logLines=[];
+
+  function resizeCanvas(){ canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight; }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function simLog(msg){ logLines.push(msg); if(logLines.length>4) logLines.shift(); document.getElementById('sim-anim-log').innerHTML=logLines.join('<br>'); }
+
+  function getReaction(mottaker, giver){
+    const mABO=mottaker.replace('+','').replace('−','');
+    const gABO=giver.replace('+','').replace('−','');
+    const mRhPos=mottaker.includes('+'), gRhPos=giver.includes('+');
+    let attack=false, reason='';
+    if(mABO==='A'&&(gABO==='B'||gABO==='AB')){ attack=true; reason+='Anti-B angriper B-antigen. '; }
+    if(mABO==='B'&&(gABO==='A'||gABO==='AB')){ attack=true; reason+='Anti-A angriper A-antigen. '; }
+    if(mABO==='0'&&gABO!=='0'){ attack=true; reason+='Anti-A/Anti-B angriper fremmed antigen. '; }
+    if(!mRhPos&&gRhPos){ attack=true; reason+='Anti-D (Rh) reagerer mot D-antigen. '; }
+    return {attack,reason};
+  }
+
+  function simStartAnimation(){
+    simResetAnimation();
+    const mottaker=document.getElementById('sim-anim-mottaker').value;
+    const giver=document.getElementById('sim-anim-giver').value;
+    const {attack,reason}=getReaction(mottaker,giver);
+    logLines=[]; simLog(`Mottaker: ${mottaker} | Giver: ${giver}`);
+    const W=canvas.width, H=canvas.height;
+    for(let i=0;i<20;i++) particles.push({x:Math.random()*W,y:Math.random()*H,r:12+Math.random()*6,vx:(Math.random()-0.5)*0.5,vy:(Math.random()-0.5)*0.5,type:'host',aggl:false,alpha:1});
+    setTimeout(()=>{ simLog('Giverblod overføres...'); for(let i=0;i<12;i++) particles.push({x:W-20-Math.random()*40,y:20+Math.random()*(H-40),r:11+Math.random()*5,vx:-0.8-Math.random()*0.5,vy:(Math.random()-0.5)*0.5,type:'donor',aggl:false,alpha:1}); },1200);
+    if(attack){
+      setTimeout(()=>{ simLog('⚠️ '+reason); simLog('Antistoffer aktivert! Agglutinasjon starter...'); for(let i=0;i<16;i++) antibodies.push({x:Math.random()*W*0.6,y:Math.random()*H,locked:false,alpha:1,angle:Math.random()*Math.PI*2}); },3500);
+      setTimeout(()=>{ simLog('🔴 Agglutinasjon fullført – blodpropp dannes!'); particles.filter(p=>p.type==='donor').forEach(p=>{p.aggl=true;p.vx*=0.1;p.vy*=0.1;}); },6000);
+    } else {
+      setTimeout(()=>{ simLog('✅ Ingen immunreaksjon – blodtypene er kompatible!'); },3000);
+    }
+    animRunning=true; draw();
+  }
+  window.simStartAnimation = simStartAnimation;
+
+  function draw(){
+    if(!animRunning) return;
+    const W=canvas.width, H=canvas.height;
+    ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle='rgba(180,50,50,0.06)'; ctx.lineWidth=28;
+    ctx.beginPath(); ctx.moveTo(0,H*0.3); ctx.bezierCurveTo(W*0.3,H*0.2,W*0.7,H*0.5,W,H*0.4); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0,H*0.7); ctx.bezierCurveTo(W*0.4,H*0.8,W*0.6,H*0.5,W,H*0.7); ctx.stroke();
+    particles.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<p.r) p.vx=Math.abs(p.vx); if(p.x>W-p.r) p.vx=-Math.abs(p.vx);
+      if(p.y<p.r) p.vy=Math.abs(p.vy); if(p.y>H-p.r) p.vy=-Math.abs(p.vy);
+      ctx.save(); ctx.globalAlpha=p.alpha;
+      if(p.aggl){
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r*1.2,0,Math.PI*2); ctx.fillStyle='#8e44ad'; ctx.fill(); ctx.strokeStyle='#6c3483'; ctx.lineWidth=2; ctx.stroke();
+      } else if(p.type==='host'){
+        ctx.beginPath(); ctx.ellipse(p.x,p.y,p.r,p.r*0.75,0,0,Math.PI*2);
+        const g=ctx.createRadialGradient(p.x-p.r*0.3,p.y-p.r*0.2,1,p.x,p.y,p.r);
+        g.addColorStop(0,'#ff6b6b'); g.addColorStop(0.5,'#e74c3c'); g.addColorStop(1,'#922b21');
+        ctx.fillStyle=g; ctx.fill(); ctx.strokeStyle='#922b21'; ctx.lineWidth=1; ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(p.x,p.y,p.r*0.4,p.r*0.25,0,0,Math.PI*2); ctx.fillStyle='rgba(120,0,0,0.22)'; ctx.fill();
+      } else {
+        ctx.beginPath(); ctx.ellipse(p.x,p.y,p.r,p.r*0.75,0,0,Math.PI*2);
+        const g2=ctx.createRadialGradient(p.x-p.r*0.3,p.y-p.r*0.2,1,p.x,p.y,p.r);
+        g2.addColorStop(0,'#5dade2'); g2.addColorStop(0.6,'#2980b9'); g2.addColorStop(1,'#1a5276');
+        ctx.fillStyle=g2; ctx.fill(); ctx.strokeStyle='#1a5276'; ctx.lineWidth=1.5; ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(p.x,p.y,p.r*0.4,p.r*0.25,0,0,Math.PI*2); ctx.fillStyle='rgba(0,0,80,0.18)'; ctx.fill();
+      }
+      ctx.restore();
+    });
+    const donors=particles.filter(p=>p.type==='donor'&&!p.aggl);
+    antibodies.forEach((ab,idx)=>{
+      if(!ab.locked&&donors.length>0){
+        const t=donors[idx%donors.length];
+        if(t){ const dx=t.x-ab.x,dy=t.y-ab.y,d=Math.sqrt(dx*dx+dy*dy); if(d>20){ab.x+=dx/d*2.5;ab.y+=dy/d*2.5;} else ab.locked=true; }
+      }
+      ctx.save(); ctx.globalAlpha=0.9; ctx.translate(ab.x,ab.y); ctx.rotate(ab.angle+(animRunning?Date.now()*0.001:0));
+      ctx.strokeStyle='#f1c40f'; ctx.lineWidth=2.5; ctx.lineCap='round';
+      ctx.beginPath(); ctx.moveTo(0,8); ctx.lineTo(0,-3); ctx.moveTo(0,-3); ctx.lineTo(-7,-12); ctx.moveTo(0,-3); ctx.lineTo(7,-12); ctx.stroke();
+      ctx.fillStyle='#f39c12';
+      ctx.beginPath(); ctx.arc(-7,-12,3,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(7,-12,3,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(0,9,2.5,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    });
+    animFrame=requestAnimationFrame(draw);
+  }
+
+  function simResetAnimation(){
+    if(animFrame) cancelAnimationFrame(animFrame);
+    animRunning=false; particles=[]; antibodies=[]; logLines=[];
+    document.getElementById('sim-anim-log').textContent='Velg blodtyper og trykk «Start animasjon»...';
+    resizeCanvas(); ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+  window.simResetAnimation = simResetAnimation;
+
+  // QUIZ
+  const questions=[
+    {q:'Hvilken blodtype kalles universalgiver for røde blodceller?',opts:['AB+','A+','0−','0+'],ans:2,exp:'0− mangler A-, B- og Rh-antigener, og kan gi til alle uten immunreaksjon.'},
+    {q:'En person med blodtype A+ har hvilke antistoffer?',opts:['Anti-A','Anti-B','Anti-A og Anti-B','Ingen antistoffer'],ans:1,exp:'Type A har A-antigener og danner anti-B. Ikke anti-A (ville angripe seg selv).'},
+    {q:'Hva kalles klumping av blodceller når antistoffer binder seg til fremmede celler?',opts:['Hemolyse','Agglutinasjon','Koagulasjon','Opsonisering'],ans:1,exp:'Agglutinasjon er klumping via antistoff-antigen-binding. Hemolyse er selve sprengingen.'},
+    {q:'Mor er type 0, far er AB. Hva KAN IKKE bli barnets blodtype?',opts:['A','B','AB','0'],ans:2,exp:'Mor (ii) gir bare i. Far (I^A I^B) gir I^A eller I^B. Barnet blir A eller B – aldri AB eller 0.'},
+    {q:'Hva kjennetegner Rh-faktoren?',opts:['Alltid til stede hos alle','Rh-negative danner anti-D etter første eksponering','Finnes bare hos kvinner','Tilhører ABO-systemet'],ans:1,exp:'Rh-negative mangler D-antigenet og lager anti-D etter eksponering.'},
+    {q:'Hvem oppdaget ABO-systemet og fikk Nobelprisen?',opts:['Louis Pasteur','Karl Landsteiner','Alexander Fleming','Robert Koch'],ans:1,exp:'Karl Landsteiner oppdaget ABO i 1901 og fikk Nobelprisen i 1930.'},
+    {q:'AB+ kan motta blod fra:',opts:['Kun AB+','Kun AB− og AB+','Alle blodtyper','Kun 0− og 0+'],ans:2,exp:'AB+ er universalmottaker – har ingen av anti-A, anti-B eller anti-D.'},
+    {q:'Hva er hemolytisk sykdom hos nyfødte (HDN)?',opts:['Barnet mangler blodplater','Rh-negativ mors antistoffer angriper Rh-positivt fosters blodceller','En arvelig blødersykdom','Jernmangelanemi'],ans:1,exp:'HDN: sensitisert Rh-negativ mor har anti-D som krysser morkaken og hemolyser fosterets celler.'},
+  ];
+
+  function buildQuiz(){
+    const c=document.getElementById('sim-quiz-container'); if(!c) return; c.innerHTML='';
+    questions.forEach((q,qi)=>{
+      const div=document.createElement('div'); div.className='quiz-card'; div.id=`sim-qcard-${qi}`;
+      div.innerHTML=`<div class="quiz-q">${qi+1}. ${q.q}</div><div class="quiz-options">${q.opts.map((o,oi)=>`<button class="quiz-opt" onclick="simSelectOpt(${qi},${oi})" id="sim-qopt-${qi}-${oi}">${o}</button>`).join('')}</div><div class="quiz-feedback" id="sim-qfb-${qi}"></div>`;
+      c.appendChild(div);
+    });
+  }
+  buildQuiz();
+
+  const userAnswers={};
+  function simSelectOpt(qi,oi){
+    document.querySelectorAll(`#sim-qcard-${qi} .quiz-opt`).forEach(b=>{ b.style.borderColor=''; b.style.background=''; });
+    document.getElementById(`sim-qopt-${qi}-${oi}`).style.borderColor='var(--raft-accent)';
+    document.getElementById(`sim-qopt-${qi}-${oi}`).style.background='var(--accent-pale)';
+    userAnswers[qi]=oi;
+  }
+  window.simSelectOpt = simSelectOpt;
+
+  function simSubmitQuiz(){
+    let score=0;
+    questions.forEach((q,qi)=>{
+      const ua=userAnswers[qi], card=document.getElementById(`sim-qcard-${qi}`), fb=document.getElementById(`sim-qfb-${qi}`);
+      document.querySelectorAll(`#sim-qcard-${qi} .quiz-opt`).forEach(b=>b.disabled=true);
+      document.getElementById(`sim-qopt-${qi}-${q.ans}`).classList.add('correct-ans');
+      if(ua===q.ans){ score++; card.classList.add('correct'); fb.className='quiz-feedback show correct'; fb.textContent='✅ Riktig! '+q.exp; }
+      else { card.classList.add('wrong'); fb.className='quiz-feedback show wrong'; fb.textContent='❌ Feil. '+q.exp; if(ua!==undefined) document.getElementById(`sim-qopt-${qi}-${ua}`).classList.add('wrong-ans'); }
+    });
+    const sc=document.getElementById('quiz-score'); sc.className='show';
+    const pct=Math.round(score/questions.length*100);
+    const emoji=pct>=80?'🏆':pct>=60?'👏':'📚';
+    sc.innerHTML=`${emoji} Du fikk <span>${score} av ${questions.length}</span> riktige (${pct}%)<br><span style="font-size:1rem;opacity:0.8;">${pct>=80?'Utmerket!':pct>=60?'Bra! Les fagstoffet igjen.':'Les fagstoffet og prøv igjen!'}</span>`;
+    document.getElementById('submit-quiz').style.display='none';
+  }
+  window.simSubmitQuiz = simSubmitQuiz;
+
+  // LAST NED
+  document.getElementById('downloadButton').addEventListener('click', ()=>{
+    try {
+      const blob=new Blob(['\ufeff', document.documentElement.outerHTML],{type:'text/html;charset=utf-8'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='blodtyper-simulering.html';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(a.href);
+    } catch(e){ console.error(e); }
+  });
+
+})(); // slutt IIFE
+</script>
+
+
+
+<h1 class="wp-block-heading">Blodtyper – teoretisk bakgrunn</h1>
+
+
+
+<h2 class="wp-block-heading">Hva er blodtype?</h2>
+
+
+
+<p class="wp-block-paragraph">Blodet ditt er ikke identisk med andres blod. På overflaten av de røde blodcellene (erytrocyttene) sitter det proteiner og sukkermolekyler som kalles <strong>antigener</strong>. Hvilke antigener du har, avgjør blodtypen din. Immunforsvaret ditt kjenner igjen dine egne antigener som «selv» – og reagerer med kraftig angrep mot fremmede antigener det ikke gjenkjenner.</p>
+
+
+
+<p class="wp-block-paragraph">Det finnes over 30 ulike blodtypesystemer, men i biologiundervisningen fokuserer vi på de to viktigste: <strong>ABO-systemet</strong> og <strong>Rh-systemet</strong>.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">ABO-systemet</h2>
+
+
+
+<p class="wp-block-paragraph">ABO-systemet opererer med to antigener: <strong>A-antigen</strong> og <strong>B-antigen</strong>. Kombinasjonen av disse gir fire mulige blodtyper:</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Blodtype</th><th>Antigener på cellen</th><th>Antistoffer i plasma</th></tr></thead><tbody><tr><td>A</td><td>A-antigen</td><td>Anti-B</td></tr><tr><td>B</td><td>B-antigen</td><td>Anti-A</td></tr><tr><td>AB</td><td>A- og B-antigen</td><td>Ingen</td></tr><tr><td>0</td><td>Ingen</td><td>Anti-A og Anti-B</td></tr></tbody></table></figure>
+
+
+
+<p class="wp-block-paragraph">Legg merke til noe viktig: du har alltid antistoffer mot de antigenene du <em>mangler</em>. Type A lager anti-B, type B lager anti-A, og type 0 lager begge. Type AB lager ingen av dem. Disse antistoffene kalles «naturlige antistoffer» fordi de dannes tidlig i livet – trolig som følge av at tarmbakterier har lignende overflatemolekyler som A- og B-antigenene.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Rh-systemet</h2>
+
+
+
+<p class="wp-block-paragraph">Rh-systemet er oppkalt etter rhesusaper, der antigenet først ble oppdaget. Det viktigste antigenet her er <strong>D-antigenet</strong>. Ca. 85 % av befolkningen har dette antigenet og er <strong>Rh-positive</strong> (+). De resterende 15 % mangler det og er <strong>Rh-negative</strong> (−).</p>
+
+
+
+<p class="wp-block-paragraph">En viktig forskjell fra ABO-systemet: Rh-negative personer lager <em>ikke</em> anti-D automatisk. Anti-D dannes først etter at en Rh-negativ person har blitt utsatt for Rh-positivt blod – for eksempel via en blodoverføring eller under svangerskap. Dette kalles <strong>sensitisering</strong>.</p>
+
+
+
+<h3 class="wp-block-heading">Hemolytisk sykdom hos nyfødte (HDN)</h3>
+
+
+
+<p class="wp-block-paragraph">Dersom en Rh-negativ mor bærer et Rh-positivt foster, kan noe av fosterets blod lekke over til mor under fødselen. Mor blir da sensitisert og lager anti-D. Ved et <em>neste</em> svangerskap med Rh-positivt foster kan anti-D-antistoffer krysse morkaken og angripe fosterets røde blodceller. Dette kan føre til alvorlig blodmangel hos fosteret. Tilstanden forebygges i dag ved at Rh-negative mødre får en sprøyte med Rh-immunoglobulin (Rhogam) etter fødselen.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Agglutinasjon – når feil blod møtes</h2>
+
+
+
+<p class="wp-block-paragraph">Når en person får blod med antigener immunforsvaret ikke kjenner igjen, skjer det en farlig reaksjon som kalles <strong>agglutinasjon</strong>. Antistoffene er Y-formede proteiner (immunoglobuliner) som kan binde seg til to blodceller samtidig – én på hvert «arm» av Y-en. Slik limes cellene sammen til klumper.</p>
+
+
+
+<p class="wp-block-paragraph">Reaksjonen eskalerer raskt:</p>
+
+
+
+<ol class="wp-block-list">
+<li><strong>Agglutinasjon</strong> – blodcellene klumper seg sammen og kan tette til blodårer</li>
+
+
+
+<li><strong>Komplementaktivering</strong> – et proteinsystem i blodet aktiveres og lager hull i de fremmede cellene</li>
+
+
+
+<li><strong>Hemolyse</strong> – de fremmede cellene sprekker, og hemoglobin frigjøres i blodet</li>
+
+
+
+<li><strong>Organskade</strong> – fritt hemoglobin er giftig for nyrene og kan føre til nyresvikt</li>
+
+
+
+<li><strong>I alvorlige tilfeller</strong>: sjokk, organsvikt og død</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">Dette er grunnen til at blodtyping og kryssprøving er absolutt obligatorisk før enhver blodoverføring.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Arv av blodtype</h2>
+
+
+
+<p class="wp-block-paragraph">Blodtype arves fra foreldrene. ABO-genet sitter på kromosom 9 og finnes i tre varianter (alleler): <strong>I^A</strong>, <strong>I^B</strong> og <strong>i</strong>.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>I^A</strong> koder for A-antigen</li>
+
+
+
+<li><strong>I^B</strong> koder for B-antigen</li>
+
+
+
+<li><strong>i</strong> koder for ingenting (type 0)</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">I^A og I^B er <strong>kodominante</strong> – hvis du arver begge, uttrykkes <em>begge</em> antigenene, og du får blodtype AB. Det lille <em>i</em> er <strong>recessivt</strong> og maskeres av I^A eller I^B. Du trenger to <em>i</em>-alleler (genotype <em>ii</em>) for å få blodtype 0.</p>
+
+
+
+<p class="wp-block-paragraph">Rh-faktoren styres av RHD-genet på kromosom 1. Allelet R (gir D-antigen) er dominant over r. Rh-negativ person har genotype <em>rr</em>.</p>
+
+
+
+<h3 class="wp-block-heading">Eksempel på arvegang</h3>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">Mor er blodtype A med genotype I^A i. Far er blodtype B med genotype I^B i. Mulige kombinasjoner for barnet: I^A I^B (AB), I^A i (A), I^B i (B) eller <em>ii</em> (0). Alle fire blodtyper er altså mulig – 25 % sannsynlighet for hver.</p>
+</blockquote>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Donasjon og kompatibilitet</h2>
+
+
+
+<p class="wp-block-paragraph">Ikke alle blodtyper kan gis til hvem som helst. Reglene er enkle: <strong>giveren må ikke ha antigener som mottakeren mangler og har antistoffer mot.</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>0− er universalgiver</strong> for røde blodceller – mangler alle A-, B- og Rh-antigener, og kan gis til alle</li>
+
+
+
+<li><strong>AB+ er universalmottaker</strong> – har ikke anti-A, anti-B eller anti-D, og kan motta fra alle</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">I moderne medisin er man imidlertid mer forsiktig: selv 0− brukes helst kun til 0−-pasienter, fordi det finnes mange andre blodtypesystemer enn ABO og Rh.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Dette kan du utforske i simuleringen</h2>
+
+
+
+<p class="wp-block-paragraph"><strong>Fanen «Blodtyper»</strong> gir deg en oversikt over hvilke antigener og antistoffer som hører til hver blodtype. Studer tabellen og legg merke til sammenhengen mellom antigener du <em>har</em> og antistoffer du <em>lager</em>.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Fanen «Arv»</strong> lar deg velge genotypen til begge foreldre og beregne sannsynligheten for barnets blodtype. Prøv kombinasjoner der begge foreldre er type A (I^A i) – kan de likevel få et barn med type 0? Prøv deretter type AB × type 0 og se hva som <em>ikke</em> er mulig.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Fanen «Donasjon»</strong> viser en fullstendig kompatibilitetsmatrise. Test ulike giver/mottaker-kombinasjoner og legg merke til hvem som kan motta fra flest, og hvem som kan gi til flest.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Fanen «Immunreaksjon»</strong> animerer det som skjer inne i blodomløpet ved en inkompatibel transfusjon. Velg en kombinasjon som <em>ikke</em> er kompatibel og observer hvordan antistoffene (gule Y-former) jager givercellene (blå) og utløser agglutinasjon. Sammenlign med en kompatibel kombinasjon – ingen angrep, cellene sirkulerer rolig side om side.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Fanen «Quiz»</strong> lar deg teste forståelsen din med åtte spørsmål som dekker alle temaene over.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Nøkkelbegreper</h2>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Begrep</th><th>Forklaring</th></tr></thead><tbody><tr><td>Antigen</td><td>Protein på celleoverflaten som immunforsvaret gjenkjenner</td></tr><tr><td>Antistoff</td><td>Y-formet protein som binder seg til fremmede antigener</td></tr><tr><td>Agglutinasjon</td><td>Klumping av blodceller utløst av antistoff-antigen-binding</td></tr><tr><td>Hemolyse</td><td>Sprengning av røde blodceller</td></tr><tr><td>Kodominans</td><td>Begge alleler uttrykkes likt (I^A og I^B)</td></tr><tr><td>Sensitisering</td><td>Første eksponering som fører til at immunforsvaret danner antistoffer</td></tr><tr><td>Universalgiver</td><td>0− – kan gi røde blodceller til alle blodtyper</td></tr><tr><td>Universalmottaker</td><td>AB+ – kan motta røde blodceller fra alle blodtyper</td></tr></tbody></table></figure>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p>Copyright 2026 - Skolesim</p>
+      <nav><a href="#">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
+</body>
+</html>

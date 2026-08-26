@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jordens strålebalanse — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/#fagoversikt">Fagoversikt</a></li>
+          <li><a href="#">Om meg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <span class="post-category"><a href="/alle-simuleringer/?kategori=fysikk-1">Fysikk 1</a></span>
+      <h1>Jordens strålebalanse</h1>
+<p class="wp-block-paragraph">Juster antall atmosfæriske lag, albedo og absorpsjonsegenskaper for å se hvordan disse faktorene påvirker Jordens overflatetemperatur. Kjør simuleringen og observer i sanntid hvordan de ulike lagene varmes opp til systemet når strålebalanse.</p>
+
+
+
+<p class="wp-block-paragraph">Innsendt av Tobias Baumann. Han anbefaler følgende verdier for å simulere jordoverflaten: </p>
+
+
+
+<ul class="wp-block-list">
+<li>Antall lag: 10</li>
+
+
+
+<li>albedo: 0.3</li>
+
+
+
+<li>Absorpsjon ovenfra: 0.5</li>
+
+
+
+<li>Absorpsjon nedenfra: 0.65</li>
+
+
+
+<li>Minking med høyde: aktivert</li>
+</ul>
+
+
+
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jordens strålebalanse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Geologica:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --raft-bg: #EBE8E6;
+            --raft-fg: #1D1F25;
+            --raft-accent: #C26148;
+            --raft-accent-dark: #AC5039;
+            --raft-bg-alt: rgba(255, 255, 255, 0.6);
+            --raft-bg-controls: rgba(255, 255, 255, 0.8);
+            --raft-bg-box: #ffffff;
+            --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --raft-font-heading: "Geologica", var(--raft-font);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 24px 16px;
+            font-family: var(--raft-font);
+            background-color: var(--raft-bg);
+            color: var(--raft-fg);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--raft-bg-alt);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(8px);
+        }
+
+        h1 {
+            font-family: var(--raft-font-heading);
+            color: var(--raft-fg);
+            border-bottom: 2px solid var(--raft-accent);
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            font-family: var(--raft-font-heading);
+            color: var(--raft-accent);
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+
+        .controls {
+            background-color: var(--raft-bg-controls);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .control-group {
+            margin-bottom: 18px;
+        }
+
+        .control-group:last-child { margin-bottom: 0; }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            accent-color: var(--raft-accent);
+            height: 6px;
+            cursor: pointer;
+        }
+
+        .slider-value {
+            min-width: 48px;
+            text-align: right;
+            font-weight: 700;
+            color: var(--raft-accent);
+            font-size: 0.95rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--raft-accent);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 13px 20px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-family: var(--raft-font);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            background-color: var(--raft-accent);
+            color: white;
+        }
+
+        button:hover { background-color: var(--raft-accent-dark); }
+        button:active { transform: scale(0.98); }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #resetBtn { background-color: var(--raft-fg); }
+        #resetBtn:hover { background-color: #333; }
+
+        .visualization {
+            background: linear-gradient(to bottom, #06091a 0%, #0d1640 30%, #1e3a6e 70%, #5b3825 100%);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            height: 520px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        #canvas {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .layer {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.85);
+            transition: background-color 0.15s;
+        }
+
+        .earth-surface {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 72px;
+            background: radial-gradient(ellipse at center bottom, #8b5e3c 0%, #5a3620 60%, #3b2212 100%);
+            border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #f5d6a8;
+            font-family: var(--raft-font-heading);
+        }
+
+        .sun {
+            position: absolute;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            background: radial-gradient(circle, #ffe566, #ffb800);
+            border-radius: 50%;
+            box-shadow: 0 0 20px 6px rgba(255, 200, 50, 0.35);
+            transition: top 0.4s ease;
+        }
+
+        .info-bar {
+            background: var(--raft-bg-box);
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .result-text {
+            font-weight: 700;
+            color: var(--raft-accent);
+            font-size: 1.05rem;
+            font-family: var(--raft-font-heading);
+        }
+
+        .info-text {
+            color: #777;
+            font-size: 0.88rem;
+        }
+
+        .results-box {
+            display: none;
+            background: var(--raft-bg-controls);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .results-box h2 { margin-bottom: 12px; }
+
+        .results-box textarea {
+            width: 100%;
+            height: 170px;
+            background: var(--raft-bg-box);
+            color: var(--raft-fg);
+            border: 1px solid rgba(0,0,0,0.12);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .results-box textarea:focus { outline: 2px solid var(--raft-accent); }
+
+        .copy-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        #copyBtn {
+            flex: unset;
+            padding: 10px 22px;
+            font-size: 0.88rem;
+            background-color: var(--raft-fg);
+        }
+        #copyBtn:hover { background-color: #333; }
+
+        #copyStatus {
+            display: none;
+            color: #3a8c5c;
+            font-weight: 600;
+            font-size: 0.88rem;
+        }
+
+        .download-wrap {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        #downloadButton {
+            flex: unset;
+            background-color: var(--raft-fg);
+            padding: 11px 28px;
+            font-size: 0.88rem;
+        }
+        #downloadButton:hover { background-color: #333; }
+
+        @media (max-width: 768px) {
+            .container { padding: 20px 16px; }
+            .buttons { flex-direction: column; }
+            .info-bar { flex-direction: column; align-items: flex-start; }
+            .copy-row { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jordens strålebalanse</h1>
+
+        <div class="controls">
+            <h2>Parametere</h2>
+
+            <div class="control-group">
+                <label for="numLayers">Antall atmosfæriske lag</label>
+                <div class="slider-row">
+                    <input type="range" id="numLayers" min="0" max="10" value="0" step="1">
+                    <span id="numLayersValue" class="slider-value">0</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="albedo">Overflate-albedo <span style="font-weight:400;color:#888">(0 = absorberende, 1 = reflekterende)</span></label>
+                <div class="slider-row">
+                    <input type="range" id="albedo" min="0" max="1" value="0.3" step="0.01">
+                    <span id="albedoValue" class="slider-value">0.30</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="opacityDown">Absorbsjon av stråling ovenfra <span style="font-weight:400;color:#888">(0 – 1)</span></label>
+                <div class="slider-row">
+                    <input type="range" id="opacityDown" min="0" max="1" value="0" step="0.01">
+                    <span id="opacityDownValue" class="slider-value">0.00</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="opacityUp">Absorbsjon av stråling nedenfra <span style="font-weight:400;color:#888">(0 – 1)</span></label>
+                <div class="slider-row">
+                    <input type="range" id="opacityUp" min="0" max="1" value="0" step="0.01">
+                    <span id="opacityUpValue" class="slider-value">0.00</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="decreasingOpacity">
+                    Atmosfærisk absorbsjon minker med høyde
+                </label>
+            </div>
+
+            <div class="buttons">
+                <button id="startBtn">▶ Start simulering</button>
+                <button id="resetBtn">↺ Nullstill</button>
+            </div>
+        </div>
+
+        <div class="visualization">
+            <div class="sun"></div>
+            <div id="canvas"></div>
+        </div>
+
+        <div class="info-bar">
+            <span class="result-text" id="result"></span>
+            <span class="info-text" id="info">Juster parametere og klikk Start for å kjøre simulering</span>
+        </div>
+
+        <div class="results-box" id="resultsBox">
+            <h2>Simuleringsresultater</h2>
+            <textarea id="resultsText" readonly></textarea>
+            <div class="copy-row">
+                <button id="copyBtn">📋 Kopier til utklippstavlen</button>
+                <span id="copyStatus">✓ Kopiert!</span>
+            </div>
+        </div>
+
+        <div class="download-wrap">
+            <button id="downloadButton">⬇ Last ned denne filen</button>
+        </div>
+    </div>
+
+    <script>
+        // Constants
+        const SIGMA = 5.67e-8;
+        const SOLAR_FLUX = 340;
+        const DISPLAY_INTERVAL = 10;
+        const FPS = 20;
+        const CONVERGENCE_THRESHOLD = 0.15;
+        const MAX_TIMESTEPS = 2000;
+
+        // Visualization geometry
+        const VIZ_HEIGHT = 520;
+        const SURFACE_HEIGHT = 72;
+        const LAYER_STACK_HEIGHT = 360;
+        const SUN_SIZE = 48;
+        const SUN_MARGIN = 12;
+
+        // State
+        let numLayers = 0;
+        let opacityDown = 0;
+        let opacityUp = 0;
+        let albedo = 0.3;
+        let decreasingOpacity = false;
+        let temperatures = [];
+        let isRunning = false;
+        let currentTimestep = 0;
+        let animationInterval = null;
+        let surfaceTemperatureHistory = [];
+        let fineAdjustmentActivated = false;
+        let escapingFlux = [];
+
+        // Elements
+        const numLayersSlider = document.getElementById('numLayers');
+        const opacityDownSlider = document.getElementById('opacityDown');
+        const opacityUpSlider = document.getElementById('opacityUp');
+        const albedoSlider = document.getElementById('albedo');
+        const decreasingOpacityCheckbox = document.getElementById('decreasingOpacity');
+        const numLayersValue = document.getElementById('numLayersValue');
+        const opacityDownValue = document.getElementById('opacityDownValue');
+        const opacityUpValue = document.getElementById('opacityUpValue');
+        const albedoValue = document.getElementById('albedoValue');
+        const startBtn = document.getElementById('startBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const canvas = document.getElementById('canvas');
+        const result = document.getElementById('result');
+        const info = document.getElementById('info');
+        const resultsBox = document.getElementById('resultsBox');
+        const resultsText = document.getElementById('resultsText');
+        const copyBtn = document.getElementById('copyBtn');
+        const copyStatus = document.getElementById('copyStatus');
+
+        numLayersSlider.addEventListener('input', e => { numLayersValue.textContent = e.target.value; });
+        opacityDownSlider.addEventListener('input', e => { opacityDownValue.textContent = parseFloat(e.target.value).toFixed(2); });
+        opacityUpSlider.addEventListener('input', e => { opacityUpValue.textContent = parseFloat(e.target.value).toFixed(2); });
+        albedoSlider.addEventListener('input', e => { albedoValue.textContent = parseFloat(e.target.value).toFixed(2); });
+
+        function initializeSimulation() {
+            numLayers = parseInt(numLayersSlider.value);
+            opacityDown = parseFloat(opacityDownSlider.value);
+            opacityUp = parseFloat(opacityUpSlider.value);
+            albedo = parseFloat(albedoSlider.value);
+            decreasingOpacity = decreasingOpacityCheckbox.checked;
+
+            temperatures = new Array(numLayers + 1).fill(0);
+            currentTimestep = 0;
+            surfaceTemperatureHistory = [];
+            fineAdjustmentActivated = false;
+            escapingFlux = new Array(numLayers + 1).fill(0);
+
+            renderVisualization();
+        }
+
+        function getOpacityDown(n) {
+            if (n === 0) return (1 - albedo);
+            if (!decreasingOpacity) return opacityDown;
+            return opacityDown * (numLayers + 1 - n) / numLayers;
+        }
+
+        function getOpacityUp(n) {
+            if (n === 0) return 0;
+            if (!decreasingOpacity) return opacityUp;
+            return opacityUp * (numLayers + 1 - n) / numLayers;
+        }
+
+        function simulateTimestep() {
+            const newTemperatures = [...temperatures];
+            const netFlux = new Array(numLayers + 1).fill(0);
+
+            // Emitted flux
+            const emittedFlux = new Array(numLayers + 1);
+            for (let n = 0; n <= numLayers; n++) {
+                emittedFlux[n] = SIGMA * Math.pow(temperatures[n], 4);
+                netFlux[n] -= (n === 0) ? emittedFlux[n] : 2 * emittedFlux[n];
+            }
+
+            // Downward propagation
+            let fluxDownward = SOLAR_FLUX;
+            let fluxAtSurface = 0;
+            for (let n = numLayers; n >= 0; n--) {
+                const opDown = getOpacityDown(n);
+                if (n === 0) {
+                    fluxAtSurface = fluxDownward;
+                    netFlux[n] += fluxDownward * opDown;
+                } else {
+                    netFlux[n] += fluxDownward * opDown;
+                    fluxDownward = fluxDownward * (1 - opDown) + emittedFlux[n];
+                }
+            }
+
+            // Upward propagation
+            let fluxUpward = emittedFlux[0] + fluxAtSurface * albedo;
+            for (let n = 1; n <= numLayers; n++) {
+                const opUp = getOpacityUp(n);
+                netFlux[n] += fluxUpward * opUp;
+                fluxUpward = fluxUpward * (1 - opUp) + emittedFlux[n];
+            }
+
+            // Adaptive temperature increment
+            let tempIncrement = 1;
+            if (surfaceTemperatureHistory.length >= 10) {
+                if (Math.abs(temperatures[0] - surfaceTemperatureHistory[0]) <= 1) {
+                    tempIncrement = 0.1;
+                    fineAdjustmentActivated = true;
+                }
+            }
+
+            let maxTempChange = 0;
+            for (let i = 0; i <= numLayers; i++) {
+                const oldTemp = newTemperatures[i];
+                if (netFlux[i] > 0) newTemperatures[i] += tempIncrement;
+                else if (netFlux[i] < 0) newTemperatures[i] -= tempIncrement;
+                if (newTemperatures[i] < 0) newTemperatures[i] = 0;
+                maxTempChange = Math.max(maxTempChange, Math.abs(newTemperatures[i] - oldTemp));
+            }
+
+            temperatures = newTemperatures;
+            surfaceTemperatureHistory.push(temperatures[0]);
+            if (surfaceTemperatureHistory.length > 10) surfaceTemperatureHistory.shift();
+
+            return maxTempChange;
+        }
+
+        function calculateEscapingFlux() {
+            escapingFlux = new Array(numLayers + 1).fill(0);
+            for (let k = 0; k <= numLayers; k++) {
+                let flux = SIGMA * Math.pow(temperatures[k], 4);
+                if (k === 0) {
+                    let fd = SOLAR_FLUX;
+                    for (let n = numLayers; n >= 1; n--) {
+                        fd = fd * (1 - getOpacityDown(n)) + SIGMA * Math.pow(temperatures[n], 4);
+                    }
+                    flux += fd * albedo;
+                }
+                for (let j = k + 1; j <= numLayers; j++) {
+                    flux *= (1 - getOpacityUp(j));
+                }
+                escapingFlux[k] = flux;
+            }
+        }
+
+        function getMaxEscapingFluxLayer() {
+            let maxFlux = -1, maxLayer = -1;
+            for (let i = 0; i <= numLayers; i++) {
+                if (escapingFlux[i] > maxFlux) { maxFlux = escapingFlux[i]; maxLayer = i; }
+            }
+            return { layer: maxLayer, flux: maxFlux };
+        }
+
+        function renderVisualization() {
+            canvas.innerHTML = '';
+
+            const maxEscaping = getMaxEscapingFluxLayer();
+            const showEscaping = !isRunning && escapingFlux.some(f => f > 0);
+
+            // Earth surface
+            const surface = document.createElement('div');
+            surface.className = 'earth-surface';
+            surface.textContent = `${(temperatures[0] - 273.15).toFixed(1)} °C` +
+                (showEscaping ? `  |  ${escapingFlux[0].toFixed(1)} W/m²` : '');
+            if (showEscaping && maxEscaping.layer === 0) {
+                surface.style.outline = '3px solid #ffe566';
+                surface.style.boxShadow = '0 0 16px rgba(255,230,80,0.55)';
+            }
+            canvas.appendChild(surface);
+
+            // Atmospheric layers
+            const layerHeight = LAYER_STACK_HEIGHT / Math.max(numLayers, 1);
+            for (let i = 1; i <= numLayers; i++) {
+                const layer = document.createElement('div');
+                layer.className = 'layer';
+                layer.style.bottom = `${SURFACE_HEIGHT + (i - 1) * layerHeight}px`;
+                layer.style.height = `${layerHeight}px`;
+
+                const temp = temperatures[i];
+                const hue = Math.max(0, Math.min(240, 240 - (temp / 300) * 240));
+                layer.style.backgroundColor = `hsla(${hue}, 70%, 55%, ${0.25 + getOpacityUp(i) * 0.45})`;
+                layer.textContent = `Lag ${i}: ${Math.round(temp - 273.15)} °C` +
+                    (showEscaping ? `  |  ${escapingFlux[i].toFixed(1)} W/m²` : '');
+
+                if (showEscaping && maxEscaping.layer === i) {
+                    layer.style.outline = '3px solid #ffe566';
+                    layer.style.boxShadow = '0 0 16px rgba(255,230,80,0.55)';
+                }
+                canvas.appendChild(layer);
+            }
+
+            // Sun position: just above the top atmospheric layer
+            const sun = document.querySelector('.sun');
+            if (sun) {
+                const topOfAtmosphere = numLayers > 0
+                    ? VIZ_HEIGHT - SURFACE_HEIGHT - LAYER_STACK_HEIGHT
+                    : 16;
+                sun.style.top = `${Math.max(8, topOfAtmosphere - SUN_SIZE - SUN_MARGIN)}px`;
+            }
+        }
+
+        function buildResultsString(finalTemp, converged) {
+            const maxEscaping = getMaxEscapingFluxLayer();
+            const layerName = maxEscaping.layer === 0 ? 'Overflaten' : `Lag ${maxEscaping.layer}`;
+            return `SIMULERINGSRESULTATER
+========================
+
+Inngangsparametere:
+- Antall atmosfæriske lag: ${numLayers}
+- Overflate-albedo: ${albedo.toFixed(2)}
+- Atmosfærisk absorbsjon ovenfra: ${opacityDown.toFixed(2)}
+- Atmosfærisk absorbsjon nedenfra: ${opacityUp.toFixed(2)}
+- Absorbsjon minker med høyde: ${decreasingOpacity ? 'Ja' : 'Nei'}
+
+Resultat:
+- Sluttemperatur på overflaten: ${finalTemp} °C
+- Antall tidssteg: ${currentTimestep}
+- Status: ${converged ? 'Konvergert' : 'ADVARSEL – ikke konvergert innen ' + MAX_TIMESTEPS + ' tidssteg'}
+
+Fluks til verdensrommet:
+- Lag med høyest utgående fluks: ${layerName}
+- Utgående fluks fra dette laget: ${maxEscaping.flux.toFixed(1)} W/m²`;
+        }
+
+        function finishSimulation(converged) {
+            clearInterval(animationInterval);
+            isRunning = false;
+            startBtn.disabled = false;
+            calculateEscapingFlux();
+            renderVisualization();
+
+            const finalTemp = (temperatures[0] - 273.15).toFixed(1);
+            result.textContent = `Slutttemperatur: ${finalTemp} °C`;
+            info.textContent = converged
+                ? `Konvergert etter ${currentTimestep} tidssteg`
+                : `Advarsel: ikke konvergert innen ${MAX_TIMESTEPS} tidssteg`;
+
+            resultsText.value = buildResultsString(finalTemp, converged);
+            resultsBox.style.display = 'block';
+        }
+
+        function runSimulation() {
+            if (isRunning) return;
+            isRunning = true;
+            startBtn.disabled = true;
+            result.textContent = '';
+            info.textContent = 'Simulering kjører…';
+            resultsBox.style.display = 'none';
+            initializeSimulation();
+
+            let convergenceCounter = 0;
+            const CONVERGENCE_INTERVALS_NEEDED = 3;
+
+            animationInterval = setInterval(() => {
+                let maxTempChange = 0;
+                for (let i = 0; i < DISPLAY_INTERVAL; i++) {
+                    maxTempChange = Math.max(maxTempChange, simulateTimestep());
+                    currentTimestep++;
+                    if (currentTimestep >= MAX_TIMESTEPS) { finishSimulation(false); return; }
+                }
+
+                renderVisualization();
+                info.textContent = `Tidssteg: ${currentTimestep}`;
+
+                if (fineAdjustmentActivated) {
+                    convergenceCounter = (maxTempChange < CONVERGENCE_THRESHOLD) ? convergenceCounter + 1 : 0;
+                    if (convergenceCounter >= CONVERGENCE_INTERVALS_NEEDED) finishSimulation(true);
+                }
+            }, 1000 / FPS);
+        }
+
+        function resetSimulation() {
+            if (animationInterval) clearInterval(animationInterval);
+            isRunning = false;
+            startBtn.disabled = false;
+            currentTimestep = 0;
+            initializeSimulation();
+            result.textContent = '';
+            info.textContent = 'Juster parametere og klikk Start for å kjøre simulering';
+            resultsBox.style.display = 'none';
+        }
+
+        copyBtn.addEventListener('click', async () => {
+            try { await navigator.clipboard.writeText(resultsText.value); }
+            catch { resultsText.select(); document.execCommand('copy'); }
+            copyStatus.style.display = 'inline';
+            setTimeout(() => { copyStatus.style.display = 'none'; }, 2000);
+        });
+
+        startBtn.addEventListener('click', runSimulation);
+        resetBtn.addEventListener('click', resetSimulation);
+
+        document.getElementById('downloadButton').addEventListener('click', () => {
+            try {
+                const blob = new Blob(['\ufeff', document.documentElement.outerHTML], { type: 'text/html;charset=utf-8' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'simulering.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(a.href);
+            } catch (e) { console.error('Feil ved nedlasting:', e); }
+        });
+
+        initializeSimulation();
+    </script>
+</body>
+</html>
+
+
+
+<h1 class="wp-block-heading">Strålebalansen – hva beregner simuleringen?</h1>
+
+
+
+<h3 class="wp-block-heading">Bakgrunn</h3>
+
+
+
+<p class="wp-block-paragraph">Kompetansemålene i Fysikk 1 krever at elevene bruker modeller av strålingsbalansen til jorda for å gjøre beregninger. Elevene skal vurdere hvordan endringer på overflaten og i atmosfæren påvirker balansen. Simuleringen fungerer som et utforskningsverktøy der elevene justerer parametre for å bygge intuisjon for dette komplekse systemet.</p>
+
+
+
+<h3 class="wp-block-heading">Hva modellerer simuleringen?</h3>
+
+
+
+<p class="wp-block-paragraph">Simuleringen beregner likevektstemperaturen på jordoverflaten gjennom en forenklet energibalansemodell. Brukeren deler atmosfæren inn i et valgfritt antall horisontale lag og justerer tre fysiske parametre:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Albedo:</strong> Refleksjon av innkommende sollys.</li>
+
+
+
+<li><strong>Absorbsjon ovenfra:</strong> Lagets evne til å absorbere kortbølget stråling (sollys).</li>
+
+
+
+<li><strong>Absorbsjon nedenfra:</strong> Lagets evne til å absorbere langbølget stråling (varmestråling).</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">Fysikken bak – steg for steg</h3>
+
+
+
+<p class="wp-block-paragraph"><strong>1. Innkommende stråling</strong></p>
+
+
+
+<p class="wp-block-paragraph">Sola treffer toppen av atmosfæren med en gjennomsnittlig effekt $S = 340 \text{ W/m}^2$. En andel $\alpha$ (albedo) reflekteres, mens resten absorberes:</p>
+
+
+
+<p class="wp-block-paragraph">$$Q_{\text{inn}} = S(1 - \alpha)$$</p>
+
+
+
+<p class="wp-block-paragraph">En reell albedo på $\alpha \approx 0{,}30$ betyr at Jorda absorberer 70 % av energien.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>2. Utgående stråling – Stefan-Boltzmanns lov</strong></p>
+
+
+
+<p class="wp-block-paragraph">Ethvert objekt med temperatur $T$ stråler ut energi i tråd med Stefan-Boltzmanns lov:</p>
+
+
+
+<p class="wp-block-paragraph">$$F = \sigma T^4$$</p>
+
+
+
+<p class="wp-block-paragraph">Her er $\sigma = 5{,}67 \times 10^{-8} \text{ W m}^{-2} \text{K}^{-4}$. Overflaten stråler oppover, mens atmosfærelagene stråler i begge vertikale retninger.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>3. Atmosfærens gjennomsiktighet</strong></p>
+
+
+
+<p class="wp-block-paragraph">Hvert lag absorberer en andel $\varepsilon$ av strålingen. Etter $n$ lag er den gjenværende fluksen:</p>
+
+
+
+<p class="wp-block-paragraph">$$F_{\text{gjennom}} = F_0 \cdot (1 - \varepsilon)^n$$</p>
+
+
+
+<p class="wp-block-paragraph">Økt $\varepsilon$ (høyere konsentrasjon av drivhusgasser) fanger mer varmestråling og hever overflatetemperaturen.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>4. Energibalansen og likevekt</strong></p>
+
+
+
+<p class="wp-block-paragraph">Simuleringen beregner netto energifluks $\Delta F$ for hvert lag:</p>
+
+
+
+<p class="wp-block-paragraph">$$\Delta F = F_{\text{inn}} - F_{\text{ut}}$$</p>
+
+
+
+<ul class="wp-block-list">
+<li>$\Delta F > 0$: Laget varmes opp ($T$ øker).</li>
+
+
+
+<li>$\Delta F &lt; 0$: Laget kjøles ned ($T$ synker).Systemet itererer inntil $\Delta F \approx 0$ for alle lag, som definerer strålebalanse.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph"><strong>5. Absorbsjon som minker med høyde</strong></p>
+
+
+
+<p class="wp-block-paragraph">En valgfri innstilling skalerer absorbsjonen med høyden for å simulere tettere atmosfære nær bakken:</p>
+
+
+
+<p class="wp-block-paragraph">$$\varepsilon_n = \varepsilon \cdot \frac{N + 1 - n}{N}$$</p>
+
+
+
+<p class="wp-block-paragraph">Her representerer $n$ lagnummeret og $N$ det totale antall lag.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>6. Fluks til verdensrommet</strong></p>
+
+
+
+<p class="wp-block-paragraph">Modellen beregner hvilken andel av strålingen fra lag $k$ som når verdensrommet:</p>
+
+
+
+<p class="wp-block-paragraph">$$F_k^{\text{ut}} = \sigma T_k^4 \cdot \prod_{j=k+1}^{N}(1 - \varepsilon_j)$$</p>
+
+
+
+<p class="wp-block-paragraph">Strålingen svekkes av alle overliggende lag. Simuleringen fremhever laget som bidrar mest til energitapet.</p>
+
+
+
+<h3 class="wp-block-heading">Hva kan elevene utforske?</h3>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><td><strong>Spørsmål</strong></td><td><strong>Handling i simulering</strong></td></tr></thead><tbody><tr><td>Hvordan påvirker økt albedo (f.eks. mer is) temperaturen?</td><td>Øk albedo-slideren.</td></tr><tr><td>Hva er effekten av flere drivhusgasser?</td><td>Øk antall lag eller absorbsjon nedenfra.</td></tr><tr><td>Hva skjer hvis atmosfæren absorberer mer sollys?</td><td>Øk absorbsjon ovenfra.</td></tr><tr><td>Hva er likevektstemperaturen uten atmosfære?</td><td>Sett alle absorbsjonsverdier til 0.</td></tr><tr><td>Hvilket lag kjøler Jorda mest effektivt?</td><td>Finn laget som lyser gult etter konvergens.</td></tr><tr><td>Spiller fordelingen av absorbsjon en rolle?</td><td>Test «minker med høyde» av og på.</td></tr></tbody></table></figure>
+
+
+
+<h3 class="wp-block-heading">Om konvergens</h3>
+
+
+
+<p class="wp-block-paragraph">Simuleringen stopper når temperaturendringen i alle lag er under 0,15 K over tre kontroller, eller etter maksimalt 2000 tidssteg. Sluttresultatene presenteres i et tekstfelt for enkel sammenligning.</p>
+
+
+
+<h3 class="wp-block-heading">En viktig presisering til elevene</h3>
+
+
+
+<p class="wp-block-paragraph">Modellen isolerer strålingsfysikken og ser bort fra konveksjon, havstrømmer og geografiske variasjoner. Denne forenklingen lar elevene observere den direkte effekten av enkeltparametre. Simuleringen gir ikke et eksakt svar på Jordas temperatur, men bygger fysisk intuisjon.</p>
+
+
+
+<p class="wp-block-paragraph">«Alle modeller er feil, men noen er nyttige.» — George Box</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p>Copyright 2026 - Skolesim</p>
+      <nav><a href="#">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
+</body>
+</html>
