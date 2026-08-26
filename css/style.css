@@ -1,0 +1,164 @@
+/* Design tokens cloned from the live skolesim.no (WordPress, Raft theme by ThemeIsle).
+   See .claude/skills/raft-style/SKILL.md for how these were derived. */
+:root {
+  --bg: #EBE8E6;
+  --bg-alt: rgba(255, 255, 255, 0.6);
+  --bg-inv: #1E1E1E;
+  --fg: #1D1F25;
+  --fg-alt: #FDFDFD;
+  --accent: #C26148;
+  --accent-2: #AC5039;
+  --content-width: 740px;
+  --wide-width: 960px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Readex Pro", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 { font-weight: 600; margin: 0 0 16px; }
+h1 { font-size: 56px; line-height: 1.25; }
+h2 { font-size: 32px; line-height: 1.35; }
+h3 { font-size: 28px; line-height: 1.35; }
+h4 { font-size: 24px; line-height: 1.4; }
+
+p { margin: 0 0 16px; }
+
+a { color: var(--fg); text-decoration: none; }
+a:hover { color: var(--accent); }
+
+.wide {
+  max-width: var(--wide-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.narrow {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.center { text-align: center; }
+
+/* Header */
+.site-header {
+  background: var(--bg-alt);
+  padding: 20px 0;
+}
+.site-header .wide {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.site-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.site-nav a { font-size: 14px; font-weight: 600; white-space: nowrap; }
+
+/* Hero */
+.hero {
+  background: var(--bg-alt);
+  padding: 80px 24px;
+}
+.hero .wide {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+  align-items: center;
+}
+.hero-figure { margin: 0; }
+.hero-figure img { width: 100%; height: auto; display: block; border-radius: 8px; }
+.hero-figure figcaption { font-size: 12px; color: var(--fg); opacity: 0.6; margin-top: 8px; }
+
+.section { padding: 48px 24px; }
+.section-lead { max-width: var(--content-width); margin: 0 auto 32px; text-align: center; }
+
+/* Tile grid ("Fagoversikt" subject tiles: background-image cards with title overlay) */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.tile {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+}
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0) 60%);
+}
+.tile h4 {
+  position: relative;
+  color: var(--fg-alt);
+  font-size: 18px;
+  margin: 0;
+  padding: 16px;
+}
+.tile a { position: absolute; inset: 0; z-index: 1; }
+
+/* Posts grid (Otter Blocks "posts grid" equivalent) */
+.posts-section { padding: 48px 24px 80px; }
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.post-card { display: flex; flex-direction: column; }
+.post-card img { width: 100%; height: auto; display: block; }
+.post-category { color: var(--accent); font-size: 14px; font-weight: 600; margin-bottom: 8px; display: block; }
+.post-title { font-size: 24px; margin-bottom: 4px; }
+.post-description { font-size: 14px; margin-bottom: 0; }
+
+/* Footer */
+.site-footer {
+  background: var(--bg-alt);
+  padding: 24px;
+}
+.site-footer .wide {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+}
+.site-footer p { margin: 0; font-size: 14px; }
+.site-footer nav a { font-size: 14px; font-weight: 600; }
+
+@media (max-width: 780px) {
+  h1 { font-size: 40px; }
+  .hero .wide { grid-template-columns: 1fr; }
+  .tile-grid { grid-template-columns: repeat(2, 1fr); }
+  .posts-grid { grid-template-columns: 1fr; }
+}

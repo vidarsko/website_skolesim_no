@@ -3,10 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Skolesim</title>
+  <title>Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>Skolesim</h1>
-  <p>Siden er under bygging.</p>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title">Skolesim</p>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="#fagoversikt">Fagoversikt</a></li>
+          <!-- Live site links "Om meg" cross-domain to læremedki.no/om-meg (shared author bio,
+               or possibly a config slip) — left as "#" here until confirmed with Vidar. -->
+          <li><a href="#">Om meg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wide">
+      <!-- Live hero uses a small looping GIF here; swapped for a static tile image for this draft. -->
+      <figure class="hero-figure">
+        <img src="media/tile-alle-simuleringer.png" alt="">
+      </figure>
+      <h1>Interaktive simuleringer for skolen</h1>
+    </div>
+  </section>
+
+  <section class="section" id="fagoversikt">
+    <div class="section-lead">
+      <h2>Fagoversikt</h2>
+      <p>Klikk på <span style="text-decoration: underline;">tittelen</span> for å navigere.</p>
+    </div>
+    <div class="wide">
+      <div class="tile-grid">
+        <div class="tile" style="background-image:url(media/tile-alle-simuleringer.png)">
+          <a href="#" aria-label="Alle simuleringer"></a>
+          <h4>Alle simuleringer</h4>
+        </div>
+        <div class="tile" style="background-image:url(media/tile-alle-tema.png)">
+          <a href="#" aria-label="Alle tema"></a>
+          <h4>Alle tema</h4>
+        </div>
+        <div class="tile" style="background-image:url(media/tile-fysikk1.png)">
+          <a href="#" aria-label="Fysikk 1"></a>
+          <h4>Fysikk 1</h4>
+        </div>
+        <div class="tile" style="background-image:url(media/tile-geografi.png)">
+          <a href="#" aria-label="Geografi (vg1)"></a>
+          <h4>Geografi (vg1)</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="posts-section">
+    <div class="section-lead">
+      <h2>Siste simuleringer</h2>
+    </div>
+    <div class="wide">
+      <div class="posts-grid">
+        <article class="post-card">
+          <a href="#"><img src="media/presse-etikk-case.png" alt="Presse-etikk-case"></a>
+          <span class="post-category"><a href="#">Etikk</a></span>
+          <h4 class="post-title"><a href="#">Presse-etikk-case</a></h4>
+          <p class="post-description">Ta rollen som vaktsjef i en digital redaksjon og fatt presseetiske valg i seks realistiske caser, de…</p>
+        </article>
+        <article class="post-card">
+          <a href="#"><img src="media/blodtyper.png" alt="Blodtyper"></a>
+          <span class="post-category"><a href="#">Genetikk og DNA</a></span>
+          <h4 class="post-title"><a href="#">Blodtyper</a></h4>
+          <p class="post-description">Utforsk de fire blodtypene (A, B, AB, 0) og Rh-faktoren gjennom seks interaktive faner – fra antigen…</p>
+        </article>
+        <article class="post-card">
+          <a href="#"><img src="media/jordens-stralebalanse.png" alt="Jordens strålebalanse"></a>
+          <span class="post-category"><a href="#">Fysikk 1</a></span>
+          <h4 class="post-title"><a href="#">Jordens strålebalanse</a></h4>
+          <p class="post-description">Juster antall atmosfæriske lag, albedo og absorpsjonsegenskaper for å se hvordan disse faktorene påv…</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p>Copyright 2026 - Skolesim</p>
+      <nav><a href="#">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
 </body>
 </html>
