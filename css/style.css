@@ -1,5 +1,6 @@
 /* Design tokens cloned from the live skolesim.no (WordPress, Raft theme by ThemeIsle).
-   See .claude/skills/raft-style/SKILL.md for how these were derived. */
+   See the `raft-style` skill (v1.0) in the `websites` umbrella repo's
+   .claude/skills/raft-style/SKILL.md for how these were derived. */
 :root {
   --bg: #EBE8E6;
   --bg-alt: rgba(255, 255, 255, 0.6);
