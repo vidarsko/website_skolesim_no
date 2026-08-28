@@ -502,9 +502,14 @@
         let animationFrameId = null; // For å stoppe animasjonen
 
         // Farger basert på brukerens ønsker
+        // Leses fra "wrapper" (en etterkommer av .wp-embed), ikke document.documentElement,
+        // fordi disse variablene er definert på :scope inni @scope (.wp-embed) og bare
+        // arves nedover til etterkommere av .wp-embed. document.documentElement ligger
+        // utenfor det scopet og ville gitt tom streng, som gjør at Canvas stille faller
+        // tilbake til svart i stedet for blå/grønn.
         const atomColors = {
-            N: getComputedStyle(document.documentElement).getPropertyValue('--color-n2-main').trim(), // Blå
-            H: getComputedStyle(document.documentElement).getPropertyValue('--color-h2-main').trim()  // Grønn
+            N: getComputedStyle(wrapper).getPropertyValue('--color-n2-main').trim(), // Blå
+            H: getComputedStyle(wrapper).getPropertyValue('--color-h2-main').trim()  // Grønn
         };
 
         // --- Molekylklasse ---
@@ -861,8 +866,10 @@
         }
 
         // Hjelpefunksjon for å hente CSS-variabler i JS
+        // Samme grunn som atomColors over: leses fra "wrapper", ikke document.documentElement,
+        // siden variablene kun er definert (via :scope) på .wp-embed og dens etterkommere.
         function var_to_css(varName) {
-            return getComputedStyle(document.documentElement).getPropertyValue(`--${varName}`).trim();
+            return getComputedStyle(wrapper).getPropertyValue(`--${varName}`).trim();
         }
 
         // --- Hendelseslyttere ---
@@ -970,7 +977,15 @@
                         headHtml += simStyle.outerHTML;
                     }
 
-                    const fullHtml = `<!DOCTYPE html>\n<html lang="no">\n<head>\n<meta charset="UTF-8">\n<title>Simulering</title>\n${headHtml}\n</head>\n<body>\n${simHtml}\n</body>\n</html>`;
+                    // Lukketaggene under er escapet med \/ (ikke rene lukketagger) fordi den rå
+                    // filen ellers ville inneholdt disse tagg-strengene bokstavelig midt inne i
+                    // dette scriptet. VS Code Live Server injiserer sin egen reload-<script> rett
+                    // før den FØRSTE forekomsten av en slik lukketagg den finner i rå filtekst, og
+                    // fant da denne (inni en JS-streng) i stedet for sidens ekte lukketagg lenger
+                    // ned, noe som delte denne template-literalen i to og ga "Uncaught SyntaxError:
+                    // Unexpected end of input". Escapingen endrer ikke verdien av strengen ved
+                    // kjøretid, kun den rå filteksten Live Server skanner.
+                    const fullHtml = `<!DOCTYPE html>\n<html lang="no">\n<head>\n<meta charset="UTF-8">\n<title>Simulering</title>\n${headHtml}\n<\/head>\n<body>\n${simHtml}\n<\/body>\n<\/html>`;
 
                     
                     const blob = new Blob(['\ufeff', fullHtml], { type: 'text/html;charset=utf-8' });

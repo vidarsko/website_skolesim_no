@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (container) {
                     // Lager en fullstendig HTML-struktur manuelt
                     const head = document.head ? document.head.innerHTML : '<meta charset="UTF-8"><title>Simulering</title>';
-                    htmlContent = `<!DOCTYPE html><html><head>${head}</head><body>${container.outerHTML}</body></html>`;
+                    htmlContent = `<!DOCTYPE html><html><head>${head}<\/head><body>${container.outerHTML}<\/body><\/html>`;
                 } else {
                     console.error("Kunne ikke hente HTML-innhold.");
                     return;
