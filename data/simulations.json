@@ -2,104 +2,244 @@
   {
     "slug": "blodtyper",
     "title": "Blodtyper",
-    "category": "Genetikk og DNA",
-    "categorySlug": "genetikk-og-dna",
+    "subjects": [
+      {
+        "name": "Naturfag (vg1)",
+        "slug": "naturfag-vg1"
+      }
+    ],
+    "topic": {
+      "name": "Genetikk og DNA",
+      "slug": "genetikk-og-dna"
+    },
     "description": "Utforsk de fire blodtypene (A, B, AB, 0) og Rh-faktoren gjennom seks interaktive faner – fra antigener til blodoverføring.",
     "image": "/media/blodtyper.jpg"
   },
   {
     "slug": "bohr-atommodell",
     "title": "Bohrs atommodell",
-    "category": "Atomfysikk",
-    "categorySlug": "atomfysikk",
+    "subjects": [
+      {
+        "name": "Fysikk 1",
+        "slug": "fysikk-1"
+      }
+    ],
+    "topic": {
+      "name": "Atomfysikk",
+      "slug": "atomfysikk"
+    },
     "description": "Juster den kontinuerlige energislideren for å velge fotonenergi. Treff de nøyaktige energinivåene for å se elektronoverganger.",
     "image": "/media/bohr-atommodell.jpg"
   },
   {
     "slug": "jordens-stralebalanse",
     "title": "Jordens strålebalanse",
-    "category": "Fysikk 1",
-    "categorySlug": "fysikk-1",
+    "subjects": [
+      {
+        "name": "Fysikk 1",
+        "slug": "fysikk-1"
+      }
+    ],
+    "topic": {
+      "name": "Stråling",
+      "slug": "straling"
+    },
     "description": "Juster antall atmosfæriske lag, albedo og absorpsjonsegenskaper for å se hvordan disse faktorene påvirker jordens temperatur.",
     "image": "/media/jordens-stralebalanse.jpg"
   },
   {
     "slug": "langs-vs-tversbolger",
     "title": "Langs- vs. tversbølger",
-    "category": "Naturfag (vg1)",
-    "categorySlug": "naturfag-vg1",
+    "subjects": [
+      {
+        "name": "Naturfag (vg1)",
+        "slug": "naturfag-vg1"
+      }
+    ],
+    "topic": {
+      "name": "Svingninger og bølger",
+      "slug": "svingninger-og-bolger"
+    },
     "description": "Juster amplitude, bølgelengde og fart. Se hvordan disse endringene påvirker partikkelbevegelsen for langsgående og tverrgående bølger.",
     "image": "/media/langs-vs-tversbolger.jpg"
   },
   {
     "slug": "le-chatelier",
     "title": "Le Châtelier",
-    "category": "Kjemi 1",
-    "categorySlug": "kjemi-1",
+    "subjects": [
+      {
+        "name": "Kjemi 1",
+        "slug": "kjemi-1"
+      }
+    ],
+    "topic": {
+      "name": "Reaksjoner",
+      "slug": "reaksjoner"
+    },
     "description": "Juster temperatur, trykk og konsentrasjon for reaksjonen N2(g) + 3H2(g) ⇌ 2NH3(g). Utforsk hvordan systemet responderer.",
     "image": "/media/le-chatelier.jpg"
   },
   {
     "slug": "mendelsk-genetikk",
     "title": "Mendelsk genetikk",
-    "category": "Genetikk og DNA",
-    "categorySlug": "genetikk-og-dna",
+    "subjects": [
+      {
+        "name": "Naturfag (vg1)",
+        "slug": "naturfag-vg1"
+      }
+    ],
+    "topic": {
+      "name": "Genetikk og DNA",
+      "slug": "genetikk-og-dna"
+    },
     "description": "Velg egenskap (ertefarge, øyenfarge, plantehøyde osv.), sett genotypen til mor og far, og se den forventede arvefordelingen.",
     "image": "/media/mendelsk-genetikk.jpg"
   },
   {
     "slug": "newtons-2-lov",
     "title": "Newtons 2. lov",
-    "category": "Fysikk 1",
-    "categorySlug": "fysikk-1",
+    "subjects": [
+      {
+        "name": "Fysikk 1",
+        "slug": "fysikk-1"
+      }
+    ],
+    "topic": {
+      "name": "Krefter",
+      "slug": "krefter"
+    },
     "description": "Juster kraft og masse med sliderne for å se hvordan akselerasjonen påvirker hastighet og posisjon over tid.",
     "image": "/media/newtons-2-lov.jpg"
   },
   {
     "slug": "okosystem-i-ubalanse",
     "title": "Økosystem i ubalanse",
-    "category": "Biologisk mangfold",
-    "categorySlug": "biologisk-mangfold",
+    "subjects": [
+      {
+        "name": "Naturfag (vg1)",
+        "slug": "naturfag-vg1"
+      }
+    ],
+    "topic": {
+      "name": "Biologisk mangfold",
+      "slug": "biologisk-mangfold"
+    },
     "description": "Fjern en art fra næringskjeden og observer hvordan det drastisk påvirker bestanden til de andre artene.",
     "image": "/media/okosystem-i-ubalanse.jpg"
   },
   {
     "slug": "presse-etikk-case",
     "title": "Presse-etikk-case",
-    "category": "Etikk",
-    "categorySlug": "etikk",
+    "subjects": [
+      {
+        "name": "Mediesamfunnet (vg1-3)",
+        "slug": "mediesamfunnet-vg1-3"
+      }
+    ],
+    "topic": {
+      "name": "Etikk",
+      "slug": "etikk"
+    },
     "description": "Ta rollen som vaktsjef i en digital redaksjon og fatt presseetiske valg i seks realistiske caser.",
     "image": "/media/presse-etikk-case.jpg"
   },
   {
     "slug": "rovdyr-og-byttedyr",
     "title": "Rovdyr og byttedyr",
-    "category": "Biologisk mangfold",
-    "categorySlug": "biologisk-mangfold",
+    "subjects": [
+      {
+        "name": "Naturfag (vg1)",
+        "slug": "naturfag-vg1"
+      }
+    ],
+    "topic": {
+      "name": "Biologisk mangfold",
+      "slug": "biologisk-mangfold"
+    },
     "description": "Juster vekstraten til byttedyrene og appetitten til rovdyrene for å se hvordan populasjonskurvene endrer seg.",
     "image": "/media/rovdyr-og-byttedyr.jpg"
   },
   {
     "slug": "sektordiagram",
     "title": "Sektordiagram",
-    "category": "Diagrammer",
-    "categorySlug": "diagrammer",
+    "subjects": [
+      {
+        "name": "Matematikk 1P",
+        "slug": "matematikk-1p"
+      },
+      {
+        "name": "Matematikk 2P",
+        "slug": "matematikk-2p"
+      }
+    ],
+    "topic": {
+      "name": "Diagrammer",
+      "slug": "diagrammer"
+    },
     "description": "Juster fordelingen av ressurser mellom ulike avdelinger ved å dra i gliderne. Se hvordan endringene reflekteres i diagrammet.",
     "image": "/media/sektordiagram.jpg"
   },
   {
     "slug": "spenning-strom-og-motstand",
     "title": "Spenning, strøm og motstand",
-    "category": "Elektrisitet",
-    "categorySlug": "elektrisitet",
+    "subjects": [
+      {
+        "name": "Fysikk 1",
+        "slug": "fysikk-1"
+      }
+    ],
+    "topic": {
+      "name": "Elektrisitet",
+      "slug": "elektrisitet"
+    },
     "description": "Utforsk sammenhengen mellom spenning, strøm og resistans ved å justere verdiene og se partikkelbevegelsen i kretsen.",
     "image": "/media/spenning-strom-og-motstand.jpg"
   },
   {
+    "slug": "basisvektor-spillet",
+    "title": "Basisvektor-spillet",
+    "subjects": [
+      {
+        "name": "Matematikk R1",
+        "slug": "matematikk-r1"
+      }
+    ],
+    "topic": {
+      "name": "Vektorer",
+      "slug": "vektorer"
+    },
+    "description": "Juster skalarene a og b for å se hvordan lineærkombinasjonen w = au + bv endrer seg. Prøv å treffe det tilfeldige målpunktet P.",
+    "image": "/media/basisvektor-spillet.jpg"
+  },
+  {
+    "slug": "vektoraddisjon",
+    "title": "Vektoraddisjon",
+    "subjects": [
+      {
+        "name": "Matematikk R1",
+        "slug": "matematikk-r1"
+      }
+    ],
+    "topic": {
+      "name": "Vektorer",
+      "slug": "vektorer"
+    },
+    "description": "Juster komponentene til vektor A og B med sliderne, og se summen R = A + B visualisert og beregnet i sanntid.",
+    "image": "/media/vektoraddisjon.jpg"
+  },
+  {
     "slug": "vinddannelse",
     "title": "Vinddannelse",
-    "category": "Vær og klima",
-    "categorySlug": "vaer-og-klima",
+    "subjects": [
+      {
+        "name": "Geografi (vg1)",
+        "slug": "geografi-vg1"
+      }
+    ],
+    "topic": {
+      "name": "Vær og klima",
+      "slug": "vaer-og-klima"
+    },
     "description": "Juster trykkforskjellen for å se hvordan luften sirkulerer mellom høytrykk og lavtrykk. Utforsk skydannelse underveis.",
     "image": "/media/vinddannelse.jpg"
   }

@@ -3,42 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Rovdyr og byttedyr — Skolesim.no</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
+  <script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
   <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+  <script id="i18n-dict" type="application/json">
+  {
+    "nav-alle-sim": {"no": "Alle simuleringer", "en": "All simulations"},
+    "nav-fagoversikt": {"no": "Fagoversikt", "en": "Subjects"},
+    "nav-om-meg": {"no": "Om meg", "en": "About"},
+    "footer-copyright": {"no": "Copyright 2026 – Skolesim", "en": "Copyright 2026 – Skolesim"},
+    "footer-privacy": {"no": "Personvernerklæring", "en": "Privacy policy"},
+    "theme-toggle-aria": {"no": "Bytt fargetema", "en": "Toggle color theme"},
+    "sim-warning-text": {"no": "Simuleringene på denne siden er KI-genererte, så dobbeltsjekk at de fungerer som de skal før du bruker dem i undervisningen.", "en": "The simulations on this page are AI-generated, so double-check that they work as intended before using them in teaching."}
+  }
+  </script>
 </head>
 <body>
 
   <header class="site-header">
     <div class="wide">
       <p class="site-title"><a href="/">Skolesim</a></p>
-      <nav>
-        <ul class="site-nav">
-          <li><a href="/#fagoversikt">Fagoversikt</a></li>
-          <li><a href="#">Om meg</a></li>
-        </ul>
-      </nav>
+      <div class="header-right">
+        <nav>
+          <ul class="site-nav">
+            <li><a href="/alle-simuleringer/" data-i18n="nav-alle-sim">Alle simuleringer</a></li>
+            <li><a href="/#fagoversikt" data-i18n="nav-fagoversikt">Fagoversikt</a></li>
+            <li><a href="#" data-i18n="nav-om-meg">Om meg</a></li>
+          </ul>
+        </nav>
+        <div class="nav-controls">
+          <button class="theme-toggle" type="button" data-i18n-attr="aria-label:theme-toggle-aria" aria-label="Bytt fargetema" aria-pressed="false">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+          </button>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <button type="button" class="lang-btn" data-lang="no">NO</button>
+            <button type="button" class="lang-btn" data-lang="en">EN</button>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
   <section class="section">
     <div class="wide">
-      <span class="post-category"><a href="/alle-simuleringer/?kategori=biologisk-mangfold">Biologisk mangfold</a></span>
+      <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=naturfag-vg1">Naturfag (vg1)</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=biologisk-mangfold">Biologisk mangfold</a></div>
       <h1>Rovdyr og byttedyr</h1>
+      <div class="sim-warning">
+        <p><strong>❗ NB.</strong> <span data-i18n="sim-warning-text">Simuleringene på denne siden er KI-genererte, så dobbeltsjekk at de fungerer som de skal før du bruker dem i undervisningen.</span></p>
+      </div>
+      <div class="wp-embed">
 <p class="wp-block-paragraph">uster vekstraten til byttedyrene og appetitten til rovdyrene for å se hvordan populasjonskurvene påvirker hverandre over tid. Legg merke til at rovdyr-toppen ofte kommer <em>etter</em> byttedyr-toppen.</p>
 
 
 
 <style>
+@scope (.wp-embed) {
+
     /* 1. CSS-Stil (Hovedprinsipper) 
        Importerer fonter først 
     */
     @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&family=Geologica:wght@700&display=swap');
 
-    :root {
+    :scope {
         /* Hovedfarger */
         --raft-bg: #EBE8E6;        /* Hovedbakgrunn (lys grå/beige) */
         --raft-fg: #1D1F25;        /* Hovedtekstfarge (mørk grå) */
@@ -236,6 +268,8 @@
             padding: 1rem;
         }
     }
+
+}
 </style>
 
 <div class="container">
@@ -462,7 +496,7 @@ document.addEventListener('DOMContentLoaded', () => {
     downloadButton.addEventListener('click', () => {
         try {
             // Hent hele HTML-innholdet til det nåværende dokumentet
-            const htmlContent = document.documentElement.outerHTML;
+            const htmlContent = (document.querySelector('.wp-embed') || document.documentElement).outerHTML;
             
             // Lag en Blob (en fil-lignende objekt i minnet)
             // \ufeff er en BOM (Byte Order Mark) for å sikre at UTF-8-koding gjenkjennes korrekt
@@ -493,10 +527,15 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   </section>
 
+      </div><!-- /.wp-embed -->
+
+  <script src="/js/theme.js" defer></script>
+  <script src="/js/i18n.js" defer></script>
+
   <footer class="site-footer">
     <div class="wide">
-      <p>Copyright 2026 - Skolesim</p>
-      <nav><a href="#">Personvernerklæring</a></nav>
+      <p data-i18n="footer-copyright">Copyright 2026 – Skolesim</p>
+      <nav><a href="#" data-i18n="footer-privacy">Personvernerklæring</a></nav>
     </div>
   </footer>
 

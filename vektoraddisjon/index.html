@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <title>Vektoraddisjon — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+  <script id="i18n-dict" type="application/json">
+  {
+    "nav-alle-sim": {"no": "Alle simuleringer", "en": "All simulations"},
+    "nav-fagoversikt": {"no": "Fagoversikt", "en": "Subjects"},
+    "nav-om-meg": {"no": "Om meg", "en": "About"},
+    "footer-copyright": {"no": "Copyright 2026 – Skolesim", "en": "Copyright 2026 – Skolesim"},
+    "footer-privacy": {"no": "Personvernerklæring", "en": "Privacy policy"},
+    "theme-toggle-aria": {"no": "Bytt fargetema", "en": "Toggle color theme"},
+    "sim-warning-text": {"no": "Simuleringene på denne siden er KI-genererte, så dobbeltsjekk at de fungerer som de skal før du bruker dem i undervisningen.", "en": "The simulations on this page are AI-generated, so double-check that they work as intended before using them in teaching."}
+  }
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <div class="header-right">
+        <nav>
+          <ul class="site-nav">
+            <li><a href="/alle-simuleringer/" data-i18n="nav-alle-sim">Alle simuleringer</a></li>
+            <li><a href="/#fagoversikt" data-i18n="nav-fagoversikt">Fagoversikt</a></li>
+            <li><a href="#" data-i18n="nav-om-meg">Om meg</a></li>
+          </ul>
+        </nav>
+        <div class="nav-controls">
+          <button class="theme-toggle" type="button" data-i18n-attr="aria-label:theme-toggle-aria" aria-label="Bytt fargetema" aria-pressed="false">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+          </button>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <button type="button" class="lang-btn" data-lang="no">NO</button>
+            <button type="button" class="lang-btn" data-lang="en">EN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=matematikk-r1">Matematikk R1</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=vektorer">Vektorer</a></div>
+      <h1>Vektoraddisjon</h1>
+      <div class="sim-warning">
+        <p><strong>❗ NB.</strong> <span data-i18n="sim-warning-text">Simuleringene på denne siden er KI-genererte, så dobbeltsjekk at de fungerer som de skal før du bruker dem i undervisningen.</span></p>
+      </div>
+      <div class="wp-embed">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&family=Geologica:wght@700&display=swap" rel="stylesheet">
+
+<style>
+@scope (.wp-embed) {
+
+        /* --- "Raft" Tema CSS-variabler --- */
+        :scope {
+            /* Hovedfarger */
+            --raft-bg: #EBE8E6;        /* Hovedbakgrunn (lys grå/beige) */
+            --raft-fg: #1D1F25;        /* Hovedtekstfarge (mørk grå) */
+            --raft-accent: #C26148;   /* Aksentfarge (rustrød) */
+            --raft-accent-dark: #AC5039; /* Mørkere aksent for hover */
+            --raft-bg-alt: rgba(255, 255, 255, 0.6); /* Gjennomsiktig hvit for container */
+            --raft-bg-controls: rgba(255, 255, 255, 0.8); /* Litt mindre gjennomsiktig for kontroller */
+            --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
+
+            /* Skrifttyper */
+            --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --raft-font-heading: "Geologica", var(--raft-font);
+
+            /* Farger for vektorer */
+            --vector-a: #0077b6; /* Blå */
+            --vector-b: #d00000; /* Rød */
+            --vector-r: #000000; /* Svart */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            margin: 1rem auto;
+            padding: 1.5rem;
+            background: var(--raft-bg-alt);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            font-family: var(--raft-font);
+            color: var(--raft-fg);
+            line-height: 1.6;
+        }
+
+        h1 {
+            font-family: var(--raft-font-heading);
+            color: var(--raft-fg);
+            border-bottom: 2px solid var(--raft-accent);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: var(--raft-font-heading);
+            color: var(--raft-accent);
+            margin-top: 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 5px;
+        }
+
+        .simulation-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        canvas {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1/1;
+            background-color: #fff;
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .controls, .results-box {
+            background: var(--raft-bg-controls);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .results-box {
+            background: var(--raft-bg-box);
+        }
+
+        .slider-group {
+            margin-bottom: 1rem;
+        }
+
+        .slider-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .slider-group label span {
+            font-weight: normal;
+            background: #eee;
+            padding: 0 6px;
+            border-radius: 4px;
+            font-feature-settings: "tnum";
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--raft-accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-feature-settings: "tnum";
+        }
+
+        th, td {
+            text-align: left;
+            padding: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f9f9f9;
+        }
+
+        td:first-child {
+            font-weight: bold;
+        }
+
+        #row-a td:first-child { color: var(--vector-a); }
+        #row-b td:first-child { color: var(--vector-b); }
+        #row-r td:first-child { color: var(--vector-r); }
+
+        button {
+            background-color: var(--raft-accent);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-family: var(--raft-font);
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        button:hover {
+            background-color: var(--raft-accent-dark);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+        }
+
+}
+</style>
+
+<div class="container">
+    <h1>Simulering av Vektoraddisjon</h1>
+
+    <div class="simulation-layout">
+
+        <div class="canvas-container">
+            <h2>Visuell Representasjon (A + B = R)</h2>
+            <canvas id="vectorCanvas" width="400" height="400"></canvas>
+        </div>
+
+        <div class="right-column">
+            <div class="controls">
+                <h2>Kontroller</h2>
+
+                <div class="slider-group">
+                    <label for="ax">Vektor A (x): <span id="ax-val">5</span></label>
+                    <input type="range" id="ax" min="-10" max="10" value="5" step="1">
+                </div>
+
+                <div class="slider-group">
+                    <label for="ay">Vektor A (y): <span id="ay-val">2</span></label>
+                    <input type="range" id="ay" min="-10" max="10" value="2" step="1">
+                </div>
+
+                <div class="slider-group">
+                    <label for="bx">Vektor B (x): <span id="bx-val">2</span></label>
+                    <input type="range" id="bx" min="-10" max="10" value="2" step="1">
+                </div>
+
+                <div class="slider-group">
+                    <label for="by">Vektor B (y): <span id="by-val">6</span></label>
+                    <input type="range" id="by" min="-10" max="10" value="6" step="1">
+                </div>
+            </div>
+
+            <div class="results-box" style="margin-top: 1.5rem;">
+                <h2>Numeriske Verdier</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Vektor</th>
+                            <th>Komponenter (x, y)</th>
+                            <th>Magnitude</th>
+                            <th>Vinkel (grader)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsTable">
+                        <tr id="row-a">
+                            <td>A</td>
+                            <td id="comp-a">(5, 2)</td>
+                            <td id="mag-a">5.39</td>
+                            <td id="ang-a">21.80°</td>
+                        </tr>
+                        <tr id="row-b">
+                            <td>B</td>
+                            <td id="comp-b">(2, 6)</td>
+                            <td id="mag-b">6.32</td>
+                            <td id="ang-b">71.57°</td>
+                        </tr>
+                        <tr id="row-r">
+                            <td>R (Resultat)</td>
+                            <td id="comp-r">(7, 8)</td>
+                            <td id="mag-r">10.63</td>
+                            <td id="ang-r">48.81°</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 1.5rem;">
+        <button id="downloadButton">Last ned denne filen</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const downloadButton = document.getElementById('downloadButton');
+        if (downloadButton) {
+            downloadButton.addEventListener('click', () => {
+                try {
+                    const htmlContent = document.querySelector('.wp-embed').outerHTML;
+                    const blob = new Blob(['﻿', htmlContent], { type: 'text/html;charset=utf-8' });
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = 'vektor_simulering.html';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(a.href);
+                } catch (error) {
+                    console.error("Feil ved nedlasting av fil:", error);
+                }
+            });
+        }
+
+        const canvas = document.getElementById('vectorCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const sliders = {
+            ax: document.getElementById('ax'),
+            ay: document.getElementById('ay'),
+            bx: document.getElementById('bx'),
+            by: document.getElementById('by'),
+        };
+
+        const labels = {
+            ax: document.getElementById('ax-val'),
+            ay: document.getElementById('ay-val'),
+            bx: document.getElementById('bx-val'),
+            by: document.getElementById('by-val'),
+        };
+
+        const table = {
+            compA: document.getElementById('comp-a'),
+            magA: document.getElementById('mag-a'),
+            angA: document.getElementById('ang-a'),
+            compB: document.getElementById('comp-b'),
+            magB: document.getElementById('mag-b'),
+            angB: document.getElementById('ang-b'),
+            compR: document.getElementById('comp-r'),
+            magR: document.getElementById('mag-r'),
+            angR: document.getElementById('ang-r'),
+        };
+
+        const origin = { x: canvas.width / 2, y: canvas.height / 2 };
+        const scale = 15;
+        const gridSpacing = 1 * scale;
+
+        function drawGrid() {
+            ctx.strokeStyle = '#f0f0f0';
+            ctx.lineWidth = 1;
+
+            for (let x = origin.x; x < canvas.width; x += gridSpacing) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            for (let x = origin.x - gridSpacing; x > 0; x -= gridSpacing) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+
+            for (let y = origin.y; y < canvas.height; y += gridSpacing) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+            for (let y = origin.y - gridSpacing; y > 0; y -= gridSpacing) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(origin.x, 0);
+            ctx.lineTo(origin.x, canvas.height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, origin.y);
+            ctx.lineTo(canvas.width, origin.y);
+            ctx.stroke();
+        }
+
+        function drawVector(startX, startY, vx, vy, color, label) {
+            const endX = startX + (vx * scale);
+            const endY = startY - (vy * scale);
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3;
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+
+            const headlen = 10;
+            const angle = Math.atan2(endY - startY, endX - startX);
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(endX, endY);
+            ctx.lineTo(endX - headlen * Math.cos(angle - Math.PI / 6), endY - headlen * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(endX - headlen * Math.cos(angle + Math.PI / 6), endY - headlen * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.font = 'bold 16px Figtree, sans-serif';
+            ctx.fillText(label, endX + 10, endY);
+        }
+
+        function updateSimulation() {
+            const ax = parseFloat(sliders.ax.value);
+            const ay = parseFloat(sliders.ay.value);
+            const bx = parseFloat(sliders.bx.value);
+            const by = parseFloat(sliders.by.value);
+
+            labels.ax.textContent = ax;
+            labels.ay.textContent = ay;
+            labels.bx.textContent = bx;
+            labels.by.textContent = by;
+
+            const rx = ax + bx;
+            const ry = ay + by;
+
+            const magA = Math.sqrt(ax*ax + ay*ay);
+            const angA = (Math.atan2(ay, ax) * 180 / Math.PI);
+            const magB = Math.sqrt(bx*bx + by*by);
+            const angB = (Math.atan2(by, bx) * 180 / Math.PI);
+            const magR = Math.sqrt(rx*rx + ry*ry);
+            const angR = (Math.atan2(ry, rx) * 180 / Math.PI);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawGrid();
+
+            drawVector(origin.x, origin.y, ax, ay, '#0077b6', 'A');
+
+            const bStartX = origin.x + (ax * scale);
+            const bStartY = origin.y - (ay * scale);
+
+            drawVector(bStartX, bStartY, bx, by, '#d00000', 'B');
+
+            drawVector(origin.x, origin.y, rx, ry, '#000000', 'R');
+
+            table.compA.textContent = `(${ax}, ${ay})`;
+            table.magA.textContent = magA.toFixed(2);
+            table.angA.textContent = `${angA.toFixed(2)}°`;
+
+            table.compB.textContent = `(${bx}, ${by})`;
+            table.magB.textContent = magB.toFixed(2);
+            table.angB.textContent = `${angB.toFixed(2)}°`;
+
+            table.compR.textContent = `(${rx}, ${ry})`;
+            table.magR.textContent = magR.toFixed(2);
+            table.angR.textContent = `${angR.toFixed(2)}°`;
+        }
+
+        for (let key in sliders) {
+            sliders[key].addEventListener('input', updateSimulation);
+        }
+
+        updateSimulation();
+    });
+</script>
+      </div><!-- /.wp-embed -->
+    </div>
+  </section>
+
+  <script src="/js/theme.js" defer></script>
+  <script src="/js/i18n.js" defer></script>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p data-i18n="footer-copyright">Copyright 2026 – Skolesim</p>
+      <nav><a href="#" data-i18n="footer-privacy">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
+</body>
+</html>

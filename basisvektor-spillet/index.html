@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <title>Basisvektor-spillet — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+  <script id="i18n-dict" type="application/json">
+  {
+    "nav-alle-sim": {"no": "Alle simuleringer", "en": "All simulations"},
+    "nav-fagoversikt": {"no": "Fagoversikt", "en": "Subjects"},
+    "nav-om-meg": {"no": "Om meg", "en": "About"},
+    "footer-copyright": {"no": "Copyright 2026 – Skolesim", "en": "Copyright 2026 – Skolesim"},
+    "footer-privacy": {"no": "Personvernerklæring", "en": "Privacy policy"},
+    "theme-toggle-aria": {"no": "Bytt fargetema", "en": "Toggle color theme"},
+    "sim-warning-text": {"no": "Simuleringene på denne siden er KI-genererte, så dobbeltsjekk at de fungerer som de skal før du bruker dem i undervisningen.", "en": "The simulations on this page are AI-generated, so double-check that they work as intended before using them in teaching."}
+  }
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <div class="header-right">
+        <nav>
+          <ul class="site-nav">
+            <li><a href="/alle-simuleringer/" data-i18n="nav-alle-sim">Alle simuleringer</a></li>
+            <li><a href="/#fagoversikt" data-i18n="nav-fagoversikt">Fagoversikt</a></li>
+            <li><a href="#" data-i18n="nav-om-meg">Om meg</a></li>
+          </ul>
+        </nav>
+        <div class="nav-controls">
+          <button class="theme-toggle" type="button" data-i18n-attr="aria-label:theme-toggle-aria" aria-label="Bytt fargetema" aria-pressed="false">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+          </button>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <button type="button" class="lang-btn" data-lang="no">NO</button>
+            <button type="button" class="lang-btn" data-lang="en">EN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=matematikk-r1">Matematikk R1</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=vektorer">Vektorer</a></div>
+      <h1>Basisvektor-spillet</h1>
+      <div class="sim-warning">
+        <p><strong>❗ NB.</strong> <span data-i18n="sim-warning-text">Simuleringene på denne siden er KI-genererte, så dobbeltsjekk at de fungerer som de skal før du bruker dem i undervisningen.</span></p>
+      </div>
+      <div class="wp-embed">
+
+<p class="wp-block-paragraph">Juster skalar-verdiene $a$ og $b$ med sliderne for å se hvordan lineærkombinasjonen $\vec{w} = a\vec{u} + b\vec{v}$ endrer seg. Prøv å treffe det tilfeldige målpunktet $P$ med $\vec{w}$ for å bygge intuisjon.</p>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&family=Geologica:wght@700&display=swap" rel="stylesheet">
+
+<style>
+@scope (.wp-embed) {
+
+    :scope {
+        /* Hovedfarger */
+        --raft-bg: #EBE8E6;        /* Hovedbakgrunn (lys grå/beige) */
+        --raft-fg: #1D1F25;        /* Hovedtekstfarge (mørk grå) */
+        --raft-accent: #C26148;   /* Aksentfarge (rustrød) */
+        --raft-accent-dark: #AC5039; /* Mørkere aksent for hover */
+        --raft-bg-alt: rgba(255, 255, 255, 0.6); /* Gjennomsiktig hvit for container */
+        --raft-bg-controls: rgba(255, 255, 255, 0.8); /* Litt mindre gjennomsiktig for kontroller */
+        --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
+
+        /* Skrifttyper */
+        --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --raft-font-heading: "Geologica", var(--raft-font);
+
+        /* Farger for simuleringen */
+        --color-u: #007bff; /* Blå */
+        --color-v: #dc3545; /* Rød */
+        --color-w: var(--raft-accent); /* Rustrød */
+        --color-target: #28a745; /* Grønn */
+        --color-grid: #d0d0d0;
+        --color-component: rgba(0, 0, 0, 0.3);
+    }
+
+    .vector-simulation-container {
+        max-width: 1000px;
+        margin: 20px auto;
+        padding: 20px;
+        background: var(--raft-bg-alt);
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        font-family: var(--raft-font);
+        color: var(--raft-fg);
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .vector-simulation-container h1 {
+        font-family: var(--raft-font-heading);
+        color: var(--raft-fg);
+        border-bottom: 2px solid var(--raft-accent);
+        padding-bottom: 10px;
+        font-size: 2.2rem;
+        margin-top: 0;
+    }
+
+    .vector-simulation-container h2 {
+        font-family: var(--raft-font-heading);
+        color: var(--raft-accent);
+        font-size: 1.5rem;
+        margin-top: 0;
+    }
+
+    .simulation-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+        align-items: start;
+    }
+
+    #vectorCanvas {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        background: var(--raft-bg-box);
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+    .controls {
+        background-color: var(--raft-bg-controls);
+        padding: 20px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .control-group label {
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    .control-group .slider-label {
+        font-family: var(--raft-font-heading);
+        font-size: 1.2rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .control-group #labelA { color: var(--color-u); }
+    .control-group #labelB { color: var(--color-v); }
+
+    button {
+        background-color: var(--raft-accent);
+        color: white;
+        border: none;
+        padding: 12px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: var(--raft-font);
+        font-weight: bold;
+        font-size: 1rem;
+        transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+        background-color: var(--raft-accent-dark);
+    }
+
+    input[type="range"] {
+        width: 100%;
+        cursor: pointer;
+        accent-color: var(--raft-accent);
+    }
+
+    #sliderA { accent-color: var(--color-u); }
+    #sliderB { accent-color: var(--color-v); }
+
+    #statusMessage {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--raft-accent);
+        text-align: center;
+        min-height: 1.5em;
+        margin-top: 10px;
+    }
+
+    .legend {
+        list-style: none;
+        padding: 0;
+        margin-top: 15px;
+    }
+    .legend li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    .legend span {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        border-radius: 4px;
+        border: 2px solid rgba(0,0,0,0.5);
+    }
+
+    .download-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    #downloadButton {
+        background-color: var(--raft-fg);
+        color: var(--raft-bg);
+    }
+    #downloadButton:hover {
+        background-color: #333;
+    }
+
+    @media (max-width: 768px) {
+        .simulation-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .vector-simulation-container h1 {
+            font-size: 1.8rem;
+        }
+    }
+}
+</style>
+
+<div class="vector-simulation-container">
+    <h1>Basisvektor-spillet</h1>
+
+    <div class="simulation-layout">
+        <div class="canvas-container">
+            <canvas id="vectorCanvas"></canvas>
+        </div>
+
+        <div class="controls">
+            <h2>Kontroller</h2>
+
+            <div class="control-group">
+                <div class="slider-label">
+                    <label for="sliderA">Skalar 'a'</label>
+                    <span id="labelA">0.00</span>
+                </div>
+                <input type="range" id="sliderA" min="-3" max="3" step="0.05" value="0">
+            </div>
+
+            <div class="control-group">
+                <div class="slider-label">
+                    <label for="sliderB">Skalar 'b'</label>
+                    <span id="labelB">0.00</span>
+                </div>
+                <input type="range" id="sliderB" min="-3" max="3" step="0.05" value="0">
+            </div>
+
+            <button id="newTargetButton">Nytt Mål</button>
+
+            <p id="statusMessage">Juster a og b for å treffe målet!</p>
+
+            <ul class="legend">
+                <li><span style="background-color: var(--color-u);"></span> Vektor $~\vec{u}$</li>
+                <li><span style="background-color: var(--color-v);"></span> Vektor $~\vec{v}$</li>
+                <li><span style="background-color: var(--color-w);"></span> Resultat $~\vec{w} = a\vec{u} + b\vec{v}$</li>
+                <li><span style="background-color: var(--color-target);"></span> Målpunkt $~P$</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="download-container">
+        <button id="downloadButton">Last ned denne filen</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const canvas = document.getElementById('vectorCanvas');
+    if (!canvas) {
+        console.error("Canvas-elementet 'vectorCanvas' ble ikke funnet.");
+        return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    const sliderA = document.getElementById('sliderA');
+    const labelA = document.getElementById('labelA');
+    const sliderB = document.getElementById('sliderB');
+    const labelB = document.getElementById('labelB');
+    const newTargetButton = document.getElementById('newTargetButton');
+    const statusMessage = document.getElementById('statusMessage');
+    const downloadButton = document.getElementById('downloadButton');
+
+    const wpEmbed = document.querySelector('.wp-embed');
+    const rootStyles = getComputedStyle(wpEmbed);
+    const colors = {
+        u: rootStyles.getPropertyValue('--color-u').trim() || '#007bff',
+        v: rootStyles.getPropertyValue('--color-v').trim() || '#dc3545',
+        w: rootStyles.getPropertyValue('--color-w').trim() || '#C26148',
+        target: rootStyles.getPropertyValue('--color-target').trim() || '#28a745',
+        grid: rootStyles.getPropertyValue('--color-grid').trim() || '#d0d0d0',
+        component: rootStyles.getPropertyValue('--color-component').trim() || 'rgba(0,0,0,0.3)',
+        text: rootStyles.getPropertyValue('--raft-fg').trim() || '#1D1F25'
+    };
+
+    const basisU = { x: 2, y: 1 };
+    const basisV = { x: 1, y: 3 };
+
+    let targetPoint = { x: 3, y: 4 };
+    let origin = { x: 0, y: 0 };
+    let pixelsPerUnit = 40;
+
+    function setupCanvas() {
+        const size = canvas.clientWidth;
+        canvas.width = size;
+        canvas.height = size;
+        origin.x = canvas.width / 2;
+        origin.y = canvas.height / 2;
+
+        pixelsPerUnit = size / 12;
+    }
+
+    function toPixelX(unitX) {
+        return origin.x + unitX * pixelsPerUnit;
+    }
+
+    function toPixelY(unitY) {
+        return origin.y - unitY * pixelsPerUnit;
+    }
+
+    function drawGrid() {
+        ctx.strokeStyle = colors.grid;
+        ctx.lineWidth = 1;
+
+        const maxUnits = Math.ceil(canvas.width / pixelsPerUnit / 2);
+
+        for (let i = -maxUnits; i <= maxUnits; i++) {
+            ctx.beginPath();
+            ctx.moveTo(toPixelX(i), toPixelY(maxUnits));
+            ctx.lineTo(toPixelX(i), toPixelY(-maxUnits));
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(toPixelX(-maxUnits), toPixelY(i));
+            ctx.lineTo(toPixelX(maxUnits), toPixelY(i));
+            ctx.stroke();
+        }
+
+        ctx.strokeStyle = colors.text;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(toPixelX(-maxUnits), toPixelY(0));
+        ctx.lineTo(toPixelX(maxUnits), toPixelY(0));
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(toPixelX(0), toPixelY(-maxUnits));
+        ctx.lineTo(toPixelX(0), toPixelY(maxUnits));
+        ctx.stroke();
+    }
+
+    function drawVector(vec, color, label, lineDash = []) {
+        ctx.strokeStyle = color;
+        ctx.fillStyle = color;
+        ctx.lineWidth = 4;
+        ctx.setLineDash(lineDash);
+
+        const endX = toPixelX(vec.x);
+        const endY = toPixelY(vec.y);
+        const startX = toPixelX(0);
+        const startY = toPixelY(0);
+
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+
+        const angle = Math.atan2(endY - startY, endX - startX);
+        ctx.save();
+        ctx.translate(endX, endY);
+        ctx.rotate(angle);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(-10, 5);
+        ctx.lineTo(-10, -5);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        if (label) {
+            ctx.fillStyle = color;
+            ctx.font = `bold 16px Geologica, Figtree, sans-serif`;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(label, toPixelX(vec.x * 1.1 + 0.2), toPixelY(vec.y * 1.1 + 0.2));
+        }
+
+        ctx.setLineDash([]);
+    }
+
+    function drawVectorFrom(startVec, vec, color, lineDash = []) {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.setLineDash(lineDash);
+
+        const startX = toPixelX(startVec.x);
+        const startY = toPixelY(startVec.y);
+        const endX = toPixelX(startVec.x + vec.x);
+        const endY = toPixelY(startVec.y + vec.y);
+
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+
+        ctx.setLineDash([]);
+    }
+
+    function drawPoint(p, color) {
+        ctx.fillStyle = color;
+        ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+        ctx.lineWidth = 2;
+
+        ctx.beginPath();
+        ctx.arc(toPixelX(p.x), toPixelY(p.y), 8, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = 'white';
+        ctx.font = `bold 14px Figtree, sans-serif`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("P", toPixelX(p.x), toPixelY(p.y));
+    }
+
+    function drawSimulation() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        drawGrid();
+
+        const a = parseFloat(sliderA.value);
+        const b = parseFloat(sliderB.value);
+
+        labelA.textContent = a.toFixed(2);
+        labelB.textContent = b.toFixed(2);
+
+        const vecAu = { x: a * basisU.x, y: a * basisU.y };
+        const vecBv = { x: b * basisV.x, y: b * basisV.y };
+        const resultantW = { x: vecAu.x + vecBv.x, y: vecAu.y + vecBv.y };
+
+        drawVector(basisU, colors.u, 'u');
+        drawVector(basisV, colors.v, 'v');
+
+        drawVector(vecAu, colors.u, '', [5, 5]);
+        drawVector(vecBv, colors.v, '', [5, 5]);
+
+        drawVectorFrom(vecAu, vecBv, colors.component, [2, 4]);
+        drawVectorFrom(vecBv, vecAu, colors.component, [2, 4]);
+
+        drawVector(resultantW, colors.w, 'w');
+
+        drawPoint(targetPoint, colors.target);
+
+        checkWin(resultantW);
+    }
+
+    function generateNewTarget() {
+        const maxX = Math.floor(origin.x / pixelsPerUnit) - 1;
+        const maxY = Math.floor(origin.y / pixelsPerUnit) - 1;
+
+        targetPoint.x = Math.floor(Math.random() * (maxX * 2 + 1)) - maxX;
+        targetPoint.y = Math.floor(Math.random() * (maxY * 2 + 1)) - maxY;
+
+        if (targetPoint.x === 0 && targetPoint.y === 0) {
+            targetPoint.x = 1;
+        }
+
+        statusMessage.textContent = 'Juster a og b for å treffe målet!';
+        statusMessage.style.color = colors.w;
+
+        drawSimulation();
+    }
+
+    function checkWin(w) {
+        const dist = Math.sqrt(Math.pow(w.x - targetPoint.x, 2) + Math.pow(w.y - targetPoint.y, 2));
+
+        const tolerance = 0.2;
+
+        if (dist < tolerance) {
+            statusMessage.textContent = 'Truffet! 🎯';
+            statusMessage.style.color = colors.target;
+        } else {
+            if (statusMessage.textContent === 'Truffet! 🎯') {
+                statusMessage.textContent = 'Juster a og b for å treffe målet!';
+                statusMessage.style.color = colors.w;
+            }
+        }
+    }
+
+    if (downloadButton) {
+        downloadButton.addEventListener('click', () => {
+            try {
+                const htmlContent = document.querySelector('.wp-embed').outerHTML;
+                const blob = new Blob(['﻿', htmlContent], { type: 'text/html;charset=utf-8' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'basisvektor_simulering.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(a.href);
+            } catch (error) {
+                console.error("Feil ved nedlasting av fil:", error);
+            }
+        });
+    } else {
+        console.warn("Nedlastingsknapp 'downloadButton' ikke funnet.");
+    }
+
+    sliderA.addEventListener('input', drawSimulation);
+    sliderB.addEventListener('input', drawSimulation);
+
+    newTargetButton.addEventListener('click', generateNewTarget);
+
+    window.addEventListener('resize', () => {
+        setupCanvas();
+        drawSimulation();
+    });
+
+    setupCanvas();
+    generateNewTarget();
+
+});
+</script>
+      </div><!-- /.wp-embed -->
+    </div>
+  </section>
+
+  <script src="/js/theme.js" defer></script>
+  <script src="/js/i18n.js" defer></script>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <p data-i18n="footer-copyright">Copyright 2026 – Skolesim</p>
+      <nav><a href="#" data-i18n="footer-privacy">Personvernerklæring</a></nav>
+    </div>
+  </footer>
+
+</body>
+</html>

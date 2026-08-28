@@ -1,17 +1,33 @@
-/* Design tokens cloned from the live skolesim.no (WordPress, Raft theme by ThemeIsle).
-   See the `raft-style` skill (v1.0) in the `websites` umbrella repo's
-   .claude/skills/raft-style/SKILL.md for how these were derived. */
+/* Design tokens per the `raft-style` skill v1.2 (../.claude/skills/raft-style/SKILL.md in the
+   umbrella repo): warm off-white palette, bento-grid layout principle, light/dark theme toggle,
+   two-group filter box pattern. Layout below intentionally does not replicate the live
+   WordPress site's flat uniform grids — see skolesim's own CLAUDE.md, "Redesign (2026-08-28)". */
 :root {
   --bg: #EBE8E6;
   --bg-alt: rgba(255, 255, 255, 0.6);
-  --bg-inv: #1E1E1E;
   --fg: #1D1F25;
-  --fg-alt: #FDFDFD;
+  --fg-inverse: #FDFDFD;
   --accent: #C26148;
-  --accent-2: #AC5039;
+  --accent-secondary: #AC5039;
+  --border: rgba(29, 31, 37, 0.10);
+  --border-strong: rgba(29, 31, 37, 0.18);
   --content-width: 740px;
-  --wide-width: 960px;
+  --wide-width: 1100px;
+  --radius: 8px;
 }
+
+html[data-theme="dark"] {
+  --bg: #1E1E1E;
+  --bg-alt: rgba(255, 255, 255, 0.06);
+  --fg: #FDFDFD;
+  --fg-inverse: #1D1F25;
+  --accent: #E48468;
+  --accent-secondary: #C26148;
+  --border: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.20);
+  color-scheme: dark;
+}
+html { color-scheme: light; }
 
 * { box-sizing: border-box; }
 
@@ -25,6 +41,7 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background 0.2s, color 0.2s;
 }
 
 h1, h2, h3, h4, h5, h6 { font-weight: 600; margin: 0 0 16px; }
@@ -37,6 +54,12 @@ p { margin: 0 0 16px; }
 
 a { color: var(--fg); text-decoration: none; }
 a:hover { color: var(--accent); }
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 
 .wide {
   max-width: var(--wide-width);
@@ -52,7 +75,24 @@ a:hover { color: var(--accent); }
 
 .center { text-align: center; }
 
-/* Header */
+.btn {
+  display: inline-block;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg-inverse);
+  background: var(--accent);
+  border: 2px solid transparent;
+  border-radius: 3px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn:hover { background: var(--accent-secondary); color: var(--fg-inverse); }
+
+/* ==========================================================================
+   Header / nav-controls (theme toggle + language switch)
+   ========================================================================== */
 .site-header {
   background: var(--bg-alt);
   padding: 20px 0;
@@ -71,6 +111,16 @@ a:hover { color: var(--accent); }
   letter-spacing: 1px;
   margin: 0;
 }
+.site-title a { color: var(--fg); }
+.site-title a:hover { color: var(--accent); }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
 .site-nav {
   display: flex;
   flex-wrap: wrap;
@@ -81,40 +131,136 @@ a:hover { color: var(--accent); }
 }
 .site-nav a { font-size: 14px; font-weight: 600; white-space: nowrap; }
 
-/* Hero */
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.theme-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg);
+  cursor: pointer;
+  transition: border-color 0.15s;
+  flex-shrink: 0;
+}
+.theme-toggle:hover, .theme-toggle:focus-visible { border-color: var(--border-strong); }
+.theme-toggle svg { width: 17px; height: 17px; }
+.theme-toggle .icon-moon { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  padding: 3px;
+  flex-shrink: 0;
+}
+.lang-btn {
+  border: none;
+  background: none;
+  font-family: inherit;
+  color: var(--fg);
+  opacity: 0.55;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 6px 10px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.15s;
+}
+.lang-btn:hover, .lang-btn:focus-visible { opacity: 0.85; }
+.lang-btn.active { background: var(--bg); opacity: 1; }
+html[data-theme="dark"] .lang-btn.active { background: rgba(255,255,255,0.10); }
+
+/* ==========================================================================
+   Hero — asymmetric two-panel: headline block + a small bordered stat panel
+   ========================================================================== */
 .hero {
   background: var(--bg-alt);
-  padding: 80px 24px;
+  padding: 72px 24px;
 }
 .hero .wide {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 48px;
-  align-items: center;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 32px;
+  align-items: stretch;
 }
-.hero-figure { margin: 0; }
-.hero-figure img { width: 100%; height: auto; display: block; border-radius: 8px; }
-.hero-figure figcaption { font-size: 12px; color: var(--fg); opacity: 0.6; margin-top: 8px; }
+.hero-main { display: flex; flex-direction: column; justify-content: center; }
+.hero-main h1 { margin-bottom: 12px; }
+.hero-main h1 .muted { color: var(--fg); opacity: 0.55; }
+.hero-sub { font-size: 18px; opacity: 0.75; max-width: 46ch; margin-bottom: 24px; }
 
-.section { padding: 48px 24px; }
+.hero-stat {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+.hero-stat .stat-number {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+.hero-stat .stat-label { font-size: 15px; opacity: 0.75; margin: 0; }
+
+.section { padding: 64px 24px; }
 .section-lead { max-width: var(--content-width); margin: 0 auto 32px; text-align: center; }
 
-/* Tile grid ("Fagoversikt" subject tiles: background-image cards with title overlay) */
+/* ==========================================================================
+   Simulation page warning banner — sits outside .wp-embed (see CLAUDE.md,
+   "Embedding a submitted simulation"), so it's immune to whatever CSS the
+   embedded content brings with it.
+   ========================================================================== */
+.sim-warning {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin: 0 0 24px;
+}
+.sim-warning p { margin: 0; font-size: 15px; }
+
+/* ==========================================================================
+   Bento subject grid ("Fagoversikt") — per raft-style v1.1's bento-grid section
+   ========================================================================== */
 .tile-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(150px, 1fr);
+  grid-auto-flow: dense;
   gap: 16px;
 }
 .tile {
   position: relative;
-  aspect-ratio: 4 / 3;
-  border-radius: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   overflow: hidden;
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: flex-end;
+  transition: border-color 0.15s;
 }
+.tile:hover, .tile:focus-within { border-color: var(--border-strong); }
 .tile::before {
   content: "";
   position: absolute;
@@ -123,49 +269,147 @@ a:hover { color: var(--accent); }
 }
 .tile h4 {
   position: relative;
-  color: var(--fg-alt);
+  color: #FDFDFD;
   font-size: 18px;
   margin: 0;
   padding: 16px;
 }
-.tile a { position: absolute; inset: 0; z-index: 1; }
+/* Whole-tile click target — a dedicated class, not a bare `.tile a` descendant selector, so it
+   only applies to the one overlay link a plain image tile has, not to any links nested inside
+   tile content (e.g. the fag-box's filter buttons inside a .tile--panel). */
+.tile-link { position: absolute; inset: 0; z-index: 1; }
 
-/* Filter bar (category filter for the simulations listing) */
+.tile--featured { grid-column: span 2; grid-row: span 2; }
+.tile--featured h4 { font-size: 24px; }
+
+/* ==========================================================================
+   Filter bar — two independent, combinable groups (fag left / tema right),
+   per raft-style v1.2's filter/listing pattern. Each group is a fixed-height,
+   scrollable box of full-width, uniform-height stacked buttons — not a
+   horizontal wrap of pills — so a long subject/topic list stays contained.
+   Tema is progressive: its box only fills in once a fag is chosen, scoped to
+   that fag's topics, so the page isn't showing every topic across every
+   subject at once.
+   ========================================================================== */
+.filter-groups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 32px;
+  margin: 0 0 40px;
+  align-items: start;
+}
+.filter-group-label {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.55;
+  margin: 0 0 10px;
+}
+.filter-box {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+  padding: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+}
 .filter-bar {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  margin: 0 0 32px;
+  flex-direction: column;
+  gap: 6px;
 }
 .filter-btn {
+  width: 100%;
+  text-align: left;
   font-family: inherit;
   font-size: 14px;
   font-weight: 600;
   color: var(--fg);
-  background: var(--bg-alt);
-  border: 2px solid transparent;
-  border-radius: 3px;
-  padding: 8px 16px;
+  background: var(--bg);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 11px 14px;
   cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  flex: 0 0 auto;
 }
-.filter-btn:hover { color: var(--accent); }
-.filter-btn.is-active { background: var(--accent); color: var(--fg-alt); }
+.filter-btn:hover { border-color: var(--border-strong); }
+.filter-bar--fag .filter-btn.is-active { background: var(--accent); color: var(--fg-inverse); }
+.filter-bar--tema .filter-btn.is-active { background: var(--fg); color: var(--bg); }
+.filter-hint {
+  font-size: 14px;
+  opacity: 0.6;
+  margin: 0;
+  padding: 12px 14px;
+}
 
-/* Posts grid (Otter Blocks "posts grid" equivalent) */
-.posts-section { padding: 48px 24px 80px; }
+@media (max-width: 780px) {
+  .filter-groups { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   Fag-box — same filter-box component reused standalone (e.g. on the
+   homepage) as a plain jump-to-filtered-listing subject picker, not paired
+   with a tema box.
+   ========================================================================== */
+.tile--panel {
+  background-image: none;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* .tile's own align-items:flex-end (for bottom-anchoring an image
+    tile's <h4>) would otherwise leak through and shrink-wrap+right-align the label/box here */
+  padding: 20px;
+}
+.tile--panel::before { display: none; }
+.tile--panel .filter-group-label { color: var(--fg); opacity: 0.55; }
+.tile--panel .filter-box { flex: 1; min-height: 0; max-height: none; }
+
+/* ==========================================================================
+   Posts grid — self-contained bordered card modules (raft-style v1.1's hairline
+   border, applied here even though the grid itself stays uniform: a plain
+   listing where every card is equally relevant is the uniform-grid case the
+   skill still allows).
+   ========================================================================== */
+.posts-section { padding: 64px 24px 88px; }
 .posts-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
-.post-card { display: flex; flex-direction: column; }
-.post-card img { width: 100%; height: auto; display: block; }
-.post-category { color: var(--accent); font-size: 14px; font-weight: 600; margin-bottom: 8px; display: block; }
-.post-title { font-size: 24px; margin-bottom: 4px; }
-.post-description { font-size: 14px; margin-bottom: 0; }
+.load-more { text-align: center; margin-top: 40px; }
+.load-more:empty { margin-top: 0; }
+.post-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-alt);
+  transition: border-color 0.15s;
+}
+.post-card:hover { border-color: var(--border-strong); }
+.post-card img { width: 100%; height: 180px; object-fit: cover; display: block; }
+.post-card-body { padding: 20px; }
+.post-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+}
+.badge:hover { border-color: var(--border-strong); }
+.badge-subject { color: var(--accent); }
+.badge-topic { color: var(--fg); opacity: 0.7; }
+.post-title { font-size: 22px; margin-bottom: 4px; }
+.post-title a:hover { color: var(--accent); }
+.post-description { font-size: 14px; margin-bottom: 0; opacity: 0.8; }
 
-/* Footer */
+/* ==========================================================================
+   Footer
+   ========================================================================== */
 .site-footer {
   background: var(--bg-alt);
   padding: 24px;
@@ -174,14 +418,66 @@ a:hover { color: var(--accent); }
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   gap: 16px;
 }
 .site-footer p { margin: 0; font-size: 14px; }
 .site-footer nav a { font-size: 14px; font-weight: 600; }
 
+@media (max-width: 900px) {
+  .hero .wide { grid-template-columns: 1fr; }
+  .hero-stat { align-items: flex-start; }
+}
+
+/* ==========================================================================
+   Contact panel ("Lære med KI") — bordered module, photo left / text right.
+   ========================================================================== */
+.contact-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 28px;
+  align-items: center;
+}
+.contact-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: var(--radius);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg);
+  opacity: 0.35;
+  overflow: hidden;
+}
+.contact-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.contact-photo svg { width: 48px; height: 48px; }
+.contact-photo-caption {
+  grid-column: 1;
+  margin: 8px 0 0;
+  font-size: 12px;
+  opacity: 0.6;
+  text-align: center;
+}
+.contact-body h2 { margin-bottom: 12px; }
+.contact-body p { margin-bottom: 10px; }
+.contact-body p:last-child { margin-bottom: 0; }
+.contact-body a { color: var(--accent); font-weight: 600; }
+.contact-body a:hover { color: var(--accent-secondary); }
+
 @media (max-width: 780px) {
   h1 { font-size: 40px; }
-  .hero .wide { grid-template-columns: 1fr; }
   .tile-grid { grid-template-columns: repeat(2, 1fr); }
+  .tile--featured { grid-column: span 2; grid-row: span 1; aspect-ratio: 16/9; }
+  .tile--panel { grid-column: span 2; grid-row: span 1; min-height: 280px; }
   .posts-grid { grid-template-columns: 1fr; }
+  .header-right { width: 100%; justify-content: space-between; }
+  .contact-panel { grid-template-columns: 1fr; text-align: center; }
+  .contact-photo { margin: 0 auto; }
+  .contact-photo-caption { grid-column: 1; }
 }
