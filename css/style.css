@@ -1,7 +1,7 @@
 /* Design tokens per the `raft-style` skill v1.2 (../.claude/skills/raft-style/SKILL.md in the
    umbrella repo): warm off-white palette, bento-grid layout principle, light/dark theme toggle,
    two-group filter box pattern. Layout below intentionally does not replicate the live
-   WordPress site's flat uniform grids — see skolesim's own CLAUDE.md, "Redesign (2026-08-28)". */
+   WordPress site's flat uniform grids — see skolesim's own AGENTS.md, "Redesign (2026-08-28)". */
 :root {
   --bg: #EBE8E6;
   --bg-alt: rgba(255, 255, 255, 0.6);
@@ -225,7 +225,7 @@ html[data-theme="dark"] .lang-btn.active { background: rgba(255,255,255,0.10); }
 .section-lead { max-width: var(--content-width); margin: 0 auto 32px; text-align: center; }
 
 /* ==========================================================================
-   Simulation page warning banner — sits outside .wp-embed (see CLAUDE.md,
+   Simulation page warning banner — sits outside .wp-embed (see AGENTS.md,
    "Embedding a submitted simulation"), so it's immune to whatever CSS the
    embedded content brings with it.
    ========================================================================== */
