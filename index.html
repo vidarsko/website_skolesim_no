@@ -17,7 +17,7 @@
     "hero-heading-1": {"no": "Interaktive simuleringer ", "en": "Interactive simulations "},
     "hero-heading-2": {"no": "for skolen", "en": "for the classroom"},
     "hero-sub": {"no": "Utforsk fysikk, kjemi, biologi og mer gjennom simuleringer du kan justere og leke med selv.", "en": "Explore physics, chemistry, biology and more through simulations you can adjust and play with yourself."},
-    "hero-stat-label": {"no": "simuleringer i flere fag", "en": "simulations across several subjects"},
+    "hero-stat-label": {"no": "Se en simulering av langs- og tversbølger", "en": "See a simulation of longitudinal and transverse waves"},
     "hero-cta": {"no": "Se alle simuleringer", "en": "Browse all simulations"},
     "tile-alle-simuleringer": {"no": "Alle simuleringer", "en": "All simulations"},
     "fagbox-heading": {"no": "Velg fag", "en": "Choose a subject"},
@@ -74,10 +74,10 @@
         <p class="hero-sub" data-i18n="hero-sub">Utforsk fysikk, kjemi, biologi og mer gjennom simuleringer du kan justere og leke med selv.</p>
         <a class="btn" href="/alle-simuleringer/" data-i18n="hero-cta">Se alle simuleringer</a>
       </div>
-      <div class="hero-stat">
-        <span class="stat-number">13</span>
-        <p class="stat-label" data-i18n="hero-stat-label">simuleringer i flere fag</p>
-      </div>
+      <a class="hero-stat hero-stat--wave" href="/langs-vs-tversbolger/">
+        <canvas id="hero-wave-canvas" aria-hidden="true"></canvas>
+        <p class="stat-label" data-i18n="hero-stat-label">Se en simulering av langs- og tversbølger</p>
+      </a>
     </div>
   </section>
 
@@ -133,6 +133,7 @@
   <script src="/js/theme.js" defer></script>
   <script src="/js/i18n.js" defer></script>
   <script src="/js/simulations.js" defer></script>
+  <script src="/js/hero-wave.js" defer></script>
 
   <footer class="site-footer">
     <div class="wide">

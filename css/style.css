@@ -221,6 +221,11 @@ html[data-theme="dark"] .lang-btn.active { background: rgba(255,255,255,0.10); }
 }
 .hero-stat .stat-label { font-size: 15px; opacity: 0.75; margin: 0; }
 
+.hero-stat--wave { transition: border-color 0.15s; }
+.hero-stat--wave:hover { border-color: var(--accent); }
+.hero-stat--wave canvas { display: block; width: 100%; margin-bottom: 12px; }
+.hero-stat--wave .stat-label { text-align: center; }
+
 .section { padding: 64px 24px; }
 .section-lead { max-width: var(--content-width); margin: 0 auto 32px; text-align: center; }
 
