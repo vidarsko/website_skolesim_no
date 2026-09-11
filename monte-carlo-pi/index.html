@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <title>Monte Carlo-simulering av Pi — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/analytics.js"></script>
+  <script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+  <script id="i18n-dict" type="application/json">
+  {
+    "nav-alle-sim": {"no": "Alle simuleringer", "en": "All simulations"},
+    "nav-fagoversikt": {"no": "Fagoversikt", "en": "Subjects"},
+    "nav-om-meg": {"no": "Om meg", "en": "About"},
+    "footer-copyright": {"no": "Copyright 2026 – Skolesim", "en": "Copyright 2026 – Skolesim"},
+    "footer-privacy": {"no": "Personvernerklæring", "en": "Privacy policy"},
+    "theme-toggle-aria": {"no": "Bytt fargetema", "en": "Toggle color theme"},
+    "sim-warning-text": {"no": "Simuleringene på denne siden er KI-genererte, så dobbeltsjekk at de fungerer som de skal før du bruker dem i undervisningen.", "en": "The simulations on this page are AI-generated, so double-check that they work as intended before using them in teaching."},
+    "footer-contact-heading": {"no": "Lære med KI", "en": "Learning with AI"},
+    "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
+    "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
+    "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
+    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"}
+  }
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <div class="header-right">
+        <nav>
+          <ul class="site-nav">
+            <li><a href="/alle-simuleringer/" data-i18n="nav-alle-sim">Alle simuleringer</a></li>
+            <li><a href="/#fagoversikt" data-i18n="nav-fagoversikt">Fagoversikt</a></li>
+            <li><a href="#" data-i18n="nav-om-meg">Om meg</a></li>
+          </ul>
+        </nav>
+        <div class="nav-controls">
+          <button class="theme-toggle" type="button" data-i18n-attr="aria-label:theme-toggle-aria" aria-label="Bytt fargetema" aria-pressed="false">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+          </button>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <button type="button" class="lang-btn" data-lang="no">NO</button>
+            <button type="button" class="lang-btn" data-lang="en">EN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+      <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=matematikk-2p">Matematikk 2P</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=sannsynlighet">Sannsynlighet</a></div>
+      <h1>Monte Carlo-simulering av Pi</h1>
+      <div class="sim-warning">
+        <p><strong>❗ NB.</strong> <span data-i18n="sim-warning-text">Simuleringene på denne siden er KI-genererte, så dobbeltsjekk at de fungerer som de skal før du bruker dem i undervisningen.</span></p>
+      </div>
+      <p class="wp-block-paragraph">Innsendt av Ole Henrik Ishoel.</p>
+      <div class="wp-embed">
+
+<style>
+@scope (.wp-embed) {
+
+        :scope {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --green: #2ecc71;
+            --red: #e74c3c;
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        p.description {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .canvas-container {
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+        canvas {
+            display: block;
+            border: 1px solid #ddd;
+        }
+
+        .controls-and-stats {
+            flex: 1;
+            min-width: 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .control-group {
+            background: #f1f3f5;
+            padding: 15px 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #ddd;
+            outline: none;
+            accent-color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: #d0d0d0;
+        }
+
+        .stats-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .stat-label {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .pi-highlight {
+            font-size: 22px;
+            color: var(--primary-color);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-green { background-color: var(--green); }
+        .dot-red { background-color: var(--red); }
+
+        .explanation {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .math {
+            font-family: 'Times New Roman', Times, serif;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+}
+</style>
+
+<div class="container">
+    <h1>Monte Carlo-simulering av &pi;</h1>
+    <p class="description">
+        Estimering av konstanten &pi; ved hjelp av tilfeldige skudd (punkter) i et kvadrat med en innskrevet sirkel.
+    </p>
+
+    <div class="layout">
+        <div class="canvas-container">
+            <canvas id="simCanvas" width="400" height="400"></canvas>
+        </div>
+
+        <div class="controls-and-stats">
+            <div class="control-group">
+                <label for="sampleSlider">
+                    <span>Antall skudd:</span>
+                    <span id="sampleValue" style="color: var(--accent-color);">1 000</span>
+                </label>
+                <input type="range" id="sampleSlider" min="1" max="50000" step="1" value="1000">
+
+                <div class="button-group">
+                    <button class="btn-primary" id="btnRun">Kjør simulering</button>
+                    <button class="btn-secondary" id="btnReset">Nullstill</button>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="stat-row">
+                    <span class="stat-label">Treff inne i sirkel (grønn):</span>
+                    <span class="stat-value" id="insideCount" style="color: var(--green);">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Treff utenfor sirkel (rød):</span>
+                    <span class="stat-value" id="outsideCount" style="color: var(--red);">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Totalt antall skudd:</span>
+                    <span class="stat-value" id="totalCount">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Estimert &pi;:</span>
+                    <span class="stat-value pi-highlight" id="piEstimate">0.00000</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Ekte &pi;:</span>
+                    <span class="stat-value">3.14159</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Avvik / Feilmargin:</span>
+                    <span class="stat-value" id="errorValue">0.00%</span>
+                </div>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="dot dot-green"></span>
+                    <span>Innenfor (r &le; R)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="dot dot-red"></span>
+                    <span>Utenfor (r > R)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="explanation">
+        <h3>Hvordan fungerer det?</h3>
+        <p>
+            Et kvadrat med sidelengde <span class="math">2r</span> har et areal på <span class="math">A<sub>kvadrat</sub> = (2r)<sup>2</sup> = 4r<sup>2</sup></span>.
+            En sirkel plassert inni med radius <span class="math">r</span> har et areal på <span class="math">A<sub>sirkel</sub> = &pi;r<sup>2</sup></span>.
+        </p>
+        <p>
+            Forholdet mellom arealet av sirkelen og kvadratet er:
+            <span class="math">A<sub>sirkel</sub> / A<sub>kvadrat</sub> = (&pi;r<sup>2</sup>) / (4r<sup>2</sup>) = &pi; / 4</span>.
+        </p>
+        <p>
+            Når vi kaster tilfeldige skudd på kvadratet, vil sannsynligheten for at et skudd lander i sirkelen tilsvare dette forholdet.
+            Derfor kan vi estimere &pi; ved formelen:
+            <br>
+            <strong style="display: block; text-align: center; margin-top: 8px; font-size: 1.1em;">
+                &pi; &approx; 4 &times; (Treff i sirkel / Totalt antall skudd)
+            </strong>
+        </p>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('simCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const slider = document.getElementById('sampleSlider');
+    const sliderVal = document.getElementById('sampleValue');
+    const btnRun = document.getElementById('btnRun');
+    const btnReset = document.getElementById('btnReset');
+
+    const insideEl = document.getElementById('insideCount');
+    const outsideEl = document.getElementById('outsideCount');
+    const totalEl = document.getElementById('totalCount');
+    const piEstimateEl = document.getElementById('piEstimate');
+    const errorEl = document.getElementById('errorValue');
+
+    const width = canvas.width;
+    const height = canvas.height;
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const radius = width / 2;
+
+    let insideCount = 0;
+    let totalCount = 0;
+    let animationFrameId = null;
+
+    function formatNumber(num) {
+        return num.toLocaleString('no-NO');
+    }
+
+    function drawBackground() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Fill background (Square)
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, width, height);
+
+        // Draw Circle Boundary
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+        ctx.strokeStyle = '#34495e';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(236, 240, 241, 0.4)';
+        ctx.fill();
+    }
+
+    function updateStats() {
+        insideEl.textContent = formatNumber(insideCount);
+        outsideEl.textContent = formatNumber(totalCount - insideCount);
+        totalEl.textContent = formatNumber(totalCount);
+
+        if (totalCount > 0) {
+            const piEstimate = (4 * insideCount) / totalCount;
+            piEstimateEl.textContent = piEstimate.toFixed(5);
+
+            const error = Math.abs((piEstimate - Math.PI) / Math.PI) * 100;
+            errorEl.textContent = error.toFixed(2) + '%';
+        } else {
+            piEstimateEl.textContent = '0.00000';
+            errorEl.textContent = '0.00%';
+        }
+    }
+
+    function runSimulation() {
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+        }
+
+        const totalToDraw = parseInt(slider.value);
+
+        let ptSize = 3;
+        if (totalToDraw <= 10) ptSize = 6;
+        else if (totalToDraw <= 100) ptSize = 4;
+        else if (totalToDraw > 10000) ptSize = 1;
+        else if (totalToDraw > 30000) ptSize = 0.75;
+
+        insideCount = 0;
+        totalCount = 0;
+
+        drawBackground();
+        updateStats();
+
+        const durationMs = totalToDraw < 10 ? 500 : 2500;
+        const startTime = performance.now();
+
+        slider.disabled = true;
+        btnRun.disabled = true;
+
+        function animate(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / durationMs, 1.0);
+            const targetCount = Math.floor(progress * totalToDraw);
+
+            const pointsToAdd = targetCount - totalCount;
+
+            if (pointsToAdd > 0) {
+                for (let i = 0; i < pointsToAdd; i++) {
+                    const x = Math.random() * width;
+                    const y = Math.random() * height;
+
+                    const dx = x - centerX;
+                    const dy = y - centerY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    const isInside = distance <= radius;
+
+                    if (isInside) {
+                        insideCount++;
+                        ctx.fillStyle = '#2ecc71';
+                    } else {
+                        ctx.fillStyle = '#e74c3c';
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(x, y, ptSize, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+
+                totalCount = targetCount;
+                updateStats();
+            }
+
+            if (progress < 1.0) {
+                animationFrameId = requestAnimationFrame(animate);
+            } else {
+                slider.disabled = false;
+                btnRun.disabled = false;
+                animationFrameId = null;
+            }
+        }
+
+        animationFrameId = requestAnimationFrame(animate);
+    }
+
+    function resetSimulation() {
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+        }
+        slider.disabled = false;
+        btnRun.disabled = false;
+        insideCount = 0;
+        totalCount = 0;
+        drawBackground();
+        updateStats();
+    }
+
+    // Event Listeners
+    slider.addEventListener('input', (e) => {
+        sliderVal.textContent = formatNumber(parseInt(e.target.value));
+    });
+
+    btnRun.addEventListener('click', runSimulation);
+    btnReset.addEventListener('click', resetSimulation);
+
+    // Initial Setup
+    drawBackground();
+    runSimulation();
+</script>
+      </div><!-- /.wp-embed -->
+    </div>
+  </section>
+
+  <script src="/js/theme.js" defer></script>
+  <script src="/js/i18n.js" defer></script>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <div class="footer-contact">
+        <p class="footer-contact-heading" data-i18n="footer-contact-heading">Lære med KI</p>
+        <p class="footer-contact-text"><span data-i18n="footer-contact-p1">Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne </span><a href="mailto:vidarsko@gmail.com" data-i18n="footer-contact-link1">sende den til meg</a><span data-i18n="footer-contact-p2">, eller les mer på </span><a href="https://xn--lremedki-j0a.no/lag-interaktive-simuleringer" data-i18n="footer-contact-link2">min blogg om å lære med KI</a>.</p>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footer-copyright">Copyright 2026 – Skolesim</p>
+        <nav><a href="#" data-i18n="footer-privacy">Personvernerklæring</a></nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

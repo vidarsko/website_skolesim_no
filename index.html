@@ -27,15 +27,14 @@
     "siste-heading": {"no": "Siste simuleringer", "en": "Latest simulations"},
     "siste-link": {"no": "Se alle simuleringer →", "en": "See all simulations →"},
     "empty-state": {"no": "Ingen simuleringer i denne kategorien ennå.", "en": "No simulations in this category yet."},
-    "contact-heading": {"no": "Lære med KI", "en": "Learning with AI"},
-    "contact-p1-before": {"no": "Denne siden er opprettet for å samle og dele nyttige interaktive simuleringer laget med KI. Dersom du har laget en simulering, så må du gjerne ", "en": "This site was created to collect and share useful interactive simulations made with AI. If you've made a simulation, feel free to "},
-    "contact-link1": {"no": "sende den til meg", "en": "send it to me"},
-    "contact-p2-before": {"no": "Du kan lese mer på ", "en": "You can read more on "},
-    "contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"},
-    "contact-photo-caption": {"no": "Foto: Hilde Lynnebakken", "en": "Photo: Hilde Lynnebakken"},
     "footer-copyright": {"no": "Copyright 2026 – Skolesim", "en": "Copyright 2026 – Skolesim"},
     "footer-privacy": {"no": "Personvernerklæring", "en": "Privacy policy"},
-    "theme-toggle-aria": {"no": "Bytt fargetema", "en": "Toggle color theme"}
+    "theme-toggle-aria": {"no": "Bytt fargetema", "en": "Toggle color theme"},
+    "footer-contact-heading": {"no": "Lære med KI", "en": "Learning with AI"},
+    "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
+    "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
+    "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
+    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"}
   }
   </script>
 </head>
@@ -111,26 +110,6 @@
     </div>
   </section>
 
-  <section class="section">
-    <div class="wide">
-      <div class="contact-panel">
-        <!-- Photo placeholder — Vidar will supply the actual photo (matching the live
-             skolesim.no site: him at a desk with a small robot toy, credited "Foto: Hilde
-             Lynnebakken"). Drop it in as /media/vidar-laere-med-ki.jpg and replace this div
-             with <img src="/media/vidar-laere-med-ki.jpg" alt="..."> — see AGENTS.md. -->
-        <div class="contact-photo" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-4.5-4.5a2 2 0 0 0-2.8 0L5 21"/></svg>
-        </div>
-        <div class="contact-body">
-          <h2 data-i18n="contact-heading">Lære med KI</h2>
-          <p><span data-i18n="contact-p1-before">Denne siden er opprettet for å samle og dele nyttige interaktive simuleringer laget med KI. Dersom du har laget en simulering, så må du gjerne </span><a href="mailto:vidarsko@gmail.com" data-i18n="contact-link1">sende den til meg</a>!</p>
-          <p><span data-i18n="contact-p2-before">Du kan lese mer på </span><a href="https://xn--lremedki-j0a.no/lag-interaktive-simuleringer" data-i18n="contact-link2">min blogg om å lære med KI</a>.</p>
-        </div>
-        <p class="contact-photo-caption" data-i18n="contact-photo-caption">Foto: Hilde Lynnebakken</p>
-      </div>
-    </div>
-  </section>
-
   <script src="/js/theme.js" defer></script>
   <script src="/js/i18n.js" defer></script>
   <script src="/js/simulations.js" defer></script>
@@ -138,8 +117,14 @@
 
   <footer class="site-footer">
     <div class="wide">
-      <p data-i18n="footer-copyright">Copyright 2026 – Skolesim</p>
-      <nav><a href="#" data-i18n="footer-privacy">Personvernerklæring</a></nav>
+      <div class="footer-contact">
+        <p class="footer-contact-heading" data-i18n="footer-contact-heading">Lære med KI</p>
+        <p class="footer-contact-text"><span data-i18n="footer-contact-p1">Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne </span><a href="mailto:vidarsko@gmail.com" data-i18n="footer-contact-link1">sende den til meg</a><span data-i18n="footer-contact-p2">, eller les mer på </span><a href="https://xn--lremedki-j0a.no/lag-interaktive-simuleringer" data-i18n="footer-contact-link2">min blogg om å lære med KI</a>.</p>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footer-copyright">Copyright 2026 – Skolesim</p>
+        <nav><a href="#" data-i18n="footer-privacy">Personvernerklæring</a></nav>
+      </div>
     </div>
   </footer>
 

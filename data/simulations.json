@@ -2,6 +2,7 @@
   {
     "slug": "blodtyper",
     "title": "Blodtyper",
+    "dateAdded": "2026-08-26",
     "subjects": [
       {
         "name": "Naturfag (vg1)",
@@ -18,6 +19,7 @@
   {
     "slug": "bohr-atommodell",
     "title": "Bohrs atommodell",
+    "dateAdded": "2026-08-26",
     "subjects": [
       {
         "name": "Fysikk 1",
@@ -34,6 +36,7 @@
   {
     "slug": "jordens-stralebalanse",
     "title": "Jordens strålebalanse",
+    "dateAdded": "2026-08-26",
     "subjects": [
       {
         "name": "Fysikk 1",
@@ -50,6 +53,7 @@
   {
     "slug": "langs-vs-tversbolger",
     "title": "Langs- vs. tversbølger",
+    "dateAdded": "2026-08-26",
     "subjects": [
       {
         "name": "Naturfag (vg1)",
@@ -66,6 +70,7 @@
   {
     "slug": "le-chatelier",
     "title": "Le Châtelier",
+    "dateAdded": "2026-08-26",
     "subjects": [
       {
         "name": "Kjemi 1",
@@ -82,6 +87,7 @@
   {
     "slug": "mendelsk-genetikk",
     "title": "Mendelsk genetikk",
+    "dateAdded": "2026-08-26",
     "subjects": [
       {
         "name": "Naturfag (vg1)",
@@ -98,6 +104,7 @@
   {
     "slug": "newtons-2-lov",
     "title": "Newtons 2. lov",
+    "dateAdded": "2026-08-26",
     "subjects": [
       {
         "name": "Fysikk 1",
@@ -114,6 +121,7 @@
   {
     "slug": "okosystem-i-ubalanse",
     "title": "Økosystem i ubalanse",
+    "dateAdded": "2026-08-26",
     "subjects": [
       {
         "name": "Naturfag (vg1)",
@@ -130,6 +138,7 @@
   {
     "slug": "presse-etikk-case",
     "title": "Presse-etikk-case",
+    "dateAdded": "2026-08-26",
     "subjects": [
       {
         "name": "Mediesamfunnet (vg1-3)",
@@ -146,6 +155,7 @@
   {
     "slug": "rovdyr-og-byttedyr",
     "title": "Rovdyr og byttedyr",
+    "dateAdded": "2026-08-26",
     "subjects": [
       {
         "name": "Naturfag (vg1)",
@@ -162,6 +172,7 @@
   {
     "slug": "sektordiagram",
     "title": "Sektordiagram",
+    "dateAdded": "2026-08-26",
     "subjects": [
       {
         "name": "Matematikk 1P",
@@ -182,6 +193,7 @@
   {
     "slug": "spenning-strom-og-motstand",
     "title": "Spenning, strøm og motstand",
+    "dateAdded": "2026-08-26",
     "subjects": [
       {
         "name": "Fysikk 1",
@@ -198,6 +210,7 @@
   {
     "slug": "basisvektor-spillet",
     "title": "Basisvektor-spillet",
+    "dateAdded": "2026-08-28",
     "subjects": [
       {
         "name": "Matematikk R1",
@@ -214,6 +227,7 @@
   {
     "slug": "vektoraddisjon",
     "title": "Vektoraddisjon",
+    "dateAdded": "2026-08-28",
     "subjects": [
       {
         "name": "Matematikk R1",
@@ -228,8 +242,26 @@
     "image": "/media/vektoraddisjon.jpg"
   },
   {
+    "slug": "monte-carlo-pi",
+    "title": "Monte Carlo-simulering av Pi",
+    "dateAdded": "2026-09-11",
+    "subjects": [
+      {
+        "name": "Matematikk 2P",
+        "slug": "matematikk-2p"
+      }
+    ],
+    "topic": {
+      "name": "Sannsynlighet",
+      "slug": "sannsynlighet"
+    },
+    "description": "Skyt tilfeldige punkter i et kvadrat med en innskrevet sirkel, og se hvordan andelen treff innenfor sirkelen brukes til å estimere π.",
+    "image": "/media/monte-carlo-pi.jpg"
+  },
+  {
     "slug": "vinddannelse",
     "title": "Vinddannelse",
+    "dateAdded": "2026-08-26",
     "subjects": [
       {
         "name": "Geografi (vg1)",

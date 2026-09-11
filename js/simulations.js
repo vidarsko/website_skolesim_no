@@ -56,6 +56,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const response = await fetch('/data/simulations.json');
   const sims = await response.json();
+  // Newest first, so "Siste simuleringer" (and the default /alle-simuleringer/ order)
+  // actually reflect recency instead of json array position.
+  sims.sort((a, b) => (b.dateAdded || '').localeCompare(a.dateAdded || ''));
 
   if (statNumber) statNumber.textContent = sims.length;
 

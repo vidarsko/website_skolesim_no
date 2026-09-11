@@ -421,59 +421,34 @@ html[data-theme="dark"] .lang-btn.active { background: rgba(255,255,255,0.10); }
 }
 .site-footer .wide {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   gap: 16px;
 }
 .site-footer p { margin: 0; font-size: 14px; }
 .site-footer nav a { font-size: 14px; font-weight: 600; }
 
+/* "Lære med KI" blurb — small, minimal band above the copyright line, shared
+   by every page's footer (see AGENTS.md, footer is deliberately minimal). */
+.footer-contact {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.footer-contact-heading { font-weight: 600; margin: 0 0 4px; }
+.footer-contact-text { max-width: 640px; opacity: 0.85; }
+.footer-contact-text a { color: var(--accent); font-weight: 600; }
+.footer-contact-text a:hover { color: var(--accent-secondary); }
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
 @media (max-width: 900px) {
   .hero .wide { grid-template-columns: 1fr; }
   .hero-stat { align-items: flex-start; }
 }
-
-/* ==========================================================================
-   Contact panel ("Lære med KI") — bordered module, photo left / text right.
-   ========================================================================== */
-.contact-panel {
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg-alt);
-  padding: 32px;
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 28px;
-  align-items: center;
-}
-.contact-photo {
-  width: 180px;
-  height: 180px;
-  border-radius: var(--radius);
-  background: var(--bg);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--fg);
-  opacity: 0.35;
-  overflow: hidden;
-}
-.contact-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.contact-photo svg { width: 48px; height: 48px; }
-.contact-photo-caption {
-  grid-column: 1;
-  margin: 8px 0 0;
-  font-size: 12px;
-  opacity: 0.6;
-  text-align: center;
-}
-.contact-body h2 { margin-bottom: 12px; }
-.contact-body p { margin-bottom: 10px; }
-.contact-body p:last-child { margin-bottom: 0; }
-.contact-body a { color: var(--accent); font-weight: 600; }
-.contact-body a:hover { color: var(--accent-secondary); }
 
 @media (max-width: 780px) {
   h1 { font-size: 40px; }
@@ -482,7 +457,4 @@ html[data-theme="dark"] .lang-btn.active { background: rgba(255,255,255,0.10); }
   .tile--panel { grid-column: span 2; grid-row: span 1; min-height: 280px; }
   .posts-grid { grid-template-columns: 1fr; }
   .header-right { width: 100%; justify-content: space-between; }
-  .contact-panel { grid-template-columns: 1fr; text-align: center; }
-  .contact-photo { margin: 0 auto; }
-  .contact-photo-caption { grid-column: 1; }
 }
