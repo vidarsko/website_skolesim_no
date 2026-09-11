@@ -25,7 +25,14 @@
     "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
     "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
     "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
-    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"}
+    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"},
+    "card-forklaring-label": {"no": "Forklaring", "en": "Explanation"},
+    "card-utforskning-label": {"no": "Forslag til utforskning", "en": "Ideas to explore"},
+    "card-lignende-label": {"no": "Lignende simuleringer", "en": "Similar simulations"},
+    "card-empty-label": {"no": "Kommer snart", "en": "Coming soon"},
+    "card-utforskning-empty": {"no": "Ingen forslag til utforskning er lagt til for denne simuleringen ennå.", "en": "No exploration suggestions have been added for this simulation yet."},
+    "card-lignende-empty": {"no": "Fant ingen lignende simuleringer ennå.", "en": "No similar simulations found yet."},
+    "sim-modal-close-aria": {"no": "Lukk", "en": "Close"}
   }
   </script>
 </head>
@@ -58,6 +65,7 @@
 
   <section class="section">
     <div class="wide">
+    <div class="sim-content-width" style="--sim-max-width:1000px">
       <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=naturfag-vg1">Naturfag (vg1)</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=genetikk-og-dna">Genetikk og DNA</a></div>
       <h1>Mendelsk genetikk</h1>
       <div class="sim-warning">
@@ -1181,13 +1189,53 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+      </div><!-- /.wp-embed -->
+
+      <div class="sim-cards-section">
+        <div class="sim-cards">
+          <button class="sim-card" type="button" data-modal="forklaring" style="background-image:url('/media/card-forklaring.jpg')">
+            <span class="sim-card-label" data-i18n="card-forklaring-label">Forklaring</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="utforskning" style="background-image:url('/media/card-utforskning.jpg')">
+            <span class="sim-card-label" data-i18n="card-utforskning-label">Forslag til utforskning</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="lignende" style="background-image:url('/media/card-lignende.jpg')">
+            <span class="sim-card-label" data-i18n="card-lignende-label">Lignende simuleringer</span>
+          </button>
+          <div class="sim-card sim-card--empty" aria-hidden="true">
+            <span class="sim-card-label" data-i18n="card-empty-label">Kommer snart</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-modal-overlay" id="simModalOverlay" hidden>
+        <div class="sim-modal" role="dialog" aria-modal="true">
+          <button class="sim-modal-close" type="button" data-i18n-attr="aria-label:sim-modal-close-aria" aria-label="Lukk">&times;</button>
+          <div class="sim-modal-body" id="simModalBody"></div>
+        </div>
+      </div>
+
+      <!-- Hidden templates, copied into the popup above by /js/sim-cards.js -->
+      <div id="modal-content-forklaring" hidden>
+        <h2 data-i18n="card-forklaring-label">Forklaring</h2>
+        <p>Se for deg at du krysser to erteplanter som begge har genotypen Gg for ertefarge &ndash; det vil si at hver av dem bærer på ett allel (en variant av genet) for gul farge (G) og ett allel for grønn farge (g). Utad ser begge plantene gule ut, for et <strong>dominant</strong> allel (skrevet med stor bokstav, G) overstyrer et <strong>recessivt</strong> allel (liten bokstav, g) når de opptrer sammen &ndash; det er nettopp det dominant/recessiv betyr. Denne synlige egenskapen, altså hvordan planten faktisk ser ut, kalles <strong>fenotypen</strong>, mens den underliggende allelkombinasjonen (Gg) kalles <strong>genotypen</strong>.</p>
+        <p>Når to Gg-planter får avkom, gir hver forelder videre bare ett av sine to alleler til hvert frø &ndash; aldri begge samtidig. En Gg-forelder lager derfor kjønnsceller med enten G eller g, om lag halvparten av hver. For å finne ut hvilke kombinasjoner som er mulige hos avkommet, bruker du en Punnett-rute: du setter morens to mulige alleler langs toppen og farens to alleler langs siden, og fyller ut hver rute i rutenettet med kombinasjonen av allelet fra raden og allelet fra kolonnen. Med Gg &times; Gg gir det fire like sannsynlige kombinasjoner: GG, Gg, Gg og gg.</p>
+        <p>Legg merke til at tre av de fire rutene (GG, Gg, Gg) inneholder minst én G og blir dermed gule i fenotype, mens bare én rute (gg) er <strong>homozygot recessiv</strong> (har to like recessive alleler) og blir grønn. Det gir det klassiske forholdet 3:1 mellom gule og grønne avkom &ndash; nøyaktig det du ser bygge seg opp rute for rute når du velger to Gg-foreldre i simuleringen og trykker &laquo;Utfør krysning&raquo;. Bytt gjerne egenskap eller foreldregenotyper i simuleringen, så regner Punnett-ruten ut det nye forholdet på nytt for deg.</p>
+      </div>
+      <div id="modal-content-utforskning" hidden>
+        <h2 data-i18n="card-utforskning-label">Forslag til utforskning</h2>
+        <p class="sim-modal-empty" data-i18n="card-utforskning-empty">Ingen forslag til utforskning er lagt til for denne simuleringen ennå.</p>
+      </div>
+      <div id="modal-content-lignende-heading" hidden>
+        <h2 data-i18n="card-lignende-label">Lignende simuleringer</h2>
+      </div>
+    </div><!-- /.sim-content-width -->
     </div>
   </section>
 
-      </div><!-- /.wp-embed -->
-
   <script src="/js/theme.js" defer></script>
   <script src="/js/i18n.js" defer></script>
+  <script src="/js/sim-cards.js" defer></script>
 
   <footer class="site-footer">
     <div class="wide">

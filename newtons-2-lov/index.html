@@ -25,7 +25,14 @@
     "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
     "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
     "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
-    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"}
+    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"},
+    "card-forklaring-label": {"no": "Forklaring", "en": "Explanation"},
+    "card-utforskning-label": {"no": "Forslag til utforskning", "en": "Ideas to explore"},
+    "card-lignende-label": {"no": "Lignende simuleringer", "en": "Similar simulations"},
+    "card-empty-label": {"no": "Kommer snart", "en": "Coming soon"},
+    "card-utforskning-empty": {"no": "Ingen forslag til utforskning er lagt til for denne simuleringen ennå.", "en": "No exploration suggestions have been added for this simulation yet."},
+    "card-lignende-empty": {"no": "Fant ingen lignende simuleringer ennå.", "en": "No similar simulations found yet."},
+    "sim-modal-close-aria": {"no": "Lukk", "en": "Close"}
   }
   </script>
 </head>
@@ -58,6 +65,7 @@
 
   <section class="section">
     <div class="wide">
+    <div class="sim-content-width" style="--sim-max-width:1000px">
       <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=fysikk-1">Fysikk 1</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=krefter">Krefter</a></div>
       <h1>Newtons 2. lov</h1>
       <div class="sim-warning">
@@ -787,83 +795,56 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(updatePhysics);
 });
 </script>
+      </div><!-- /.wp-embed -->
 
+      <div class="sim-cards-section">
+        <div class="sim-cards">
+          <button class="sim-card" type="button" data-modal="forklaring" style="background-image:url('/media/card-forklaring.jpg')">
+            <span class="sim-card-label" data-i18n="card-forklaring-label">Forklaring</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="utforskning" style="background-image:url('/media/card-utforskning.jpg')">
+            <span class="sim-card-label" data-i18n="card-utforskning-label">Forslag til utforskning</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="lignende" style="background-image:url('/media/card-lignende.jpg')">
+            <span class="sim-card-label" data-i18n="card-lignende-label">Lignende simuleringer</span>
+          </button>
+          <div class="sim-card sim-card--empty" aria-hidden="true">
+            <span class="sim-card-label" data-i18n="card-empty-label">Kommer snart</span>
+          </div>
+        </div>
+      </div>
 
+      <div class="sim-modal-overlay" id="simModalOverlay" hidden>
+        <div class="sim-modal" role="dialog" aria-modal="true">
+          <button class="sim-modal-close" type="button" data-i18n-attr="aria-label:sim-modal-close-aria" aria-label="Lukk">&times;</button>
+          <div class="sim-modal-body" id="simModalBody"></div>
+        </div>
+      </div>
 
-<h2 class="wp-block-heading">Hva skjer i simuleringen?</h2>
-
-
-
-<p class="wp-block-paragraph"><strong>Kraftspaken dikterer handlingen.</strong> Du påfører en netto kraft på boksen ved å dra i glideren merket "Kraft (F)". En positiv verdi skyver boksen mot høyre, mens en negativ verdi trekker den mot venstre. Den røde pilen på selve boksen visualiserer denne kraftvektoren umiddelbart. Simuleringen oversetter din fysiske input direkte til bevegelse på skjermen.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Massen agerer motstander.</strong> Glideren for "Masse (m)" bestemmer hvor tung og treg boksen er å flytte. En lett boks reagerer momentant på selv små krefter, mens en tung boks krever stor kraft for å endre hastighet. Denne motstanden mot endring i bevegelse kalles treghet.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Grafene forteller historien.</strong> Nederst i vinduet tegnes bevegelsen opp i sanntid fordelt på posisjon ($x$), hastighet ($v$) og akselerasjon ($a$). Disse tre grafene henger matematisk sammen og viser hvordan kraften din forplanter seg gjennom fysikkens lover over tid.</p>
-
-
-
-<h2 class="wp-block-heading">Hva kan man utforske?</h2>
-
-
-
-<p class="wp-block-paragraph"><strong>Treghetens lov i praksis.</strong> Prøv å sette massen til maksimal verdi (20 kg) og gi boksen et lite dytt. Du vil se at hastigheten øker smertefullt sakte. Gjør du det samme med minimal masse (1 kg), skyter boksen fart umiddelbart. Dette eksperimentet demonstrerer at akselerasjon er omvendt proporsjonal med massen.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Kunsten å bremse.</strong> Få boksen opp i høy hastighet mot høyre, og dra deretter kraftspaken raskt over til negative verdier. Legg merke til at boksen ikke snur med en gang; den fortsetter fremover mens den bremser ned, helt til hastigheten treffer null. Grafene vil her vise at posisjonen fortsatt øker mens hastigheten synker. Observasjonen bekrefter at kraft og bevegelsesretning kan være motsatt rettet.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Newtons første lov.</strong> Gi boksen fart, og sett deretter kraften nøyaktig til 0 N. Boksen vil fortsette å gli med konstant hastighet i det uendelige (eller til den treffer en vegg), og akselerasjonsgrafen flater ut på nulllinjen. Dette illustrerer at et objekt forblir i bevegelse når ingen ytre krefter virker på det.</p>
-
-
-
-<h2 class="wp-block-heading">Teorien bak</h2>
-
-
-
-<p class="wp-block-paragraph"><strong>Kjernen er Newtons andre lov.</strong> Hele simuleringen er bygget rundt en av fysikkens mest fundamentale ligninger. Loven sier at summen av kreftene på et legeme er lik massen ganget med akselerasjonen:</p>
-
-
-
-<p class="wp-block-paragraph">$$\sum F = ma$$</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Fra kraft til bevegelse.</strong> I simuleringen er det akselerasjonen ($a$) vi egentlig kontrollerer, selv om vi justerer kraften. Programmet regner kontinuerlig ut akselerasjonen ved å snu på formelen:</p>
-
-
-
-<p class="wp-block-paragraph">$$a = \frac{F}{m}$$</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Sammenhengen mellom grafene.</strong> Matematisk sett viser grafene kalkulus i praksis. Akselerasjonen er den deriverte av hastigheten ($a = v'$), og hastigheten er den deriverte av posisjonen ($v = x'$).</p>
-
-
-
-<ul class="wp-block-list">
-<li>En konstant verdi i akselerasjonsgrafen gir en rett linje (lineær stigning) i hastighetsgrafen.</li>
-
-
-
-<li>En rett linje i hastighetsgrafen gir en buet linje (parabel) i posisjonsgrafen.</li>
-</ul>
-
-
-
-<p class="wp-block-paragraph">Simuleringen beregner dette ved numerisk integrasjon, hvor den legger til små endringer tusenvis av ganger i sekundet for å oppdatere posisjonen.</p>
+      <!-- Hidden templates, copied into the popup above by /js/sim-cards.js -->
+      <div id="modal-content-forklaring" hidden>
+        <h2 data-i18n="card-forklaring-label">Forklaring</h2>
+        <p>Dra kraft-slideren i simuleringen helt opp til 50 N med massen satt til 2 kg, og se hvor fort boksen skyter fart. Sett så kraften ned til 25 N &ndash; halvparten så mye &ndash; og du vil se at boksen bruker dobbelt så lang tid på å nå samme fart. Behold kraften konstant, men dra i stedet massen opp fra 2 kg til 20 kg: nå blir boksen mye tregere å sette i bevegelse, selv om du skyver like hardt på den.</p>
+        <p>Det du observerer er akselerasjon &ndash; hvor raskt farten til boksen endrer seg fra det ene øyeblikket til det neste (det er nøyaktig dette grafen "Akselerasjon (a)" viser, over tid). Simuleringen viser at akselerasjonen ikke er tilfeldig: den er direkte proporsjonal med kraften du påfører, og omvendt proporsjonal med massen til boksen. Dobler du kraften, dobler du akselerasjonen. Dobler du massen, halveres den i stedet. Denne sammenhengen kalles Newtons andre lov, og skrives gjerne som</p>
+        <p>$$F = ma$$</p>
+        <p>der $F$ er kraften (målt i Newton), $m$ er massen (i kg) og $a$ er akselerasjonen (i m/s²). Vil du finne akselerasjonen når du kjenner kraften og massen, snur du bare på formelen:</p>
+        <p>$$a = \frac{F}{m}$$</p>
+        <p>&ndash; nøyaktig det simuleringen selv regner ut, om og om igjen for hvert lille tidssteg, for å bestemme hvor fort boksen skal bevege seg og hva grafene skal tegne.</p>
+      </div>
+      <div id="modal-content-utforskning" hidden>
+        <h2 data-i18n="card-utforskning-label">Forslag til utforskning</h2>
+        <p class="sim-modal-empty" data-i18n="card-utforskning-empty">Ingen forslag til utforskning er lagt til for denne simuleringen ennå.</p>
+      </div>
+      <div id="modal-content-lignende-heading" hidden>
+        <h2 data-i18n="card-lignende-label">Lignende simuleringer</h2>
+      </div>
+    </div><!-- /.sim-content-width -->
     </div>
   </section>
 
-      </div><!-- /.wp-embed -->
-
   <script src="/js/theme.js" defer></script>
   <script src="/js/i18n.js" defer></script>
+  <script src="/js/sim-cards.js" defer></script>
 
   <footer class="site-footer">
     <div class="wide">

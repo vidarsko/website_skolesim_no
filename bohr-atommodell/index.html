@@ -25,7 +25,14 @@
     "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
     "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
     "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
-    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"}
+    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"},
+    "card-forklaring-label": {"no": "Forklaring", "en": "Explanation"},
+    "card-utforskning-label": {"no": "Forslag til utforskning", "en": "Ideas to explore"},
+    "card-lignende-label": {"no": "Lignende simuleringer", "en": "Similar simulations"},
+    "card-empty-label": {"no": "Kommer snart", "en": "Coming soon"},
+    "card-utforskning-empty": {"no": "Ingen forslag til utforskning er lagt til for denne simuleringen ennå.", "en": "No exploration suggestions have been added for this simulation yet."},
+    "card-lignende-empty": {"no": "Fant ingen lignende simuleringer ennå.", "en": "No similar simulations found yet."},
+    "sim-modal-close-aria": {"no": "Lukk", "en": "Close"}
   }
   </script>
 </head>
@@ -58,6 +65,7 @@
 
   <section class="section">
     <div class="wide">
+    <div class="sim-content-width" style="--sim-max-width:1200px">
       <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=fysikk-1">Fysikk 1</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=atomfysikk">Atomfysikk</a></div>
       <h1>Bohrs atommodell</h1>
       <div class="sim-warning">
@@ -942,64 +950,55 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+      </div><!-- /.wp-embed -->
 
+      <div class="sim-cards-section">
+        <div class="sim-cards">
+          <button class="sim-card" type="button" data-modal="forklaring" style="background-image:url('/media/card-forklaring.jpg')">
+            <span class="sim-card-label" data-i18n="card-forklaring-label">Forklaring</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="utforskning" style="background-image:url('/media/card-utforskning.jpg')">
+            <span class="sim-card-label" data-i18n="card-utforskning-label">Forslag til utforskning</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="lignende" style="background-image:url('/media/card-lignende.jpg')">
+            <span class="sim-card-label" data-i18n="card-lignende-label">Lignende simuleringer</span>
+          </button>
+          <div class="sim-card sim-card--empty" aria-hidden="true">
+            <span class="sim-card-label" data-i18n="card-empty-label">Kommer snart</span>
+          </div>
+        </div>
+      </div>
 
-<h1 class="wp-block-heading">KI-generert forklaring</h1>
+      <div class="sim-modal-overlay" id="simModalOverlay" hidden>
+        <div class="sim-modal" role="dialog" aria-modal="true">
+          <button class="sim-modal-close" type="button" data-i18n-attr="aria-label:sim-modal-close-aria" aria-label="Lukk">&times;</button>
+          <div class="sim-modal-body" id="simModalBody"></div>
+        </div>
+      </div>
 
-
-
-<h2 class="wp-block-heading">Hva skjer i simuleringen?</h2>
-
-
-
-<p class="wp-block-paragraph">Du starter med et hydrogenatom i grunntilstanden (n=1). Du bruker kontrollene til å sende lyspartikler, kalt fotoner, mot atomet. Fotonet bærer en spesifikk energimengde som du velger. Elektronet i atomet kan kun absorbere fotonet hvis energien er <em>nøyaktig</em> riktig. Riktig energi tilsvarer spranget fra n=1 til et høyere skall (n=2, n=3, osv.). Elektronet hopper da opp til dette høyere energinivået, og vi kaller atomet "eksitert". Et foton med feil energi ignorerer atomet fullstendig. <strong>Simuleringen viser altså hvordan et atom kun absorberer spesifikke energipakker.</strong></p>
-
-
-
-<hr class="wp-block-separator has-alpha-channel-opacity"/>
-
-
-
-<p class="wp-block-paragraph">Et eksitert atom forblir ikke lenge i sin ustabile tilstand. Elektronet vil falle tilbake mot grunntilstanden (n=1). Dette fallet skjer ofte i tilfeldige steg, kalt en kaskade. Et elektron i n=4 kan for eksempel hoppe 4→2, og deretter 2→1. Hvert enkelt hopp (f.eks. 4→2) frigjør energiforskjellen som et nytt foton. Energien (og dermed fargen) på dette utsendte fotonet er unikt for akkurat <em>det</em> hoppet. Simulasjonens emisjonsspekter fanger opp disse utsendte fotonene. Hver farget linje du ser i spekteret, representerer én spesifikk overgang. <strong>De-eksitasjon produserer dermed atomets unike "fingeravtrykk" av lys.</strong></p>
-
-
-
-<h2 class="wp-block-heading">Hva kan du utforske?</h2>
-
-
-
-<p class="wp-block-paragraph">Du kan først bruke energiglideren for å teste nøyaktige verdier. Glideren har "hakk" som viser de nøyaktige energiene som trengs for å eksitere atomet fra n=1. Prøv å velge en energi som <em>ikke</em> er et hakk (f.eks. 1.700 aJ) og trykk "Send 1 Foton". Fotonet ditt vil passere rett gjennom atomet. Velg deretter nøyaktig energi for n=3 (1.937 aJ). Atomet absorberer fotonet, og elektronet hopper til n=3. Du kan nå observere den tilfeldige kaskaden (f.eks. 3→1, eller 3→2 fulgt av 2→1) og se hvilke linjer som dukker opp i spekteret. <strong>Enkelt-foton-modusen lar deg verifisere absorpsjonsprinsippet og se individuelle kaskader.</strong></p>
-
-
-
-<hr class="wp-block-separator has-alpha-channel-opacity"/>
-
-
-
-<p class="wp-block-paragraph">Knappen "Simuler mange fotoner" demonstrerer hvordan et fullt emisjonsspekter bygges opp. Simuleringen sender en kontinuerlig strøm av fotoner mot atomet. Noen fotoner har riktig energi for eksitasjon (og treffer), mens de fleste har tilfeldig energi (og bommer). Hver gang atomet eksiteres (til ulike nivåer) og de-eksiteres (via ulike kaskader), legges de utsendte fotonene til spekteret. Du vil se hvordan spekteret gradvis fylles med de distinkte linjene for hydrogen. <strong>Denne modusen viser hvordan milliarder av atomer sammen skaper de observerbare spektrallinjene.</strong></p>
-
-
-
-<h2 class="wp-block-heading">Teorien bak</h2>
-
-
-
-<p class="wp-block-paragraph">Niels Bohr foreslo en modell hvor atomets energi er "kvantisert". Kvantisering betyr at elektronet <em>kun</em> kan eksistere i bestemte, faste baner (energinivåer), kalt stasjonære tilstander (n=1, n=2, osv.). Elektronet kan ikke befinne seg <em>mellom</em> disse banene. Hvert nivå har en fast, diskret energiverdi, der n=1 (grunntilstanden) har lavest energi. <strong>Bohrs hovedidé var at energien i atomet er delt opp i nøyaktige trinn.</strong></p>
-
-
-
-<hr class="wp-block-separator has-alpha-channel-opacity"/>
-
-
-
-<p class="wp-block-paragraph">Denne trinnvise energimodellen forklarer de skarpe spektrallinjene. Et elektron må absorbere en presis energimengde (et foton) for å hoppe fra et lavt nivå til et høyt nivå (absorpsjon). Energien må nøyaktig tilsvare differansen mellom nivåene ($E_{\text{foton}} = E_{\text{høy}} - E_{\text{lav}}$). Når elektronet faller ned igjen (emisjon), frigjør det et foton med nøyaktig den samme energidifferansen. Siden det bare finnes et bestemt antall tillatte hopp, sender hydrogenatomet kun ut lys ved helt bestemte bølgelengder (farger). <strong>Simuleringen lar deg visualisere nøyaktig disse kvantiserte hoppene.</strong></p>
+      <!-- Hidden templates, copied into the popup above by /js/sim-cards.js -->
+      <div id="modal-content-forklaring" hidden>
+        <h2 data-i18n="card-forklaring-label">Forklaring</h2>
+        <p>Du drar energiglideren til nøyaktig 1,634 aJ (attojoule &ndash; en energienhet lik $10^{-18}$ joule, praktisk når energimengdene er så små som på atomnivå) og trykker &laquo;Send 1 Foton&raquo;. Et foton er ganske enkelt en liten pakke med lys, med akkurat den energien du valgte på glideren. I simuleringen ser du fotonet komme inn mot atomet, og elektronet hopper umiddelbart fra det innerste skallet (n=1) og ut til et skall lenger fra kjernen &ndash; atomet er blitt <em>eksitert</em>, altså løftet til en høyere, mindre stabil energitilstand.</p>
+        <p>Prøv nå å velge en energi som <em>ikke</em> er et av hakkene på glideren, for eksempel 1,7 aJ, og send et nytt foton. Denne gangen skjer ingenting: fotonet flyr rett gjennom atomet uten å bli stanset. Det er nettopp dette simuleringen skal vise deg &ndash; elektronet kan bare oppholde seg i noen bestemte, faste energinivåer (n=1, n=2, n=3, &hellip;), aldri noe sted mellom dem. Et foton blir derfor bare absorbert hvis energien dets treffer nøyaktig energiforskjellen mellom to nivåer:</p>
+        <p>$$E_{foton} = E_{høy} - E_{lav}$$</p>
+        <p>Er energien litt for lav eller litt for høy, passer den ikke til noe hopp, og fotonet passerer upåvirket &ndash; slik du så med 1,7 aJ. Hakkene på glideren markerer nettopp disse eksakte verdiene, ett hakk for hvert mulige hopp opp fra n=1 (helt til høyre ligger energien som er nok til å ionisere atomet, altså rive elektronet helt løs).</p>
+        <p>En måte å tenke på dette (som ikke er helt presis, men kan være til hjelp): se for deg en trapp der elektronet bare kan stå på selve trinnene, aldri mellom dem &ndash; skal det opp ett trinn, trenger det akkurat nok løft til å nå neste trinn, verken mer eller mindre. Etter at atomet er eksitert, faller elektronet gradvis tilbake mot n=1 igjen og sender da ut nye fotoner du kan se som linjer i emisjonsspekteret under atomet &ndash; men det er selve absorpsjonen, at kun én bestemt energi slipper gjennom, som er hovedpoenget Bohrs atommodell viser deg her.</p>
+      </div>
+      <div id="modal-content-utforskning" hidden>
+        <h2 data-i18n="card-utforskning-label">Forslag til utforskning</h2>
+        <p class="sim-modal-empty" data-i18n="card-utforskning-empty">Ingen forslag til utforskning er lagt til for denne simuleringen ennå.</p>
+      </div>
+      <div id="modal-content-lignende-heading" hidden>
+        <h2 data-i18n="card-lignende-label">Lignende simuleringer</h2>
+      </div>
+    </div><!-- /.sim-content-width -->
     </div>
   </section>
 
-      </div><!-- /.wp-embed -->
-
   <script src="/js/theme.js" defer></script>
   <script src="/js/i18n.js" defer></script>
+  <script src="/js/sim-cards.js" defer></script>
 
   <footer class="site-footer">
     <div class="wide">

@@ -25,7 +25,14 @@
     "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
     "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
     "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
-    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"}
+    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"},
+    "card-forklaring-label": {"no": "Forklaring", "en": "Explanation"},
+    "card-utforskning-label": {"no": "Forslag til utforskning", "en": "Ideas to explore"},
+    "card-lignende-label": {"no": "Lignende simuleringer", "en": "Similar simulations"},
+    "card-empty-label": {"no": "Kommer snart", "en": "Coming soon"},
+    "card-utforskning-empty": {"no": "Ingen forslag til utforskning er lagt til for denne simuleringen ennå.", "en": "No exploration suggestions have been added for this simulation yet."},
+    "card-lignende-empty": {"no": "Fant ingen lignende simuleringer ennå.", "en": "No similar simulations found yet."},
+    "sim-modal-close-aria": {"no": "Lukk", "en": "Close"}
   }
   </script>
 </head>
@@ -58,6 +65,7 @@
 
   <section class="section">
     <div class="wide">
+    <div class="sim-content-width" style="--sim-max-width:1000px">
       <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=matematikk-1p">Matematikk 1P</a><a class="badge badge-subject" href="/alle-simuleringer/?fag=matematikk-2p">Matematikk 2P</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=diagrammer">Diagrammer</a></div>
       <h1>Sektordiagram</h1>
       <div class="sim-warning">
@@ -428,53 +436,55 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+      </div><!-- /.wp-embed -->
 
+      <div class="sim-cards-section">
+        <div class="sim-cards">
+          <button class="sim-card" type="button" data-modal="forklaring" style="background-image:url('/media/card-forklaring.jpg')">
+            <span class="sim-card-label" data-i18n="card-forklaring-label">Forklaring</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="utforskning" style="background-image:url('/media/card-utforskning.jpg')">
+            <span class="sim-card-label" data-i18n="card-utforskning-label">Forslag til utforskning</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="lignende" style="background-image:url('/media/card-lignende.jpg')">
+            <span class="sim-card-label" data-i18n="card-lignende-label">Lignende simuleringer</span>
+          </button>
+          <div class="sim-card sim-card--empty" aria-hidden="true">
+            <span class="sim-card-label" data-i18n="card-empty-label">Kommer snart</span>
+          </div>
+        </div>
+      </div>
 
+      <div class="sim-modal-overlay" id="simModalOverlay" hidden>
+        <div class="sim-modal" role="dialog" aria-modal="true">
+          <button class="sim-modal-close" type="button" data-i18n-attr="aria-label:sim-modal-close-aria" aria-label="Lukk">&times;</button>
+          <div class="sim-modal-body" id="simModalBody"></div>
+        </div>
+      </div>
 
-<h2 class="wp-block-heading">Hva skjer i simuleringen?</h2>
-
-
-
-<p class="wp-block-paragraph"><strong>Glidere styrer verdiene.</strong> Du kontrollerer fordelingen av ressurser til fem ulike avdelinger ved å dra i spakene til venstre. Hver glider representerer en absolutt verdi (for eksempel antall timer eller kroner), og summen av alle gliderne utgjør den nye "totalen" for bedriften. Denne totalen fungerer som nevneren i brøken diagrammet bruker for å beregne kakestykkene.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Diagrammet responderer umiddelbart.</strong> Når du endrer en verdi, regner programmet raskt ut hvor stor andel denne verdien utgjør av helheten. Resultatet vises visuelt som en sektor i smultringdiagrammet (doughnut chart) til høyre. Simuleringen visualiserer dermed hvordan en endring i én variabel dynamisk påvirker det totale bildet.</p>
-
-
-
-<h2 class="wp-block-heading">Hva kan man utforske?</h2>
-
-
-
-<p class="wp-block-paragraph"><strong>Relativitet fremfor absolutte tall.</strong> En interessant øvelse er å øke alle verdiene like mye. Selv om de absolutte tallene (innsatsen) stiger, vil diagrammet se helt likt ut fordi forholdet mellom avdelingene forblir konstant. Utforskning av proporsjonalitet står sentralt her.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Konsekvenser av ressursfordeling.</strong> Prøv å maksimere "Salg" mens de andre verdiene holdes lave men konstante. Du vil se at prosenten til de andre avdelingene krymper drastisk, selv om du ikke rørte deres glidere. Dette demonstrerer at i et lukket system (eller en sirkel på $360^\circ$), vil en økning ett sted alltid gå på bekostning av den relative andelen et annet sted. Utforskning avslører at prosentregning handler om forholdet mellom del og helhet.</p>
-
-
-
-<h2 class="wp-block-heading">Teorien bak</h2>
-
-
-
-<p class="wp-block-paragraph"><strong>Fra brøk til grader.</strong> Et sektordiagram er en geometrisk representasjon av relative frekvenser. En full sirkel består alltid av $360^\circ$. For å finne ut hvor stor vinkel (sektor) en kategori skal ha, bruker programmet følgende formel:</p>
-
-
-
-<p class="wp-block-paragraph">$$\text{Vinkel} = \frac{\text{Verdi for kategori}}{\text{Summen av alle kategorier}} \times 360^\circ$$</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Beregning av prosentandeler.</strong> Diagrammet viser også prosenten, som følger samme logikk, men skaleres til 100 i stedet for 360. Matematisk sett konverterer simuleringen en delmengde til en desimaltall-brøk, som deretter projiseres over på sirkelens geometri. Teorien binder sammen brøkregning, prosentlære og geometri i én visuell modell.</p>
+      <!-- Hidden templates, copied into the popup above by /js/sim-cards.js -->
+      <div id="modal-content-forklaring" hidden>
+        <h2 data-i18n="card-forklaring-label">Forklaring</h2>
+        <p>Dra i slideren for &laquo;Salg&raquo; i simuleringen helt til høyre. Legg merke til at kakestykket for salg vokser tydelig i diagrammet, mens de fire andre stykkene krymper litt &ndash; selv om du ikke rørte de andre sliderne i det hele tatt. Dette er selve poenget med et sektordiagram (også kalt kakediagram, eller smultringdiagram når midten er hul, slik som her): det viser hvordan en helhet er delt opp i deler, der hver del tegnes som et utsnitt av en sirkel med en vinkel som står i forhold til hvor stor andel &ndash; altså hvor stor del av totalen &ndash; kategorien utgjør.</p>
+        <p>En vanlig måte å tenke på dette er å sammenligne med å dele en kake mellom avdelingene, der størrelsen på hvert stykke skal gjenspeile hvor mye ressurser avdelingen får. Sammenligningen er ikke helt presis &ndash; en ekte kake deles sjelden etter et regnestykke &ndash; men den fanger selve ideen: jo større andel av helheten en kategori har, jo større vinkel får kakestykket dens.</p>
+        <p>En hel sirkel er alltid $360^\circ$. Har en kategori verdien $x$, og summen av alle kategoriene til sammen er $T$, blir vinkelen til kategoriens sektor</p>
+        <p>$$\text{Vinkel} = \frac{x}{T} \cdot 360^\circ$$</p>
+        <p>Legg merke til at det er forholdet $x/T$ &ndash; andelen &ndash; som avgjør vinkelen, ikke tallet $x$ alene. Dobler du alle fem verdiene samtidig i simuleringen, endres ikke diagrammet i det hele tatt, for hver avdelings andel av totalen $T$ er akkurat den samme som før. Prøv det selv: øk alle sliderne like mye, og se at kakestykkene holder seg helt uendret.</p>
+      </div>
+      <div id="modal-content-utforskning" hidden>
+        <h2 data-i18n="card-utforskning-label">Forslag til utforskning</h2>
+        <p class="sim-modal-empty" data-i18n="card-utforskning-empty">Ingen forslag til utforskning er lagt til for denne simuleringen ennå.</p>
+      </div>
+      <div id="modal-content-lignende-heading" hidden>
+        <h2 data-i18n="card-lignende-label">Lignende simuleringer</h2>
+      </div>
+    </div><!-- /.sim-content-width -->
     </div>
   </section>
 
-      </div><!-- /.wp-embed -->
-
   <script src="/js/theme.js" defer></script>
   <script src="/js/i18n.js" defer></script>
+  <script src="/js/sim-cards.js" defer></script>
 
   <footer class="site-footer">
     <div class="wide">

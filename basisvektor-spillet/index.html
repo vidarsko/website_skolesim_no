@@ -25,7 +25,14 @@
     "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
     "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
     "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
-    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"}
+    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"},
+    "card-forklaring-label": {"no": "Forklaring", "en": "Explanation"},
+    "card-utforskning-label": {"no": "Forslag til utforskning", "en": "Ideas to explore"},
+    "card-lignende-label": {"no": "Lignende simuleringer", "en": "Similar simulations"},
+    "card-empty-label": {"no": "Kommer snart", "en": "Coming soon"},
+    "card-utforskning-empty": {"no": "Ingen forslag til utforskning er lagt til for denne simuleringen ennå.", "en": "No exploration suggestions have been added for this simulation yet."},
+    "card-lignende-empty": {"no": "Fant ingen lignende simuleringer ennå.", "en": "No similar simulations found yet."},
+    "sim-modal-close-aria": {"no": "Lukk", "en": "Close"}
   }
   </script>
 </head>
@@ -58,6 +65,7 @@
 
   <section class="section">
     <div class="wide">
+    <div class="sim-content-width" style="--sim-max-width:1000px">
       <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=matematikk-r1">Matematikk R1</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=vektorer">Vektorer</a></div>
       <h1>Basisvektor-spillet</h1>
       <div class="sim-warning">
@@ -554,11 +562,54 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
       </div><!-- /.wp-embed -->
+
+      <div class="sim-cards-section">
+        <div class="sim-cards">
+          <button class="sim-card" type="button" data-modal="forklaring" style="background-image:url('/media/card-forklaring.jpg')">
+            <span class="sim-card-label" data-i18n="card-forklaring-label">Forklaring</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="utforskning" style="background-image:url('/media/card-utforskning.jpg')">
+            <span class="sim-card-label" data-i18n="card-utforskning-label">Forslag til utforskning</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="lignende" style="background-image:url('/media/card-lignende.jpg')">
+            <span class="sim-card-label" data-i18n="card-lignende-label">Lignende simuleringer</span>
+          </button>
+          <div class="sim-card sim-card--empty" aria-hidden="true">
+            <span class="sim-card-label" data-i18n="card-empty-label">Kommer snart</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-modal-overlay" id="simModalOverlay" hidden>
+        <div class="sim-modal" role="dialog" aria-modal="true">
+          <button class="sim-modal-close" type="button" data-i18n-attr="aria-label:sim-modal-close-aria" aria-label="Lukk">&times;</button>
+          <div class="sim-modal-body" id="simModalBody"></div>
+        </div>
+      </div>
+
+      <!-- Hidden templates, copied into the popup above by /js/sim-cards.js -->
+      <div id="modal-content-forklaring" hidden>
+        <h2 data-i18n="card-forklaring-label">Forklaring</h2>
+        <p>Se for deg at du har to piler som starter i origo: $\vec{u}$ peker skrått opp til høyre, og $\vec{v}$ peker en annen vei. I simuleringen kan du skalere hver av dem opp, ned, eller snu dem &ndash; det er det sliderne for $a$ og $b$ gjør. Sett $a = 2$ og $b = 0$: da blir resultatvektoren $\vec{w}$ rett og slett $\vec{u}$ strukket til dobbel lengde. Sett i stedet $a = 1$ og $b = 1$: nå legger du $\vec{u}$ og $\vec{v}$ sammen, tuppe til hale, og $\vec{w}$ ender opp et helt annet sted i planet.</p>
+        <p>Det du gjør er å bygge en <strong>lineærkombinasjon</strong> &ndash; en sum av to vektorer som hver er skalert med et tall (en <strong>skalar</strong>, altså bare et vanlig tall som strekker eller snur en vektor uten å endre retningen dens alene):</p>
+        <p>$$\vec{w} = a\vec{u} + b\vec{v}$$</p>
+        <p>Så lenge $\vec{u}$ og $\vec{v}$ ikke peker i samme (eller motsatt) retning, kalles de to en <strong>basis</strong> for planet &ndash; et par retninger du får kombinere fritt for å nå <em>et hvilket som helst</em> punkt i planet. Det er akkurat dette spillet ber deg gjøre: et tilfeldig målpunkt $P$ dukker opp, og oppgaven din er å justere $a$ og $b$ til $\vec{w}$ havner i $P$. Når det skjer, vet du at du har funnet nøyaktig de to skalarene som uttrykker $P$ i basisen $\vec{u}, \vec{v}$.</p>
+        <p>Du kan tenke på $\vec{u}$ og $\vec{v}$ litt som to "retninger du har lov til å bevege deg i" for å komme deg til et hvilket som helst sted i planet &ndash; men det bildet er ikke helt presist, siden du også skalerer hvor <em>langt</em> du beveger deg i hver retning, ikke bare velger mellom dem. Prøv å treffe noen målpunkter selv: legg merke til at det alltid finnes nøyaktig én kombinasjon av $a$ og $b$ som gir riktig svar, uansett hvor målpunktet dukker opp.</p>
+      </div>
+      <div id="modal-content-utforskning" hidden>
+        <h2 data-i18n="card-utforskning-label">Forslag til utforskning</h2>
+        <p class="sim-modal-empty" data-i18n="card-utforskning-empty">Ingen forslag til utforskning er lagt til for denne simuleringen ennå.</p>
+      </div>
+      <div id="modal-content-lignende-heading" hidden>
+        <h2 data-i18n="card-lignende-label">Lignende simuleringer</h2>
+      </div>
+    </div><!-- /.sim-content-width -->
     </div>
   </section>
 
   <script src="/js/theme.js" defer></script>
   <script src="/js/i18n.js" defer></script>
+  <script src="/js/sim-cards.js" defer></script>
 
   <footer class="site-footer">
     <div class="wide">

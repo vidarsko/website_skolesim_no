@@ -25,7 +25,14 @@
     "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
     "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
     "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
-    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"}
+    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"},
+    "card-forklaring-label": {"no": "Forklaring", "en": "Explanation"},
+    "card-utforskning-label": {"no": "Forslag til utforskning", "en": "Ideas to explore"},
+    "card-lignende-label": {"no": "Lignende simuleringer", "en": "Similar simulations"},
+    "card-empty-label": {"no": "Kommer snart", "en": "Coming soon"},
+    "card-utforskning-empty": {"no": "Ingen forslag til utforskning er lagt til for denne simuleringen ennå.", "en": "No exploration suggestions have been added for this simulation yet."},
+    "card-lignende-empty": {"no": "Fant ingen lignende simuleringer ennå.", "en": "No similar simulations found yet."},
+    "sim-modal-close-aria": {"no": "Lukk", "en": "Close"}
   }
   </script>
 </head>
@@ -58,6 +65,7 @@
 
   <section class="section">
     <div class="wide">
+    <div class="sim-content-width" style="--sim-max-width:1000px">
       <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=fysikk-1">Fysikk 1</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=elektrisitet">Elektrisitet</a></div>
       <h1>Spenning, strøm og motstand</h1>
       <div class="sim-warning">
@@ -782,13 +790,56 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+      </div><!-- /.wp-embed -->
+
+      <div class="sim-cards-section">
+        <div class="sim-cards">
+          <button class="sim-card" type="button" data-modal="forklaring" style="background-image:url('/media/card-forklaring.jpg')">
+            <span class="sim-card-label" data-i18n="card-forklaring-label">Forklaring</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="utforskning" style="background-image:url('/media/card-utforskning.jpg')">
+            <span class="sim-card-label" data-i18n="card-utforskning-label">Forslag til utforskning</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="lignende" style="background-image:url('/media/card-lignende.jpg')">
+            <span class="sim-card-label" data-i18n="card-lignende-label">Lignende simuleringer</span>
+          </button>
+          <div class="sim-card sim-card--empty" aria-hidden="true">
+            <span class="sim-card-label" data-i18n="card-empty-label">Kommer snart</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-modal-overlay" id="simModalOverlay" hidden>
+        <div class="sim-modal" role="dialog" aria-modal="true">
+          <button class="sim-modal-close" type="button" data-i18n-attr="aria-label:sim-modal-close-aria" aria-label="Lukk">&times;</button>
+          <div class="sim-modal-body" id="simModalBody"></div>
+        </div>
+      </div>
+
+      <!-- Hidden templates, copied into the popup above by /js/sim-cards.js -->
+      <div id="modal-content-forklaring" hidden>
+        <h2 data-i18n="card-forklaring-label">Forklaring</h2>
+        <p>Dra i motstand-slideren i den tredje boksen (Resistans) helt bort mot 50 &Omega;, mens spenningen står i ro på 10 V. Se på de blå elektronene i figuren under: de beveger seg fortsatt i samme fart som før, men de kolliderer stadig oftere med de grå prikkene (atomene i lederen) og blir sittende fast et lite øyeblikk før de løsner igjen. Rett over figuren ser du resultatet &ndash; strømmen $I$ synker jo flere hindringer elektronene må forsere.</p>
+        <p>Resistans, eller motstand, skrevet $R$, er nettopp et mål på hvor mye en leder hindrer ladningene i å bevege seg fritt gjennom den &ndash; flere eller tettere hindringer betyr høyere $R$. Spenning, $U$, målt i volt, er energien (arbeidet $W$) som er tilgjengelig per ladning $q$ (se boks 1: $U = W/q$), mens strøm, $I$, målt i ampere, er hvor mange ladninger som passerer et punkt hvert sekund (boks 2: $I = q/t$).</p>
+        <p>Det som binder disse tre størrelsene sammen er Ohms lov:</p>
+        <p>$$U = R \cdot I$$</p>
+        <p>Med spenningen holdt konstant &ndash; slik den er i den tredje boksen &ndash; sier loven at strømmen og resistansen er omvendt proporsjonale: dobler du $R$, halveres $I$. Det er akkurat det du så da du dro i slideren: flere hindringer (høyere $R$) med samme spenning gir lavere strøm.</p>
+        <p>En (ufullstendig) måte å tenke på dette på: spenning ligner litt på trykket som driver vann gjennom et rør, strøm ligner vannmengden som strømmer forbi i sekundet, og resistans ligner hvor trangt røret er. Sammenligningen er ikke perfekt &ndash; ladninger og vannmolekyler oppfører seg ulikt i detalj &ndash; men den kan være en grei knagg å henge tankene på.</p>
+      </div>
+      <div id="modal-content-utforskning" hidden>
+        <h2 data-i18n="card-utforskning-label">Forslag til utforskning</h2>
+        <p class="sim-modal-empty" data-i18n="card-utforskning-empty">Ingen forslag til utforskning er lagt til for denne simuleringen ennå.</p>
+      </div>
+      <div id="modal-content-lignende-heading" hidden>
+        <h2 data-i18n="card-lignende-label">Lignende simuleringer</h2>
+      </div>
+    </div><!-- /.sim-content-width -->
     </div>
   </section>
 
-      </div><!-- /.wp-embed -->
-
   <script src="/js/theme.js" defer></script>
   <script src="/js/i18n.js" defer></script>
+  <script src="/js/sim-cards.js" defer></script>
 
   <footer class="site-footer">
     <div class="wide">

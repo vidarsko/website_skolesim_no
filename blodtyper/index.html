@@ -25,7 +25,14 @@
     "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
     "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
     "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
-    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"}
+    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"},
+    "card-forklaring-label": {"no": "Forklaring", "en": "Explanation"},
+    "card-utforskning-label": {"no": "Forslag til utforskning", "en": "Ideas to explore"},
+    "card-lignende-label": {"no": "Lignende simuleringer", "en": "Similar simulations"},
+    "card-empty-label": {"no": "Kommer snart", "en": "Coming soon"},
+    "card-utforskning-empty": {"no": "Ingen forslag til utforskning er lagt til for denne simuleringen ennå.", "en": "No exploration suggestions have been added for this simulation yet."},
+    "card-lignende-empty": {"no": "Fant ingen lignende simuleringer ennå.", "en": "No similar simulations found yet."},
+    "sim-modal-close-aria": {"no": "Lukk", "en": "Close"}
   }
   </script>
 </head>
@@ -58,6 +65,7 @@
 
   <section class="section">
     <div class="wide">
+    <div class="sim-content-width" style="--sim-max-width:960px">
       <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=naturfag-vg1">Naturfag (vg1)</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=genetikk-og-dna">Genetikk og DNA</a></div>
       <h1>Blodtyper</h1>
       <div class="sim-warning">
@@ -918,225 +926,55 @@
 
 })(); // slutt IIFE
 </script>
-
-
-
-<h1 class="wp-block-heading">Blodtyper – teoretisk bakgrunn</h1>
-
-
-
-<h2 class="wp-block-heading">Hva er blodtype?</h2>
-
-
-
-<p class="wp-block-paragraph">Blodet ditt er ikke identisk med andres blod. På overflaten av de røde blodcellene (erytrocyttene) sitter det proteiner og sukkermolekyler som kalles <strong>antigener</strong>. Hvilke antigener du har, avgjør blodtypen din. Immunforsvaret ditt kjenner igjen dine egne antigener som «selv» – og reagerer med kraftig angrep mot fremmede antigener det ikke gjenkjenner.</p>
-
-
-
-<p class="wp-block-paragraph">Det finnes over 30 ulike blodtypesystemer, men i biologiundervisningen fokuserer vi på de to viktigste: <strong>ABO-systemet</strong> og <strong>Rh-systemet</strong>.</p>
-
-
-
-<hr class="wp-block-separator has-alpha-channel-opacity"/>
-
-
-
-<h2 class="wp-block-heading">ABO-systemet</h2>
-
-
-
-<p class="wp-block-paragraph">ABO-systemet opererer med to antigener: <strong>A-antigen</strong> og <strong>B-antigen</strong>. Kombinasjonen av disse gir fire mulige blodtyper:</p>
-
-
-
-<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Blodtype</th><th>Antigener på cellen</th><th>Antistoffer i plasma</th></tr></thead><tbody><tr><td>A</td><td>A-antigen</td><td>Anti-B</td></tr><tr><td>B</td><td>B-antigen</td><td>Anti-A</td></tr><tr><td>AB</td><td>A- og B-antigen</td><td>Ingen</td></tr><tr><td>0</td><td>Ingen</td><td>Anti-A og Anti-B</td></tr></tbody></table></figure>
-
-
-
-<p class="wp-block-paragraph">Legg merke til noe viktig: du har alltid antistoffer mot de antigenene du <em>mangler</em>. Type A lager anti-B, type B lager anti-A, og type 0 lager begge. Type AB lager ingen av dem. Disse antistoffene kalles «naturlige antistoffer» fordi de dannes tidlig i livet – trolig som følge av at tarmbakterier har lignende overflatemolekyler som A- og B-antigenene.</p>
-
-
-
-<hr class="wp-block-separator has-alpha-channel-opacity"/>
-
-
-
-<h2 class="wp-block-heading">Rh-systemet</h2>
-
-
-
-<p class="wp-block-paragraph">Rh-systemet er oppkalt etter rhesusaper, der antigenet først ble oppdaget. Det viktigste antigenet her er <strong>D-antigenet</strong>. Ca. 85 % av befolkningen har dette antigenet og er <strong>Rh-positive</strong> (+). De resterende 15 % mangler det og er <strong>Rh-negative</strong> (−).</p>
-
-
-
-<p class="wp-block-paragraph">En viktig forskjell fra ABO-systemet: Rh-negative personer lager <em>ikke</em> anti-D automatisk. Anti-D dannes først etter at en Rh-negativ person har blitt utsatt for Rh-positivt blod – for eksempel via en blodoverføring eller under svangerskap. Dette kalles <strong>sensitisering</strong>.</p>
-
-
-
-<h3 class="wp-block-heading">Hemolytisk sykdom hos nyfødte (HDN)</h3>
-
-
-
-<p class="wp-block-paragraph">Dersom en Rh-negativ mor bærer et Rh-positivt foster, kan noe av fosterets blod lekke over til mor under fødselen. Mor blir da sensitisert og lager anti-D. Ved et <em>neste</em> svangerskap med Rh-positivt foster kan anti-D-antistoffer krysse morkaken og angripe fosterets røde blodceller. Dette kan føre til alvorlig blodmangel hos fosteret. Tilstanden forebygges i dag ved at Rh-negative mødre får en sprøyte med Rh-immunoglobulin (Rhogam) etter fødselen.</p>
-
-
-
-<hr class="wp-block-separator has-alpha-channel-opacity"/>
-
-
-
-<h2 class="wp-block-heading">Agglutinasjon – når feil blod møtes</h2>
-
-
-
-<p class="wp-block-paragraph">Når en person får blod med antigener immunforsvaret ikke kjenner igjen, skjer det en farlig reaksjon som kalles <strong>agglutinasjon</strong>. Antistoffene er Y-formede proteiner (immunoglobuliner) som kan binde seg til to blodceller samtidig – én på hvert «arm» av Y-en. Slik limes cellene sammen til klumper.</p>
-
-
-
-<p class="wp-block-paragraph">Reaksjonen eskalerer raskt:</p>
-
-
-
-<ol class="wp-block-list">
-<li><strong>Agglutinasjon</strong> – blodcellene klumper seg sammen og kan tette til blodårer</li>
-
-
-
-<li><strong>Komplementaktivering</strong> – et proteinsystem i blodet aktiveres og lager hull i de fremmede cellene</li>
-
-
-
-<li><strong>Hemolyse</strong> – de fremmede cellene sprekker, og hemoglobin frigjøres i blodet</li>
-
-
-
-<li><strong>Organskade</strong> – fritt hemoglobin er giftig for nyrene og kan føre til nyresvikt</li>
-
-
-
-<li><strong>I alvorlige tilfeller</strong>: sjokk, organsvikt og død</li>
-</ol>
-
-
-
-<p class="wp-block-paragraph">Dette er grunnen til at blodtyping og kryssprøving er absolutt obligatorisk før enhver blodoverføring.</p>
-
-
-
-<hr class="wp-block-separator has-alpha-channel-opacity"/>
-
-
-
-<h2 class="wp-block-heading">Arv av blodtype</h2>
-
-
-
-<p class="wp-block-paragraph">Blodtype arves fra foreldrene. ABO-genet sitter på kromosom 9 og finnes i tre varianter (alleler): <strong>I^A</strong>, <strong>I^B</strong> og <strong>i</strong>.</p>
-
-
-
-<ul class="wp-block-list">
-<li><strong>I^A</strong> koder for A-antigen</li>
-
-
-
-<li><strong>I^B</strong> koder for B-antigen</li>
-
-
-
-<li><strong>i</strong> koder for ingenting (type 0)</li>
-</ul>
-
-
-
-<p class="wp-block-paragraph">I^A og I^B er <strong>kodominante</strong> – hvis du arver begge, uttrykkes <em>begge</em> antigenene, og du får blodtype AB. Det lille <em>i</em> er <strong>recessivt</strong> og maskeres av I^A eller I^B. Du trenger to <em>i</em>-alleler (genotype <em>ii</em>) for å få blodtype 0.</p>
-
-
-
-<p class="wp-block-paragraph">Rh-faktoren styres av RHD-genet på kromosom 1. Allelet R (gir D-antigen) er dominant over r. Rh-negativ person har genotype <em>rr</em>.</p>
-
-
-
-<h3 class="wp-block-heading">Eksempel på arvegang</h3>
-
-
-
-<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
-<p class="wp-block-paragraph">Mor er blodtype A med genotype I^A i. Far er blodtype B med genotype I^B i. Mulige kombinasjoner for barnet: I^A I^B (AB), I^A i (A), I^B i (B) eller <em>ii</em> (0). Alle fire blodtyper er altså mulig – 25 % sannsynlighet for hver.</p>
-</blockquote>
-
-
-
-<hr class="wp-block-separator has-alpha-channel-opacity"/>
-
-
-
-<h2 class="wp-block-heading">Donasjon og kompatibilitet</h2>
-
-
-
-<p class="wp-block-paragraph">Ikke alle blodtyper kan gis til hvem som helst. Reglene er enkle: <strong>giveren må ikke ha antigener som mottakeren mangler og har antistoffer mot.</strong></p>
-
-
-
-<ul class="wp-block-list">
-<li><strong>0− er universalgiver</strong> for røde blodceller – mangler alle A-, B- og Rh-antigener, og kan gis til alle</li>
-
-
-
-<li><strong>AB+ er universalmottaker</strong> – har ikke anti-A, anti-B eller anti-D, og kan motta fra alle</li>
-</ul>
-
-
-
-<p class="wp-block-paragraph">I moderne medisin er man imidlertid mer forsiktig: selv 0− brukes helst kun til 0−-pasienter, fordi det finnes mange andre blodtypesystemer enn ABO og Rh.</p>
-
-
-
-<hr class="wp-block-separator has-alpha-channel-opacity"/>
-
-
-
-<h2 class="wp-block-heading">Dette kan du utforske i simuleringen</h2>
-
-
-
-<p class="wp-block-paragraph"><strong>Fanen «Blodtyper»</strong> gir deg en oversikt over hvilke antigener og antistoffer som hører til hver blodtype. Studer tabellen og legg merke til sammenhengen mellom antigener du <em>har</em> og antistoffer du <em>lager</em>.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Fanen «Arv»</strong> lar deg velge genotypen til begge foreldre og beregne sannsynligheten for barnets blodtype. Prøv kombinasjoner der begge foreldre er type A (I^A i) – kan de likevel få et barn med type 0? Prøv deretter type AB × type 0 og se hva som <em>ikke</em> er mulig.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Fanen «Donasjon»</strong> viser en fullstendig kompatibilitetsmatrise. Test ulike giver/mottaker-kombinasjoner og legg merke til hvem som kan motta fra flest, og hvem som kan gi til flest.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Fanen «Immunreaksjon»</strong> animerer det som skjer inne i blodomløpet ved en inkompatibel transfusjon. Velg en kombinasjon som <em>ikke</em> er kompatibel og observer hvordan antistoffene (gule Y-former) jager givercellene (blå) og utløser agglutinasjon. Sammenlign med en kompatibel kombinasjon – ingen angrep, cellene sirkulerer rolig side om side.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Fanen «Quiz»</strong> lar deg teste forståelsen din med åtte spørsmål som dekker alle temaene over.</p>
-
-
-
-<hr class="wp-block-separator has-alpha-channel-opacity"/>
-
-
-
-<h2 class="wp-block-heading">Nøkkelbegreper</h2>
-
-
-
-<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Begrep</th><th>Forklaring</th></tr></thead><tbody><tr><td>Antigen</td><td>Protein på celleoverflaten som immunforsvaret gjenkjenner</td></tr><tr><td>Antistoff</td><td>Y-formet protein som binder seg til fremmede antigener</td></tr><tr><td>Agglutinasjon</td><td>Klumping av blodceller utløst av antistoff-antigen-binding</td></tr><tr><td>Hemolyse</td><td>Sprengning av røde blodceller</td></tr><tr><td>Kodominans</td><td>Begge alleler uttrykkes likt (I^A og I^B)</td></tr><tr><td>Sensitisering</td><td>Første eksponering som fører til at immunforsvaret danner antistoffer</td></tr><tr><td>Universalgiver</td><td>0− – kan gi røde blodceller til alle blodtyper</td></tr><tr><td>Universalmottaker</td><td>AB+ – kan motta røde blodceller fra alle blodtyper</td></tr></tbody></table></figure>
+      </div><!-- /.wp-embed -->
+
+      <div class="sim-cards-section">
+        <div class="sim-cards">
+          <button class="sim-card" type="button" data-modal="forklaring" style="background-image:url('/media/card-forklaring.jpg')">
+            <span class="sim-card-label" data-i18n="card-forklaring-label">Forklaring</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="utforskning" style="background-image:url('/media/card-utforskning.jpg')">
+            <span class="sim-card-label" data-i18n="card-utforskning-label">Forslag til utforskning</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="lignende" style="background-image:url('/media/card-lignende.jpg')">
+            <span class="sim-card-label" data-i18n="card-lignende-label">Lignende simuleringer</span>
+          </button>
+          <div class="sim-card sim-card--empty" aria-hidden="true">
+            <span class="sim-card-label" data-i18n="card-empty-label">Kommer snart</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-modal-overlay" id="simModalOverlay" hidden>
+        <div class="sim-modal" role="dialog" aria-modal="true">
+          <button class="sim-modal-close" type="button" data-i18n-attr="aria-label:sim-modal-close-aria" aria-label="Lukk">&times;</button>
+          <div class="sim-modal-body" id="simModalBody"></div>
+        </div>
+      </div>
+
+      <!-- Hidden templates, copied into the popup above by /js/sim-cards.js -->
+      <div id="modal-content-forklaring" hidden>
+        <h2 data-i18n="card-forklaring-label">Forklaring</h2>
+        <p>Tenk deg at du havner på sykehus og trenger blodoverføring etter en ulykke. Legene kan ikke bare henge opp en hvilken som helst blodpose – de må vite blodtypen din først. Får du feil type, kan blodet ditt begynne å klumpe seg sammen mens det renner rundt i årene dine. Det er nøyaktig dette du kan se skje i fanen «Immunreaksjon»: velg en ukompatibel giver/mottaker-kombinasjon, og etter noen sekunder klumper de røde blodcellene seg sammen på skjermen.</p>
+        <p>Grunnen ligger på selve celleoverflaten. De røde blodcellene dine bærer små molekyler kalt <strong>antigener</strong> – tenk på dem som merkelapper cellene har utenpå seg (en forenkling, men grei å holde fast ved). Har du blodtype A, har cellene dine A-antigenet; har du B, har de B-antigenet, og så videre. Samtidig svømmer det rundt i blodplasmaet ditt <strong>antistoffer</strong>: Y-formede proteiner laget for å feste seg til antigener kroppen din <em>ikke</em> selv bærer – altså bare de fremmede.</p>
+        <p>Har du blodtype A, har du derfor ferdigproduserte anti-B-antistoffer i blodet hele tiden. Får du B-blod, fester disse antistoffene seg til B-antigenet på giverens celler, og siden hvert antistoff kan gripe tak i to celler samtidig, limes stadig flere celler sammen til klumper. Denne klumpingen kalles <strong>agglutinasjon</strong>, og det er den du ser illustrert i animasjonen.</p>
+        <p>Dette gir én enkel regel for hele donasjonssystemet: en overføring er trygg bare når giverens antigener ikke finnes blant mottakerens antistoffer. 0− mangler helt A-, B- og Rh-antigener, og kan derfor gis til nesten alle uten at noe utløses. AB+ har ingen av disse antistoffene i det hele tatt, og kan derfor motta fra alle. Prøv «Donasjon»-fanen og se hvordan hele kompatibilitetsmatrisen egentlig bare er denne ene regelen brukt om igjen på alle kombinasjoner.</p>
+        <p>Rh-faktoren følger samme logikk, men med ett unntak: en Rh-negativ person lager <em>ikke</em> anti-D fra fødselen, slik en type-0-person lager anti-A og anti-B. Anti-D dannes først etter at kroppen faktisk har møtt Rh-positivt blod én gang. Derfor kan en Rh-negativ person motta Rh-positivt blod første gang uten problemer, men risikerer en kraftig reaksjon neste gang – kroppen har da rukket å bygge opp forsvaret sitt.</p>
+      </div>
+      <div id="modal-content-utforskning" hidden>
+        <h2 data-i18n="card-utforskning-label">Forslag til utforskning</h2>
+        <p class="sim-modal-empty" data-i18n="card-utforskning-empty">Ingen forslag til utforskning er lagt til for denne simuleringen ennå.</p>
+      </div>
+      <div id="modal-content-lignende-heading" hidden>
+        <h2 data-i18n="card-lignende-label">Lignende simuleringer</h2>
+      </div>
+    </div><!-- /.sim-content-width -->
     </div>
   </section>
 
-      </div><!-- /.wp-embed -->
-
   <script src="/js/theme.js" defer></script>
   <script src="/js/i18n.js" defer></script>
+  <script src="/js/sim-cards.js" defer></script>
 
   <footer class="site-footer">
     <div class="wide">

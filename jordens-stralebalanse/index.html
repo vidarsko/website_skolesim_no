@@ -25,7 +25,14 @@
     "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
     "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
     "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
-    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"}
+    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"},
+    "card-forklaring-label": {"no": "Forklaring", "en": "Explanation"},
+    "card-utforskning-label": {"no": "Forslag til utforskning", "en": "Ideas to explore"},
+    "card-lignende-label": {"no": "Lignende simuleringer", "en": "Similar simulations"},
+    "card-empty-label": {"no": "Kommer snart", "en": "Coming soon"},
+    "card-utforskning-empty": {"no": "Ingen forslag til utforskning er lagt til for denne simuleringen ennå.", "en": "No exploration suggestions have been added for this simulation yet."},
+    "card-lignende-empty": {"no": "Fant ingen lignende simuleringer ennå.", "en": "No similar simulations found yet."},
+    "sim-modal-close-aria": {"no": "Lukk", "en": "Close"}
   }
   </script>
 </head>
@@ -58,6 +65,7 @@
 
   <section class="section">
     <div class="wide">
+    <div class="sim-content-width" style="--sim-max-width:1000px">
       <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=fysikk-1">Fysikk 1</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=straling">Stråling</a></div>
       <h1>Jordens strålebalanse</h1>
       <div class="sim-warning">
@@ -794,181 +802,58 @@ Fluks til verdensrommet:
 
         initializeSimulation();
     </script>
-
-
-
-<h1 class="wp-block-heading">Strålebalansen – hva beregner simuleringen?</h1>
-
-
-
-<h3 class="wp-block-heading">Bakgrunn</h3>
-
-
-
-<p class="wp-block-paragraph">Kompetansemålene i Fysikk 1 krever at elevene bruker modeller av strålingsbalansen til jorda for å gjøre beregninger. Elevene skal vurdere hvordan endringer på overflaten og i atmosfæren påvirker balansen. Simuleringen fungerer som et utforskningsverktøy der elevene justerer parametre for å bygge intuisjon for dette komplekse systemet.</p>
-
-
-
-<h3 class="wp-block-heading">Hva modellerer simuleringen?</h3>
-
-
-
-<p class="wp-block-paragraph">Simuleringen beregner likevektstemperaturen på jordoverflaten gjennom en forenklet energibalansemodell. Brukeren deler atmosfæren inn i et valgfritt antall horisontale lag og justerer tre fysiske parametre:</p>
-
-
-
-<ul class="wp-block-list">
-<li><strong>Albedo:</strong> Refleksjon av innkommende sollys.</li>
-
-
-
-<li><strong>Absorbsjon ovenfra:</strong> Lagets evne til å absorbere kortbølget stråling (sollys).</li>
-
-
-
-<li><strong>Absorbsjon nedenfra:</strong> Lagets evne til å absorbere langbølget stråling (varmestråling).</li>
-</ul>
-
-
-
-<h3 class="wp-block-heading">Fysikken bak – steg for steg</h3>
-
-
-
-<p class="wp-block-paragraph"><strong>1. Innkommende stråling</strong></p>
-
-
-
-<p class="wp-block-paragraph">Sola treffer toppen av atmosfæren med en gjennomsnittlig effekt $S = 340 \text{ W/m}^2$. En andel $\alpha$ (albedo) reflekteres, mens resten absorberes:</p>
-
-
-
-<p class="wp-block-paragraph">$$Q_{\text{inn}} = S(1 - \alpha)$$</p>
-
-
-
-<p class="wp-block-paragraph">En reell albedo på $\alpha \approx 0{,}30$ betyr at Jorda absorberer 70 % av energien.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>2. Utgående stråling – Stefan-Boltzmanns lov</strong></p>
-
-
-
-<p class="wp-block-paragraph">Ethvert objekt med temperatur $T$ stråler ut energi i tråd med Stefan-Boltzmanns lov:</p>
-
-
-
-<p class="wp-block-paragraph">$$F = \sigma T^4$$</p>
-
-
-
-<p class="wp-block-paragraph">Her er $\sigma = 5{,}67 \times 10^{-8} \text{ W m}^{-2} \text{K}^{-4}$. Overflaten stråler oppover, mens atmosfærelagene stråler i begge vertikale retninger.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>3. Atmosfærens gjennomsiktighet</strong></p>
-
-
-
-<p class="wp-block-paragraph">Hvert lag absorberer en andel $\varepsilon$ av strålingen. Etter $n$ lag er den gjenværende fluksen:</p>
-
-
-
-<p class="wp-block-paragraph">$$F_{\text{gjennom}} = F_0 \cdot (1 - \varepsilon)^n$$</p>
-
-
-
-<p class="wp-block-paragraph">Økt $\varepsilon$ (høyere konsentrasjon av drivhusgasser) fanger mer varmestråling og hever overflatetemperaturen.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>4. Energibalansen og likevekt</strong></p>
-
-
-
-<p class="wp-block-paragraph">Simuleringen beregner netto energifluks $\Delta F$ for hvert lag:</p>
-
-
-
-<p class="wp-block-paragraph">$$\Delta F = F_{\text{inn}} - F_{\text{ut}}$$</p>
-
-
-
-<ul class="wp-block-list">
-<li>$\Delta F > 0$: Laget varmes opp ($T$ øker).</li>
-
-
-
-<li>$\Delta F &lt; 0$: Laget kjøles ned ($T$ synker).Systemet itererer inntil $\Delta F \approx 0$ for alle lag, som definerer strålebalanse.</li>
-</ul>
-
-
-
-<p class="wp-block-paragraph"><strong>5. Absorbsjon som minker med høyde</strong></p>
-
-
-
-<p class="wp-block-paragraph">En valgfri innstilling skalerer absorbsjonen med høyden for å simulere tettere atmosfære nær bakken:</p>
-
-
-
-<p class="wp-block-paragraph">$$\varepsilon_n = \varepsilon \cdot \frac{N + 1 - n}{N}$$</p>
-
-
-
-<p class="wp-block-paragraph">Her representerer $n$ lagnummeret og $N$ det totale antall lag.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>6. Fluks til verdensrommet</strong></p>
-
-
-
-<p class="wp-block-paragraph">Modellen beregner hvilken andel av strålingen fra lag $k$ som når verdensrommet:</p>
-
-
-
-<p class="wp-block-paragraph">$$F_k^{\text{ut}} = \sigma T_k^4 \cdot \prod_{j=k+1}^{N}(1 - \varepsilon_j)$$</p>
-
-
-
-<p class="wp-block-paragraph">Strålingen svekkes av alle overliggende lag. Simuleringen fremhever laget som bidrar mest til energitapet.</p>
-
-
-
-<h3 class="wp-block-heading">Hva kan elevene utforske?</h3>
-
-
-
-<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><td><strong>Spørsmål</strong></td><td><strong>Handling i simulering</strong></td></tr></thead><tbody><tr><td>Hvordan påvirker økt albedo (f.eks. mer is) temperaturen?</td><td>Øk albedo-slideren.</td></tr><tr><td>Hva er effekten av flere drivhusgasser?</td><td>Øk antall lag eller absorbsjon nedenfra.</td></tr><tr><td>Hva skjer hvis atmosfæren absorberer mer sollys?</td><td>Øk absorbsjon ovenfra.</td></tr><tr><td>Hva er likevektstemperaturen uten atmosfære?</td><td>Sett alle absorbsjonsverdier til 0.</td></tr><tr><td>Hvilket lag kjøler Jorda mest effektivt?</td><td>Finn laget som lyser gult etter konvergens.</td></tr><tr><td>Spiller fordelingen av absorbsjon en rolle?</td><td>Test «minker med høyde» av og på.</td></tr></tbody></table></figure>
-
-
-
-<h3 class="wp-block-heading">Om konvergens</h3>
-
-
-
-<p class="wp-block-paragraph">Simuleringen stopper når temperaturendringen i alle lag er under 0,15 K over tre kontroller, eller etter maksimalt 2000 tidssteg. Sluttresultatene presenteres i et tekstfelt for enkel sammenligning.</p>
-
-
-
-<h3 class="wp-block-heading">En viktig presisering til elevene</h3>
-
-
-
-<p class="wp-block-paragraph">Modellen isolerer strålingsfysikken og ser bort fra konveksjon, havstrømmer og geografiske variasjoner. Denne forenklingen lar elevene observere den direkte effekten av enkeltparametre. Simuleringen gir ikke et eksakt svar på Jordas temperatur, men bygger fysisk intuisjon.</p>
-
-
-
-<p class="wp-block-paragraph">«Alle modeller er feil, men noen er nyttige.» — George Box</p>
+      </div><!-- /.wp-embed -->
+
+      <div class="sim-cards-section">
+        <div class="sim-cards">
+          <button class="sim-card" type="button" data-modal="forklaring" style="background-image:url('/media/card-forklaring.jpg')">
+            <span class="sim-card-label" data-i18n="card-forklaring-label">Forklaring</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="utforskning" style="background-image:url('/media/card-utforskning.jpg')">
+            <span class="sim-card-label" data-i18n="card-utforskning-label">Forslag til utforskning</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="lignende" style="background-image:url('/media/card-lignende.jpg')">
+            <span class="sim-card-label" data-i18n="card-lignende-label">Lignende simuleringer</span>
+          </button>
+          <div class="sim-card sim-card--empty" aria-hidden="true">
+            <span class="sim-card-label" data-i18n="card-empty-label">Kommer snart</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-modal-overlay" id="simModalOverlay" hidden>
+        <div class="sim-modal" role="dialog" aria-modal="true">
+          <button class="sim-modal-close" type="button" data-i18n-attr="aria-label:sim-modal-close-aria" aria-label="Lukk">&times;</button>
+          <div class="sim-modal-body" id="simModalBody"></div>
+        </div>
+      </div>
+
+      <!-- Hidden templates, copied into the popup above by /js/sim-cards.js -->
+      <div id="modal-content-forklaring" hidden>
+        <h2 data-i18n="card-forklaring-label">Forklaring</h2>
+        <p>Tenk deg at du står ute i sola en varm sommerdag. Kroppen din varmes opp av sollyset, men du blir ikke varmere og varmere i det uendelige &ndash; etter en stund flater temperaturen din ut, fordi du samtidig sender fra deg varme (som stråling, svette og luftstrømmer). Når varmen som kommer inn er like stor som varmen som slipper ut igjen, har du nådd det som kalles en <strong>strålebalanse</strong> &ndash; en likevekt der temperaturen slutter å endre seg. Simuleringen beregner akkurat denne typen likevekt for Jorda, bare med sollys og varmestråling i stedet for sol og svette (sammenligningen halter litt: Jorda mister ikke varme ved fordampning slik kroppen din gjør, bare gjennom stråling).</p>
+        <p>Jorda mottar i gjennomsnitt en solinnstråling på $S = 340\text{ W/m}^2$ på toppen av atmosfæren. En andel av dette lyset reflekteres rett tilbake til verdensrommet uten å varme noe som helst &ndash; for eksempel fra skyer, is og hav &ndash; og kalles <strong>albedo</strong>, skrevet $\alpha$ i simuleringen. Resten absorberes og varmer opp overflaten:</p>
+        <p>$$Q_{\text{inn}} = S(1-\alpha)$$</p>
+        <p>Drar du albedo-slideren mot 1, reflekteres nesten alt sollyset og Jorda får nesten ingen oppvarming. Drar du den mot 0, absorberes nesten alt sollyset i stedet.</p>
+        <p>Samtidig sender overflaten &ndash; og hvert atmosfærelag du legger til &ndash; ut varmestråling, som øker sterkt med temperaturen etter Stefan-Boltzmanns lov:</p>
+        <p>$$F = \sigma T^4$$</p>
+        <p>der $\sigma$ er en konstant. Uten atmosfære ville denne utstrålingen forsvunnet rett ut i verdensrommet, og overflaten hadde funnet sin likevekt der innkommende og utgående stråling er like store. Legger du derimot til atmosfæriske lag med sliderne for antall lag og absorpsjon ovenfra/nedenfra, fanger hvert lag opp en del av strålingen som passerer gjennom det, og stråler en del av den videre &ndash; både oppover og nedover igjen. Mindre varme slipper da helt ut til verdensrommet i ett steg, så overflaten må bli varmere før utstrålingen igjen klarer å balansere innstrålingen. Dette er selve drivhuseffekten: flere lag eller høyere absorpsjon flytter likevektspunktet oppover i temperatur.</p>
+        <p>Når du trykker &laquo;Start simulering&raquo;, justerer simuleringen temperaturen i hvert lag steg for steg helt til nettoenergien i alle lag er tilnærmet null. Det er akkurat da strålebalanse er nådd, og temperaturen du sitter igjen med er likevektstemperaturen for de verdiene du har valgt.</p>
+      </div>
+      <div id="modal-content-utforskning" hidden>
+        <h2 data-i18n="card-utforskning-label">Forslag til utforskning</h2>
+        <p class="sim-modal-empty" data-i18n="card-utforskning-empty">Ingen forslag til utforskning er lagt til for denne simuleringen ennå.</p>
+      </div>
+      <div id="modal-content-lignende-heading" hidden>
+        <h2 data-i18n="card-lignende-label">Lignende simuleringer</h2>
+      </div>
+    </div><!-- /.sim-content-width -->
     </div>
   </section>
 
-      </div><!-- /.wp-embed -->
-
   <script src="/js/theme.js" defer></script>
   <script src="/js/i18n.js" defer></script>
+  <script src="/js/sim-cards.js" defer></script>
 
   <footer class="site-footer">
     <div class="wide">
