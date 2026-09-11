@@ -25,7 +25,14 @@
     "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
     "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
     "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
-    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"}
+    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"},
+    "card-forklaring-label": {"no": "Forklaring", "en": "Explanation"},
+    "card-utforskning-label": {"no": "Forslag til utforskning", "en": "Ideas to explore"},
+    "card-lignende-label": {"no": "Lignende simuleringer", "en": "Similar simulations"},
+    "card-empty-label": {"no": "Kommer snart", "en": "Coming soon"},
+    "card-utforskning-empty": {"no": "Ingen forslag til utforskning er lagt til for denne simuleringen ennå.", "en": "No exploration suggestions have been added for this simulation yet."},
+    "card-lignende-empty": {"no": "Fant ingen lignende simuleringer ennå.", "en": "No similar simulations found yet."},
+    "sim-modal-close-aria": {"no": "Lukk", "en": "Close"}
   }
   </script>
 </head>
@@ -58,6 +65,7 @@
 
   <section class="section">
     <div class="wide">
+    <div class="sim-content-width">
       <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=matematikk-2p">Matematikk 2P</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=sannsynlighet">Sannsynlighet</a></div>
       <h1>Monte Carlo-simulering av Pi</h1>
       <div class="sim-warning">
@@ -275,23 +283,6 @@
         .dot-green { background-color: var(--green); }
         .dot-red { background-color: var(--red); }
 
-        .explanation {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            font-size: 14px;
-            color: #555;
-            line-height: 1.6;
-        }
-
-        .math {
-            font-family: 'Times New Roman', Times, serif;
-            font-style: italic;
-            background: #f8f9fa;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
 }
 </style>
 
@@ -358,26 +349,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="explanation">
-        <h3>Hvordan fungerer det?</h3>
-        <p>
-            Et kvadrat med sidelengde <span class="math">2r</span> har et areal på <span class="math">A<sub>kvadrat</sub> = (2r)<sup>2</sup> = 4r<sup>2</sup></span>.
-            En sirkel plassert inni med radius <span class="math">r</span> har et areal på <span class="math">A<sub>sirkel</sub> = &pi;r<sup>2</sup></span>.
-        </p>
-        <p>
-            Forholdet mellom arealet av sirkelen og kvadratet er:
-            <span class="math">A<sub>sirkel</sub> / A<sub>kvadrat</sub> = (&pi;r<sup>2</sup>) / (4r<sup>2</sup>) = &pi; / 4</span>.
-        </p>
-        <p>
-            Når vi kaster tilfeldige skudd på kvadratet, vil sannsynligheten for at et skudd lander i sirkelen tilsvare dette forholdet.
-            Derfor kan vi estimere &pi; ved formelen:
-            <br>
-            <strong style="display: block; text-align: center; margin-top: 8px; font-size: 1.1em;">
-                &pi; &approx; 4 &times; (Treff i sirkel / Totalt antall skudd)
-            </strong>
-        </p>
     </div>
 </div>
 
@@ -541,11 +512,59 @@
     runSimulation();
 </script>
       </div><!-- /.wp-embed -->
+
+      <div class="sim-cards-section">
+        <div class="sim-cards">
+          <button class="sim-card" type="button" data-modal="forklaring" style="background-image:url('/media/card-forklaring.jpg')">
+            <span class="sim-card-label" data-i18n="card-forklaring-label">Forklaring</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="utforskning" style="background-image:url('/media/card-utforskning.jpg')">
+            <span class="sim-card-label" data-i18n="card-utforskning-label">Forslag til utforskning</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="lignende" style="background-image:url('/media/card-lignende.jpg')">
+            <span class="sim-card-label" data-i18n="card-lignende-label">Lignende simuleringer</span>
+          </button>
+          <div class="sim-card sim-card--empty" aria-hidden="true">
+            <span class="sim-card-label" data-i18n="card-empty-label">Kommer snart</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-modal-overlay" id="simModalOverlay" hidden>
+        <div class="sim-modal" role="dialog" aria-modal="true">
+          <button class="sim-modal-close" type="button" data-i18n-attr="aria-label:sim-modal-close-aria" aria-label="Lukk">&times;</button>
+          <div class="sim-modal-body" id="simModalBody"></div>
+        </div>
+      </div>
+
+      <!-- Hidden templates, copied into the popup above by /js/sim-cards.js -->
+      <div id="modal-content-forklaring" hidden>
+        <h2 data-i18n="card-forklaring-label">Forklaring</h2>
+        <p>Se for deg at du tegner en sirkel inni et kvadrat, akkurat stor nok til at sirkelen så vidt berører alle fire sidene. Så begynner du å kaste tilfeldige punkter innover kvadratet &ndash; ikke med sikte, bare helt vilkårlig. Noen punkter havner inni sirkelen, andre havner i "hjørnene" utenfor. Jo flere punkter du kaster, jo nærmere kommer andelen som lander inni sirkelen et bestemt tall &ndash; og det tallet henger sammen med $\pi$.</p>
+        <p>Hvorfor det? Se på et kvadrat med sidelengde $2r$, med en sirkel med radius $r$ innskrevet i det. Da blir:</p>
+        <p>$$A_{kvadrat} = (2r)^2 = 4r^2 \qquad A_{sirkel} = \pi r^2$$</p>
+        <p>Deler du arealet av sirkelen på arealet av kvadratet, forsvinner $r^2$ fra brøken:</p>
+        <p>$$\frac{A_{sirkel}}{A_{kvadrat}} = \frac{\pi r^2}{4r^2} = \frac{\pi}{4}$$</p>
+        <p>Siden punktene i simuleringen er jevnt fordelt over hele kvadratet, er sannsynligheten for at et tilfeldig punkt lander inni sirkelen nettopp lik dette forholdet &ndash; $\pi/4$, altså litt under 79 %. Kaster du $N$ punkter totalt, og $M$ av dem lander inni sirkelen, forventer du derfor at</p>
+        <p>$$\frac{M}{N} \approx \frac{\pi}{4}$$</p>
+        <p>Snur du på formelen, får du en måte å anslå $\pi$ på uten å regne det ut direkte:</p>
+        <p>$$\pi \approx 4 \cdot \frac{M}{N}$$</p>
+        <p>Dette kalles en Monte Carlo-metode &ndash; du bruker mange tilfeldige forsøk til å anslå et tall du ikke regner ut eksakt. Dra i slideren for "antall skudd" og prøv selv: med få punkter kan estimatet sprike ganske mye fra det ekte $\pi$-et (3,14159&hellip;), men jo flere punkter du bruker, jo mer stabilt pleier estimatet å bli &ndash; selv om det aldri er noen garanti, siden punktene tross alt er tilfeldige.</p>
+      </div>
+      <div id="modal-content-utforskning" hidden>
+        <h2 data-i18n="card-utforskning-label">Forslag til utforskning</h2>
+        <p class="sim-modal-empty" data-i18n="card-utforskning-empty">Ingen forslag til utforskning er lagt til for denne simuleringen ennå.</p>
+      </div>
+      <div id="modal-content-lignende-heading" hidden>
+        <h2 data-i18n="card-lignende-label">Lignende simuleringer</h2>
+      </div>
+    </div><!-- /.sim-content-width -->
     </div>
   </section>
 
   <script src="/js/theme.js" defer></script>
   <script src="/js/i18n.js" defer></script>
+  <script src="/js/sim-cards.js" defer></script>
 
   <footer class="site-footer">
     <div class="wide">
