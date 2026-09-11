@@ -6,7 +6,13 @@
     "subjects": [
       {
         "name": "Naturfag (vg1)",
-        "slug": "naturfag-vg1"
+        "slug": "naturfag-vg1",
+        "trinn": [
+          {
+            "name": "Vg1",
+            "slug": "vg1"
+          }
+        ]
       }
     ],
     "topic": {
@@ -23,7 +29,13 @@
     "subjects": [
       {
         "name": "Fysikk 1",
-        "slug": "fysikk-1"
+        "slug": "fysikk-1",
+        "trinn": [
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          }
+        ]
       }
     ],
     "topic": {
@@ -40,7 +52,13 @@
     "subjects": [
       {
         "name": "Fysikk 1",
-        "slug": "fysikk-1"
+        "slug": "fysikk-1",
+        "trinn": [
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          }
+        ]
       }
     ],
     "topic": {
@@ -57,7 +75,13 @@
     "subjects": [
       {
         "name": "Naturfag (vg1)",
-        "slug": "naturfag-vg1"
+        "slug": "naturfag-vg1",
+        "trinn": [
+          {
+            "name": "Vg1",
+            "slug": "vg1"
+          }
+        ]
       }
     ],
     "topic": {
@@ -74,7 +98,13 @@
     "subjects": [
       {
         "name": "Kjemi 1",
-        "slug": "kjemi-1"
+        "slug": "kjemi-1",
+        "trinn": [
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          }
+        ]
       }
     ],
     "topic": {
@@ -91,7 +121,13 @@
     "subjects": [
       {
         "name": "Naturfag (vg1)",
-        "slug": "naturfag-vg1"
+        "slug": "naturfag-vg1",
+        "trinn": [
+          {
+            "name": "Vg1",
+            "slug": "vg1"
+          }
+        ]
       }
     ],
     "topic": {
@@ -108,7 +144,13 @@
     "subjects": [
       {
         "name": "Fysikk 1",
-        "slug": "fysikk-1"
+        "slug": "fysikk-1",
+        "trinn": [
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          }
+        ]
       }
     ],
     "topic": {
@@ -125,7 +167,13 @@
     "subjects": [
       {
         "name": "Naturfag (vg1)",
-        "slug": "naturfag-vg1"
+        "slug": "naturfag-vg1",
+        "trinn": [
+          {
+            "name": "Vg1",
+            "slug": "vg1"
+          }
+        ]
       }
     ],
     "topic": {
@@ -142,7 +190,21 @@
     "subjects": [
       {
         "name": "Mediesamfunnet (vg1-3)",
-        "slug": "mediesamfunnet-vg1-3"
+        "slug": "mediesamfunnet-vg1-3",
+        "trinn": [
+          {
+            "name": "Vg1",
+            "slug": "vg1"
+          },
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          },
+          {
+            "name": "Vg3",
+            "slug": "vg3"
+          }
+        ]
       }
     ],
     "topic": {
@@ -159,7 +221,13 @@
     "subjects": [
       {
         "name": "Naturfag (vg1)",
-        "slug": "naturfag-vg1"
+        "slug": "naturfag-vg1",
+        "trinn": [
+          {
+            "name": "Vg1",
+            "slug": "vg1"
+          }
+        ]
       }
     ],
     "topic": {
@@ -176,11 +244,23 @@
     "subjects": [
       {
         "name": "Matematikk 1P",
-        "slug": "matematikk-1p"
+        "slug": "matematikk-1p",
+        "trinn": [
+          {
+            "name": "Vg1",
+            "slug": "vg1"
+          }
+        ]
       },
       {
         "name": "Matematikk 2P",
-        "slug": "matematikk-2p"
+        "slug": "matematikk-2p",
+        "trinn": [
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          }
+        ]
       }
     ],
     "topic": {
@@ -197,7 +277,13 @@
     "subjects": [
       {
         "name": "Fysikk 1",
-        "slug": "fysikk-1"
+        "slug": "fysikk-1",
+        "trinn": [
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          }
+        ]
       }
     ],
     "topic": {
@@ -214,7 +300,13 @@
     "subjects": [
       {
         "name": "Matematikk R1",
-        "slug": "matematikk-r1"
+        "slug": "matematikk-r1",
+        "trinn": [
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          }
+        ]
       }
     ],
     "topic": {
@@ -231,7 +323,13 @@
     "subjects": [
       {
         "name": "Matematikk R1",
-        "slug": "matematikk-r1"
+        "slug": "matematikk-r1",
+        "trinn": [
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          }
+        ]
       }
     ],
     "topic": {
@@ -248,7 +346,13 @@
     "subjects": [
       {
         "name": "Matematikk 2P",
-        "slug": "matematikk-2p"
+        "slug": "matematikk-2p",
+        "trinn": [
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          }
+        ]
       }
     ],
     "topic": {
@@ -265,7 +369,13 @@
     "subjects": [
       {
         "name": "Geografi (vg1)",
-        "slug": "geografi-vg1"
+        "slug": "geografi-vg1",
+        "trinn": [
+          {
+            "name": "Vg1",
+            "slug": "vg1"
+          }
+        ]
       }
     ],
     "topic": {

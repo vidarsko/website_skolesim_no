@@ -44,6 +44,12 @@ function subjectLinksHTML(subjectOptions) {
     .join('');
 }
 
+// Trinn has a fixed pedagogical order (grunnskole before videregående, vg1
+// before vg2 before vg3) rather than alphabetical — Norwegian alphabetical
+// order happens to agree today (Barneskole < Ungdomsskole < Vg1 < Vg2 < Vg3)
+// but that's a coincidence not worth relying on.
+const TRINN_ORDER = ['barneskole', 'ungdomsskole', 'vg1', 'vg2', 'vg3'];
+
 document.addEventListener('DOMContentLoaded', async () => {
   const dictEl = document.getElementById('i18n-dict');
   let dict = null;
@@ -62,42 +68,66 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (statNumber) statNumber.textContent = sims.length;
 
-  const subjectOptions = [...new Map(sims.flatMap(s => s.subjects.map(sub => [sub.slug, sub.name]))).entries()]
-    .sort((a, b) => a[1].localeCompare(b[1], 'no'));
+  // Trinn is the outer category (every fag belongs to one or more trinn),
+  // so it's the only option list that's never itself filtered by anything else.
+  const trinnOptions = [...new Map(
+    sims.flatMap(s => s.subjects.flatMap(sub => sub.trinn.map(t => [t.slug, t.name])))
+  ).entries()].sort((a, b) => TRINN_ORDER.indexOf(a[0]) - TRINN_ORDER.indexOf(b[0]));
 
-  if (subjectBox) subjectBox.innerHTML = subjectLinksHTML(subjectOptions);
+  function subjectOptionsForTrinn(trinnSlug) {
+    return [...new Map(
+      sims.flatMap(s => s.subjects)
+        .filter(sub => !trinnSlug || sub.trinn.some(t => t.slug === trinnSlug))
+        .map(sub => [sub.slug, sub.name])
+    ).entries()].sort((a, b) => a[1].localeCompare(b[1], 'no'));
+  }
+
+  if (subjectBox) subjectBox.innerHTML = subjectLinksHTML(subjectOptionsForTrinn(''));
 
   if (!grid) return;
 
   const limit = grid.dataset.limit ? parseInt(grid.dataset.limit, 10) : null;
   const PAGE_SIZE = 12;
+  const trinnFilters = document.querySelector('[data-simulations-filters-trinn]');
   const subjectFilters = document.querySelector('[data-simulations-filters-fag]');
   const topicFilters = document.querySelector('[data-simulations-filters-tema]');
   const loadMoreBox = document.querySelector('[data-load-more]');
 
   const params = new URLSearchParams(location.search);
+  let activeTrinn = params.get('trinn') || '';
   let activeFag = params.get('fag') || '';
   let activeTema = params.get('tema') || '';
   let visibleCount = PAGE_SIZE;
 
-  function topicOptionsForFag(fagSlug) {
+  // Tema (topic) options are scoped by whatever of fag/trinn is currently
+  // set — a specific fag narrows to just that fag's topics regardless of
+  // trinn; with fag on "alle fag" it falls back to every topic within the
+  // active trinn, or every topic site-wide if trinn is "alle trinn" too.
+  function topicOptionsFor(fagSlug, trinnSlug) {
     return [...new Map(
-      sims.filter(s => s.subjects.some(sub => sub.slug === fagSlug) && s.topic)
-        .map(s => [s.topic.slug, s.topic.name])
+      sims.filter(s => {
+        const fagOk = !fagSlug || s.subjects.some(sub => sub.slug === fagSlug);
+        const trinnOk = !trinnSlug || s.subjects.some(sub => sub.trinn.some(t => t.slug === trinnSlug));
+        return fagOk && trinnOk && s.topic;
+      }).map(s => [s.topic.slug, s.topic.name])
     ).entries()].sort((a, b) => a[1].localeCompare(b[1], 'no'));
   }
 
-  // If the URL arrived with a tema that doesn't belong to the given fag, drop it.
-  if (activeFag && activeTema) {
-    const valid = topicOptionsForFag(activeFag).some(([slug]) => slug === activeTema);
-    if (!valid) activeTema = '';
+  // If the URL arrived with a fag that doesn't belong to the given trinn, or a
+  // tema that doesn't belong to the resulting fag/trinn scope, drop them.
+  if (activeTrinn && activeFag && !subjectOptionsForTrinn(activeTrinn).some(([slug]) => slug === activeFag)) {
+    activeFag = '';
+  }
+  if (activeTema && !topicOptionsFor(activeFag, activeTrinn).some(([slug]) => slug === activeTema)) {
+    activeTema = '';
   }
 
   function render() {
     const filtered = sims.filter(s => {
+      const trinnOk = !activeTrinn || s.subjects.some(sub => sub.trinn.some(t => t.slug === activeTrinn));
       const fagOk = !activeFag || s.subjects.some(sub => sub.slug === activeFag);
       const temaOk = !activeTema || (s.topic && s.topic.slug === activeTema);
-      return fagOk && temaOk;
+      return trinnOk && fagOk && temaOk;
     });
     const shown = limit ? filtered.slice(0, limit) : filtered.slice(0, visibleCount);
     const emptyMsg = i18nText(dict, 'empty-state', 'Ingen simuleringer i denne kategorien ennå.');
@@ -109,23 +139,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         : '';
     }
 
+    if (trinnFilters) {
+      const allTrinnLabel = i18nText(dict, 'filter-all-trinn', 'Alle trinn');
+      trinnFilters.innerHTML = filterGroupHTML(trinnOptions, activeTrinn, 'trinn', allTrinnLabel);
+    }
     if (subjectFilters) {
       const allFagLabel = i18nText(dict, 'filter-all-fag', 'Alle fag');
-      subjectFilters.innerHTML = filterGroupHTML(subjectOptions, activeFag, 'fag', allFagLabel);
+      subjectFilters.innerHTML = filterGroupHTML(subjectOptionsForTrinn(activeTrinn), activeFag, 'fag', allFagLabel);
     }
     if (topicFilters) {
-      if (!activeFag) {
-        const hint = i18nText(dict, 'filter-tema-hint', 'Velg et fag for å se tema.');
-        topicFilters.innerHTML = `<p class="filter-hint">${hint}</p>`;
-      } else {
-        const allTemaLabel = i18nText(dict, 'filter-all-tema', 'Alle tema');
-        topicFilters.innerHTML = filterGroupHTML(topicOptionsForFag(activeFag), activeTema, 'tema', allTemaLabel);
-      }
+      const allTemaLabel = i18nText(dict, 'filter-all-tema', 'Alle tema');
+      topicFilters.innerHTML = filterGroupHTML(topicOptionsFor(activeFag, activeTrinn), activeTema, 'tema', allTemaLabel);
     }
   }
 
   function updateUrl() {
     const url = new URL(location.href);
+    if (activeTrinn) url.searchParams.set('trinn', activeTrinn); else url.searchParams.delete('trinn');
     if (activeFag) url.searchParams.set('fag', activeFag); else url.searchParams.delete('fag');
     if (activeTema) url.searchParams.set('tema', activeTema); else url.searchParams.delete('tema');
     history.pushState({}, '', url);
@@ -133,15 +163,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   render();
 
+  if (trinnFilters) {
+    trinnFilters.addEventListener('click', (event) => {
+      const btn = event.target.closest('[data-trinn]');
+      if (!btn) return;
+      activeTrinn = btn.dataset.trinn;
+      // Same cascade rule as fag → tema below: resetting a parent to "alle"
+      // (or picking one that no longer owns the current child) clears the
+      // child too, so the grid never stays silently scoped to a stale pick.
+      if (!activeTrinn || !subjectOptionsForTrinn(activeTrinn).some(([slug]) => slug === activeFag)) {
+        activeFag = '';
+      }
+      if (!activeFag || !topicOptionsFor(activeFag, activeTrinn).some(([slug]) => slug === activeTema)) {
+        activeTema = '';
+      }
+      visibleCount = PAGE_SIZE;
+      updateUrl();
+      render();
+    });
+  }
   if (subjectFilters) {
     subjectFilters.addEventListener('click', (event) => {
       const btn = event.target.closest('[data-fag]');
       if (!btn) return;
       activeFag = btn.dataset.fag;
-      // Not just "when a fag IS set but doesn't own the current tema" — also clear tema
-      // whenever fag is reset to "all", since the tema box hides/empties in that case too
-      // and a stale tema slug must not keep silently filtering the grid.
-      if (!activeFag || !topicOptionsForFag(activeFag).some(([slug]) => slug === activeTema)) {
+      if (!activeFag || !topicOptionsFor(activeFag, activeTrinn).some(([slug]) => slug === activeTema)) {
         activeTema = '';
       }
       visibleCount = PAGE_SIZE;

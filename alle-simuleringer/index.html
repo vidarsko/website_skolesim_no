@@ -16,12 +16,13 @@
     "nav-fagoversikt": {"no": "Fagoversikt", "en": "Subjects"},
     "nav-om-meg": {"no": "Om meg", "en": "About"},
     "alle-sim-heading": {"no": "Alle simuleringer", "en": "All simulations"},
-    "alle-sim-lead": {"no": "Velg fag og/eller tema for å filtrere.", "en": "Pick a subject and/or a topic to filter."},
+    "alle-sim-lead": {"no": "Velg trinn, fag og/eller tema for å filtrere.", "en": "Pick a level, subject and/or topic to filter."},
+    "filter-trinn-label": {"no": "Trinn", "en": "Level"},
     "filter-fag-label": {"no": "Fag", "en": "Subject"},
     "filter-tema-label": {"no": "Tema", "en": "Topic"},
+    "filter-all-trinn": {"no": "Alle trinn", "en": "All levels"},
     "filter-all-fag": {"no": "Alle fag", "en": "All subjects"},
     "filter-all-tema": {"no": "Alle tema", "en": "All topics"},
-    "filter-tema-hint": {"no": "Velg et fag for å se tema.", "en": "Choose a subject to see its topics."},
     "load-more-btn": {"no": "Vis flere", "en": "Show more"},
     "empty-state": {"no": "Ingen simuleringer i denne kategorien ennå.", "en": "No simulations in this category yet."},
     "footer-copyright": {"no": "Copyright 2026 – Skolesim", "en": "Copyright 2026 – Skolesim"},
@@ -69,6 +70,10 @@
     </div>
     <div class="wide">
       <div class="filter-groups">
+        <div>
+          <p class="filter-group-label" data-i18n="filter-trinn-label">Trinn</p>
+          <div class="filter-box"><div class="filter-bar filter-bar--trinn" data-simulations-filters-trinn></div></div>
+        </div>
         <div>
           <p class="filter-group-label" data-i18n="filter-fag-label">Fag</p>
           <div class="filter-box"><div class="filter-bar filter-bar--fag" data-simulations-filters-fag></div></div>

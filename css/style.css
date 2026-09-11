@@ -288,17 +288,20 @@ html[data-theme="dark"] .lang-btn.active { background: rgba(255,255,255,0.10); }
 .tile--featured h4 { font-size: 24px; }
 
 /* ==========================================================================
-   Filter bar — two independent, combinable groups (fag left / tema right),
-   per raft-style v1.2's filter/listing pattern. Each group is a fixed-height,
-   scrollable box of full-width, uniform-height stacked buttons — not a
-   horizontal wrap of pills — so a long subject/topic list stays contained.
-   Tema is progressive: its box only fills in once a fag is chosen, scoped to
-   that fag's topics, so the page isn't showing every topic across every
-   subject at once.
+   Filter bar — three independent, combinable groups (trinn / fag / tema, left
+   to right), per raft-style v1.2's filter/listing pattern. Each group is a
+   fixed-height, scrollable box of full-width, uniform-height stacked buttons
+   — not a horizontal wrap of pills — so a long subject/topic list stays
+   contained. Trinn is the outer category (every fag belongs to one or more
+   trinn) and always shows every trinn; fag's options narrow to the active
+   trinn; tema's options narrow to the active fag, falling back to the active
+   trinn's topics (or every topic) once fag is back on "alle fag". Picking
+   "alle" on a group — or picking a value that no longer owns the current
+   child selection — cascades down and clears the narrower group(s) too.
    ========================================================================== */
 .filter-groups {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 16px 32px;
   margin: 0 0 40px;
   align-items: start;
@@ -340,15 +343,13 @@ html[data-theme="dark"] .lang-btn.active { background: rgba(255,255,255,0.10); }
   flex: 0 0 auto;
 }
 .filter-btn:hover { border-color: var(--border-strong); }
+.filter-bar--trinn .filter-btn.is-active { background: var(--accent-secondary); color: var(--fg-inverse); }
 .filter-bar--fag .filter-btn.is-active { background: var(--accent); color: var(--fg-inverse); }
 .filter-bar--tema .filter-btn.is-active { background: var(--fg); color: var(--bg); }
-.filter-hint {
-  font-size: 14px;
-  opacity: 0.6;
-  margin: 0;
-  padding: 12px 14px;
-}
 
+@media (max-width: 1000px) {
+  .filter-groups { grid-template-columns: 1fr 1fr; }
+}
 @media (max-width: 780px) {
   .filter-groups { grid-template-columns: 1fr; }
 }
