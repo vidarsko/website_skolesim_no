@@ -75,6 +75,29 @@ a:focus-visible, button:focus-visible {
 
 .center { text-align: center; }
 
+/* ==========================================================================
+   Viewport containment — grid and flex items default to `min-width: auto`,
+   so an item whose content has a wide min-content width (a <canvas> with an
+   intrinsic size, a long Norwegian compound word, a fixed-width embed) grows
+   its track past the phone viewport. That is not a local glitch: iOS Safari
+   widens the layout viewport to the overflowing width, so *every* section —
+   header, hero, tiles — is then laid out too wide and bleeds off-screen,
+   which is how a single oversized element takes the whole front page with it.
+   Let the tracks shrink instead, and let long words break rather than set the
+   floor (`anywhere`, not `break-word`: only `anywhere` also lowers the
+   min-content width that sizes the track).
+   ========================================================================== */
+.hero .wide > *,
+.tile-grid > *,
+.posts-grid > *,
+.sim-cards > *,
+.filter-groups > * {
+  min-width: 0;
+}
+
+body { overflow-wrap: break-word; }
+h1, h2, h3, h4, .filter-btn, .badge { overflow-wrap: anywhere; }
+
 .btn {
   display: inline-block;
   font-family: inherit;
@@ -223,7 +246,7 @@ html[data-theme="dark"] .lang-btn.active { background: rgba(255,255,255,0.10); }
 
 .hero-stat--wave { transition: border-color 0.15s; }
 .hero-stat--wave:hover { border-color: var(--accent); }
-.hero-stat--wave canvas { display: block; width: 100%; margin-bottom: 12px; }
+.hero-stat--wave canvas { display: block; width: 100%; max-width: 100%; margin-bottom: 12px; }
 .hero-stat--wave .stat-label { text-align: center; }
 
 .section { padding: 64px 24px; }
