@@ -601,7 +601,7 @@ html[data-theme="dark"] .lang-btn.active { background: rgba(255,255,255,0.10); }
   h1 { font-size: 40px; }
   .tile-grid { grid-template-columns: repeat(2, 1fr); }
   .tile--featured { grid-column: span 2; grid-row: span 1; aspect-ratio: 16/9; }
-  .tile--panel { grid-column: span 2; grid-row: span 1; min-height: 280px; }
+  .tile--panel { grid-column: span 2; grid-row: span 1; aspect-ratio: auto; min-height: 280px; }
   .posts-grid { grid-template-columns: 1fr; }
   .header-right { width: 100%; justify-content: space-between; }
 }
