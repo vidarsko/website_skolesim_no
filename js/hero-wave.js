@@ -25,19 +25,14 @@
 
   function resize() {
     dpr = window.devicePixelRatio || 1;
-    // Measure the canvas itself, which CSS sizes to width:100% of the card, and never
-    // write a px width back onto it: an inline px width makes the canvas' own box the
-    // grid item's min-content width, so the hero column could only ever grow. One
-    // landscape->portrait rotation then left the whole hero laid out at the landscape
-    // width, bleeding off the right of the screen.
-    readColors();
-    cssWidth = canvas.clientWidth;
-    if (!cssWidth) return;
+    cssWidth = canvas.parentElement.clientWidth;
+    canvas.style.width = cssWidth + 'px';
     canvas.style.height = cssHeight + 'px';
     canvas.width = Math.round(cssWidth * dpr);
     canvas.height = Math.round(cssHeight * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     particleCount = Math.max(6, Math.round(cssWidth / PARTICLE_SPACING));
+    readColors();
   }
 
   function drawLane(yCenter, mode, t) {

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <title>Tallet e og rentes rente — Skolesim.no</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/analytics.js"></script>
+  <script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
+  <script id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+  <script id="i18n-dict" type="application/json">
+  {
+    "nav-alle-sim": {"no": "Alle simuleringer", "en": "All simulations"},
+    "nav-fagoversikt": {"no": "Fagoversikt", "en": "Subjects"},
+    "nav-om-meg": {"no": "Om meg", "en": "About"},
+    "footer-copyright": {"no": "Copyright 2026 – Skolesim", "en": "Copyright 2026 – Skolesim"},
+    "footer-privacy": {"no": "Personvernerklæring", "en": "Privacy policy"},
+    "theme-toggle-aria": {"no": "Bytt fargetema", "en": "Toggle color theme"},
+    "sim-warning-text": {"no": "Simuleringene på denne siden er KI-genererte, så dobbeltsjekk at de fungerer som de skal før du bruker dem i undervisningen.", "en": "The simulations on this page are AI-generated, so double-check that they work as intended before using them in teaching."},
+    "footer-contact-heading": {"no": "Lære med KI", "en": "Learning with AI"},
+    "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
+    "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
+    "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
+    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"},
+    "card-forklaring-label": {"no": "Forklaring", "en": "Explanation"},
+    "card-utforskning-label": {"no": "Forslag til utforskning", "en": "Ideas to explore"},
+    "card-lignende-label": {"no": "Lignende simuleringer", "en": "Similar simulations"},
+    "card-empty-label": {"no": "Kommer snart", "en": "Coming soon"},
+    "card-utforskning-empty": {"no": "Ingen forslag til utforskning er lagt til for denne simuleringen ennå.", "en": "No exploration suggestions have been added for this simulation yet."},
+    "card-lignende-empty": {"no": "Fant ingen lignende simuleringer ennå.", "en": "No similar simulations found yet."},
+    "sim-modal-close-aria": {"no": "Lukk", "en": "Close"}
+  }
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <p class="site-title"><a href="/">Skolesim</a></p>
+      <div class="header-right">
+        <nav>
+          <ul class="site-nav">
+            <li><a href="/alle-simuleringer/" data-i18n="nav-alle-sim">Alle simuleringer</a></li>
+            <li><a href="/#fagoversikt" data-i18n="nav-fagoversikt">Fagoversikt</a></li>
+            <li><a href="#" data-i18n="nav-om-meg">Om meg</a></li>
+          </ul>
+        </nav>
+        <div class="nav-controls">
+          <button class="theme-toggle" type="button" data-i18n-attr="aria-label:theme-toggle-aria" aria-label="Bytt fargetema" aria-pressed="false">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+          </button>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <button type="button" class="lang-btn" data-lang="no">NO</button>
+            <button type="button" class="lang-btn" data-lang="en">EN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wide">
+    <div class="sim-content-width" style="--sim-max-width:1100px">
+      <div class="post-badges"><a class="badge badge-subject" href="/alle-simuleringer/?fag=matematikk-1p">Matematikk 1P</a><a class="badge badge-subject" href="/alle-simuleringer/?fag=matematikk-r1">Matematikk R1</a><a class="badge badge-topic" href="/alle-simuleringer/?tema=eksponentiell-vekst">Eksponentiell vekst</a></div>
+      <h1>Tallet e og rentes rente</h1>
+      <div class="sim-warning">
+        <p><strong>❗ NB.</strong> <span data-i18n="sim-warning-text">Simuleringene på denne siden er KI-genererte, så dobbeltsjekk at de fungerer som de skal før du bruker dem i undervisningen.</span></p>
+      </div>
+      <p class="wp-block-paragraph">Innsendt av Ole Henrik Ishoel.</p>
+      <div class="wp-embed">
+<style>
+@scope (.wp-embed) {
+
+        :scope {
+            --primary: #C26148;
+            --primary-hover: #AC5039;
+            --bg: #EBE8E6;
+            --card: #ffffff;
+            --text: #1D1F25;
+            --text-muted: #7A6860;
+            --accent: #C26148;
+            --border: #D5CFC9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :scope {
+            font-family: "Readex Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        :scope {
+            display: block;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        h1 {
+            color: #1D1F25;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .problem-statement {
+            background-color: #F6EAE6;
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin-top: 15px;
+            text-align: left;
+            font-size: 1.05rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 900px) {
+            .grid {
+                grid-template-columns: 350px 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 8px;
+            padding: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #DCD6D2;
+            outline: none;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .preset-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            background: #F1EEEC;
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            color: var(--text);
+        }
+
+        button:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .stat-box {
+            background: #EBE8E6;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .stat-value.highlight {
+            color: var(--accent);
+        }
+
+        .formula-card {
+            background: #F1EEEC;
+            border: 1px solid #D5CFC9;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 15px;
+        }
+
+        .formula {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #AC5039;
+            margin-top: 5px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 350px;
+            width: 100%;
+        }
+
+        .explanation {
+            margin-top: 25px;
+            line-height: 1.7;
+        }
+
+        .explanation h2 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #1D1F25;
+        }
+
+        .explanation p {
+            margin-bottom: 12px;
+            color: var(--text-muted);
+        }
+
+        .e-limit-box {
+            background: #F6EAE6;
+            border-left: 4px solid #C26148;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+
+        .grid > * {
+            min-width: 0;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        .table-scroll table {
+            min-width: 330px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #F1EEEC;
+            font-weight: 600;
+        }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+
+
+    <header>
+        <h1>Utforsk rentes rente og tallet e</h1>
+        <div class="problem-statement">
+            <strong>Problemstilling:</strong> Du vinner 1 000 000 kr og får 100 % rente. Rentene fordeles i jevne deler utover året. 
+            Hvordan bør du få rentene utbetalt for å sitte igjen med mest mulig penger? Er det en grense for hvor mye du kan få?
+        </div>
+    </header>
+
+    <div class="grid">
+        <!-- Kontrollpanel -->
+        <div class="card controls">
+            <div class="control-group">
+                <label for="nSlider">Antall utbetalinger per år (n): <span id="nValue" style="color: var(--primary); font-size: 1.2rem;">1</span></label>
+                <input type="range" id="nSlider" min="1" max="1000" value="1" step="1">
+            </div>
+
+            <div class="control-group">
+                <label>Hurtigvalg:</label>
+                <div class="preset-buttons">
+                    <button onclick="setN(1, this)" class="active">1 (Årlig)</button>
+                    <button onclick="setN(2, this)">2 (Halvårlig)</button>
+                    <button onclick="setN(12, this)">12 (Månedlig)</button>
+                    <button onclick="setN(52, this)">52 (Ukentlig)</button>
+                    <button onclick="setN(365, this)">365 (Daglig)</button>
+                    <button onclick="setN(8760, this)">8760 (Timelig)</button>
+                    <button onclick="setN(525600, this)">525 600 (Minutt)</button>
+                    <button onclick="setN(1000000, this)">1 000 000</button>
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--border);">
+
+            <div class="stat-box">
+                <div class="stat-label">Rentesats per periode</div>
+                <div class="stat-value" id="ratePerPeriod">100.00 %</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-label">Sluttbeløp etter 1 år</div>
+                <div class="stat-value highlight" id="finalAmount">2 000 000 kr</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-label">Vekstfaktor (1 + 1/n)ⁿ</div>
+                <div class="stat-value" id="growthFactor">2.000000</div>
+            </div>
+
+            <div class="formula-card">
+                <div class="stat-label" style="color: #AC5039;">Formel for sluttbeløp:</div>
+                <div class="formula">1 000 000 × (1 + 1/n)ⁿ</div>
+            </div>
+        </div>
+
+        <!-- Graf og Visualisering -->
+        <div class="card">
+            <h2 style="font-size: 1.2rem; margin-bottom: 15px;">Pengenes utvikling gjennom året</h2>
+            <div class="chart-container">
+                <canvas id="growthChart"></canvas>
+            </div>
+
+            <div class="explanation">
+                <h2>Hva skjer når n blir uendelig stor?</h2>
+                <p>Når rentene utbetales oftere, får du rente på de rentene som allerede er utbetalt. Men som du ser fra tallene, vil ikke beløpet vokse inn i himmelen!</p>
+                
+                <div class="e-limit-box">
+                    <strong>Den matematiske grensen (Tallet e):</strong><br>
+                    Når antall utbetalinger $n$ går mot uendelig ($n \to \infty$), nærmer vekstfaktoren seg det berømte tallet <strong>e</strong> ($\approx 2{,}7182818\ldots$).<br>
+                    Maksimalt beløp du kan oppnå med kontinuerlig forrentning er:<br>
+                    <span style="font-size: 1.2rem; font-weight: bold; color: #AC5039;">
+                        1 000 000 kr × e ≈ 2 718 282 kr
+                    </span>
+                </div>
+
+                <h2 style="margin-top: 20px;">Sammenligningstabell</h2>
+                <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Frekvens (n)</th>
+                            <th>Rente per periode</th>
+                            <th>Sluttbeløp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1 (Årlig)</td><td>100 %</td><td>2 000 000 kr</td></tr>
+                        <tr><td>2 (Halvårlig)</td><td>50 %</td><td>2 250 000 kr</td></tr>
+                        <tr><td>12 (Månedlig)</td><td>8.33 %</td><td>2 613 035 kr</td></tr>
+                        <tr><td>52 (Ukentlig)</td><td>1.92 %</td><td>2 692 597 kr</td></tr>
+                        <tr><td>365 (Daglig)</td><td>0.27 %</td><td>2 714 567 kr</td></tr>
+                        <tr><td>Kontinuerlig (n → ∞)</td><td>→ 0 %</td><td><strong>2 718 282 kr (1 mill × e)</strong></td></tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const initialAmount = 1000000;
+        let chart;
+
+        function formatNOK(amount) {
+            return new Intl.NumberFormat('no-NO', { style: 'currency', currency: 'NOK', maximumFractionDigits: 0 }).format(amount);
+        }
+
+        function calculateData(n) {
+            const steps = Math.min(n, 100); // Maks 100 punkter på grafen for ytelse
+            const labels = [];
+            const data = [];
+            
+            for (let i = 0; i <= steps; i++) {
+                const fractionOfYear = i / steps;
+                const periods = fractionOfYear * n;
+                const amount = initialAmount * Math.pow(1 + 1/n, periods);
+                
+                // Formater etikett
+                labels.push((fractionOfYear * 12).toFixed(1) + " mnd");
+                data.push(amount);
+            }
+            return { labels, data };
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('growthChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Din saldo (kr)',
+                            data: [],
+                            borderColor: '#C26148',
+                            backgroundColor: 'rgba(194, 97, 72, 0.12)',
+                            fill: true,
+                            tension: 0.1,
+                            pointRadius: 2
+                        },
+                        {
+                            label: 'Kontinuerlig grense (e)',
+                            data: [],
+                            borderColor: '#1D1F25',
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + formatNOK(context.raw);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            min: 1000000,
+                            max: 2800000,
+                            ticks: {
+                                callback: function(value) {
+                                    return (value / 1000000).toFixed(2) + " mill kr";
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateSimulation(n) {
+            document.getElementById('nValue').innerText = n.toLocaleString('no-NO');
+            
+            const ratePerPeriod = (100 / n);
+            document.getElementById('ratePerPeriod').innerText = ratePerPeriod.toFixed(4) + " %";
+            
+            const growthFactor = Math.pow(1 + 1/n, n);
+            document.getElementById('growthFactor').innerText = growthFactor.toFixed(6);
+            
+            const finalAmount = initialAmount * growthFactor;
+            document.getElementById('finalAmount').innerText = formatNOK(finalAmount);
+
+            // Oppdater graf
+            const chartData = calculateData(n);
+            chart.data.labels = chartData.labels;
+            chart.data.datasets[0].data = chartData.data;
+            chart.data.datasets[1].data = new Array(chartData.labels.length).fill(initialAmount * Math.E);
+            chart.update();
+        }
+
+        function setN(val, btn) {
+            document.getElementById('nSlider').value = Math.min(val, 1000);
+            
+            // Fjern active fra alle knapper
+            const buttons = document.querySelectorAll('.preset-buttons button');
+            buttons.forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+
+            updateSimulation(val);
+        }
+
+        // Event listener for slider
+        document.getElementById('nSlider').addEventListener('input', function(e) {
+            const val = parseInt(e.target.value);
+            // Fjern active fra knapper om slider brukes manuelt
+            document.querySelectorAll('.preset-buttons button').forEach(b => b.classList.remove('active'));
+            updateSimulation(val);
+        });
+
+        // Start simuleringen
+        window.onload = function() {
+            initChart();
+            updateSimulation(1);
+        };
+    </script>
+      </div><!-- /.wp-embed -->
+
+      <div class="sim-cards-section">
+        <div class="sim-cards">
+          <button class="sim-card" type="button" data-modal="forklaring" style="background-image:url('/media/card-forklaring.jpg')">
+            <span class="sim-card-label" data-i18n="card-forklaring-label">Forklaring</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="utforskning" style="background-image:url('/media/card-utforskning.jpg')">
+            <span class="sim-card-label" data-i18n="card-utforskning-label">Forslag til utforskning</span>
+          </button>
+          <button class="sim-card" type="button" data-modal="lignende" style="background-image:url('/media/card-lignende.jpg')">
+            <span class="sim-card-label" data-i18n="card-lignende-label">Lignende simuleringer</span>
+          </button>
+          <div class="sim-card sim-card--empty" aria-hidden="true">
+            <span class="sim-card-label" data-i18n="card-empty-label">Kommer snart</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-modal-overlay" id="simModalOverlay" hidden>
+        <div class="sim-modal" role="dialog" aria-modal="true">
+          <button class="sim-modal-close" type="button" data-i18n-attr="aria-label:sim-modal-close-aria" aria-label="Lukk">&times;</button>
+          <div class="sim-modal-body" id="simModalBody"></div>
+        </div>
+      </div>
+
+      <!-- Hidden templates, copied into the popup above by /js/sim-cards.js -->
+      <div id="modal-content-forklaring" hidden>
+        <h2 data-i18n="card-forklaring-label">Forklaring</h2>
+        <p>Du vinner 1 000 000 kroner, og banken tilbyr deg 100 % rente i året. Får du hele renten utbetalt én gang, ved nyttår, sitter du igjen med 2 000 000 kr. Men så kommer et motforslag: du kan i stedet få 50 % etter et halvt år, og 50 % til ved årets slutt. Er det bedre? Regn etter:</p>
+        <p>$$1\,000\,000 \cdot 1{,}5 \cdot 1{,}5 = 2\,250\,000$$</p>
+        <p>Du tjener 250 000 kr ekstra på ingenting annet enn tidspunktet for utbetalingen. Grunnen er at de 500 000 kronene du fikk i juli, selv rekker å gi 50 % rente frem til desember. Renten gir altså rente &ndash; det er dette som kalles <strong>rentes rente</strong>.</p>
+        <p>Da ligger et fristende spørsmål rett foran deg: hvis to utbetalinger er bedre enn én, er kanskje 12 bedre enn to? Eller 365? Deler du året i $n$ like perioder, må renten deles på like mange, så hver periode gir $\frac{100\,\%}{n}$. Sluttbeløpet blir</p>
+        <p>$$1\,000\,000 \cdot \left(1 + \frac{1}{n}\right)^n$$</p>
+        <p>Dra i slideren i simuleringen og se hva som skjer. Med månedlige utbetalinger ($n = 12$) ender du på 2 613 035 kr, med daglige ($n = 365$) på 2 714 567 kr, med utbetaling hvert minutt på 2 718 279 kr. Beløpet stiger hele veien, men stadig saktere &ndash; og det passerer aldri 2 718 282 kr, uansett hvor fint du deler opp året.</p>
+        <p>Det er to krefter som drar mot hverandre her. Flere perioder betyr flere runder med rentes rente, som trekker beløpet opp. Men flere perioder betyr samtidig at hver enkelt rentesats blir mindre, som trekker beløpet ned. De to effektene utligner hverandre stadig mer presist, og uttrykket nærmer seg en bestemt verdi som det aldri kommer forbi. Den verdien kalles <strong>tallet $e$</strong>:</p>
+        <p>$$e = \lim_{n \to \infty}\left(1 + \frac{1}{n}\right)^n \approx 2{,}718281828\ldots$$</p>
+        <p>Symbolet $\lim$ leses «grensen når», og betyr her: verdien uttrykket nærmer seg mer og mer jo større $n$ blir, uten noen gang å nå den helt. Tilfellet der renten fordeles på uendelig mange, uendelig små utbetalinger, kalles <strong>kontinuerlig forrentning</strong>, og det er det du ser som den stiplede linjen i grafen. Mest mulig penger får du altså av å be om renten utbetalt så ofte som mulig &ndash; men gevinsten stopper på 2 718 282 kr, ikke en krone mer.</p>
+        <p>Akkurat som $\pi$ er $e$ et tall som dukker opp av seg selv når du regner på en helt bestemt type situasjon &ndash; her vekst som hele tiden bygger videre på seg selv. Derfor møter du $e$ igjen langt utenfor bankvesenet: i befolkningsvekst, i radioaktiv nedbrytning og i avkjøling av en kopp kaffe.</p>
+      </div>
+      <div id="modal-content-utforskning" hidden>
+        <h2 data-i18n="card-utforskning-label">Forslag til utforskning</h2>
+        <p class="sim-modal-empty" data-i18n="card-utforskning-empty">Ingen forslag til utforskning er lagt til for denne simuleringen ennå.</p>
+      </div>
+      <div id="modal-content-lignende-heading" hidden>
+        <h2 data-i18n="card-lignende-label">Lignende simuleringer</h2>
+      </div>
+    </div><!-- /.sim-content-width -->
+    </div>
+  </section>
+
+  <script src="/js/theme.js" defer></script>
+  <script src="/js/i18n.js" defer></script>
+  <script src="/js/sim-cards.js" defer></script>
+
+  <footer class="site-footer">
+    <div class="wide">
+      <div class="footer-contact">
+        <p class="footer-contact-heading" data-i18n="footer-contact-heading">Lære med KI</p>
+        <p class="footer-contact-text"><span data-i18n="footer-contact-p1">Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne </span><a href="mailto:vidarsko@gmail.com" data-i18n="footer-contact-link1">sende den til meg</a><span data-i18n="footer-contact-p2">, eller les mer på </span><a href="https://xn--lremedki-j0a.no/lag-interaktive-simuleringer" data-i18n="footer-contact-link2">min blogg om å lære med KI</a>.</p>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footer-copyright">Copyright 2026 – Skolesim</p>
+        <nav><a href="#" data-i18n="footer-privacy">Personvernerklæring</a></nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

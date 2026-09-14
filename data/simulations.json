@@ -384,5 +384,84 @@
     },
     "description": "Juster trykkforskjellen for å se hvordan luften sirkulerer mellom høytrykk og lavtrykk. Utforsk skydannelse underveis.",
     "image": "/media/vinddannelse.jpg"
+  },
+  {
+    "slug": "buffons-nal",
+    "title": "Buffons nål",
+    "dateAdded": "2026-09-14",
+    "subjects": [
+      {
+        "name": "Matematikk 2P",
+        "slug": "matematikk-2p",
+        "trinn": [
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          }
+        ]
+      }
+    ],
+    "topic": {
+      "name": "Sannsynlighet",
+      "slug": "sannsynlighet"
+    },
+    "description": "Slipp tilfeldige nåler ned på et ark med parallelle linjer. Se hvordan andelen som krysser en linje gir et estimat av π.",
+    "image": "/media/buffons-nal.jpg"
+  },
+  {
+    "slug": "tallet-e",
+    "title": "Tallet e og rentes rente",
+    "dateAdded": "2026-09-14",
+    "subjects": [
+      {
+        "name": "Matematikk 1P",
+        "slug": "matematikk-1p",
+        "trinn": [
+          {
+            "name": "Vg1",
+            "slug": "vg1"
+          }
+        ]
+      },
+      {
+        "name": "Matematikk R1",
+        "slug": "matematikk-r1",
+        "trinn": [
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          }
+        ]
+      }
+    ],
+    "topic": {
+      "name": "Eksponentiell vekst",
+      "slug": "eksponentiell-vekst"
+    },
+    "description": "Del 100 % rente opp i stadig flere perioder og se hvordan sluttbeløpet nærmer seg en grense – tallet e.",
+    "image": "/media/tallet-e.jpg"
+  },
+  {
+    "slug": "romersk-abacus",
+    "title": "Romersk abacus",
+    "dateAdded": "2026-09-14",
+    "subjects": [
+      {
+        "name": "Matematikk 1P",
+        "slug": "matematikk-1p",
+        "trinn": [
+          {
+            "name": "Vg1",
+            "slug": "vg1"
+          }
+        ]
+      }
+    ],
+    "topic": {
+      "name": "Tallsystemer",
+      "slug": "tallsystemer"
+    },
+    "description": "Flytt kulene på en romersk kuleramme og se hvordan tall og duodesimale brøker bygges opp spalte for spalte.",
+    "image": "/media/romersk-abacus.jpg"
   }
 ]
