@@ -92,13 +92,13 @@
             --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
 
             /* Skrifttyper */
-            --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --raft-font-heading: "Geologica", var(--raft-font);
+            --raft-font: "Readex Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --raft-font-heading: var(--raft-font);
 
             /* Farger for vektorer */
             --vector-a: #0077b6; /* Blå */
             --vector-b: #d00000; /* Rød */
-            --vector-r: #000000; /* Svart */
+            --vector-r: #1D1F25; /* Svart */
         }
 
         .container {
@@ -108,7 +108,7 @@
             padding: 1.5rem;
             background: var(--raft-bg-alt);
             border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid #D5CFC9;
             font-family: var(--raft-font);
             color: var(--raft-fg);
             line-height: 1.6;
@@ -154,7 +154,7 @@
             background: var(--raft-bg-controls);
             padding: 1rem;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #D5CFC9;
         }
 
         .results-box {
@@ -175,7 +175,7 @@
 
         .slider-group label span {
             font-weight: normal;
-            background: #eee;
+            background: #F1EEEC;
             padding: 0 6px;
             border-radius: 4px;
             font-feature-settings: "tnum";
@@ -195,11 +195,11 @@
         th, td {
             text-align: left;
             padding: 0.5rem;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #D5CFC9;
         }
 
         th {
-            background: #f9f9f9;
+            background: #F1EEEC;
         }
 
         td:first-child {
@@ -372,7 +372,7 @@
         const gridSpacing = 1 * scale;
 
         function drawGrid() {
-            ctx.strokeStyle = '#f0f0f0';
+            ctx.strokeStyle = '#F1EEEC';
             ctx.lineWidth = 1;
 
             for (let x = origin.x; x < canvas.width; x += gridSpacing) {
@@ -401,7 +401,7 @@
                 ctx.stroke();
             }
 
-            ctx.strokeStyle = '#ccc';
+            ctx.strokeStyle = '#A2948B';
             ctx.lineWidth = 2;
             ctx.beginPath();
             ctx.moveTo(origin.x, 0);
@@ -470,7 +470,7 @@
 
             drawVector(bStartX, bStartY, bx, by, '#d00000', 'B');
 
-            drawVector(origin.x, origin.y, rx, ry, '#000000', 'R');
+            drawVector(origin.x, origin.y, rx, ry, '#1D1F25', 'R');
 
             table.compA.textContent = `(${ax}, ${ay})`;
             table.magA.textContent = magA.toFixed(2);

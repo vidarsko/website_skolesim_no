@@ -92,12 +92,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   const subjectFilters = document.querySelector('[data-simulations-filters-fag]');
   const topicFilters = document.querySelector('[data-simulations-filters-tema]');
   const loadMoreBox = document.querySelector('[data-load-more]');
+  const searchInput = document.querySelector('[data-simulations-search]');
 
   const params = new URLSearchParams(location.search);
   let activeTrinn = params.get('trinn') || '';
   let activeFag = params.get('fag') || '';
   let activeTema = params.get('tema') || '';
+  let activeSearch = params.get('s') || '';
   let visibleCount = PAGE_SIZE;
+
+  if (searchInput) searchInput.value = activeSearch;
 
   // Tema (topic) options are scoped by whatever of fag/trinn is currently
   // set — a specific fag narrows to just that fag's topics regardless of
@@ -123,14 +127,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function render() {
+    // Title/description only, not full text — see AGENTS.md, "Søk".
+    const q = activeSearch.trim().toLowerCase();
     const filtered = sims.filter(s => {
       const trinnOk = !activeTrinn || s.subjects.some(sub => sub.trinn.some(t => t.slug === activeTrinn));
       const fagOk = !activeFag || s.subjects.some(sub => sub.slug === activeFag);
       const temaOk = !activeTema || (s.topic && s.topic.slug === activeTema);
-      return trinnOk && fagOk && temaOk;
+      const searchOk = !q ||
+        s.title.toLowerCase().includes(q) ||
+        (s.description || '').toLowerCase().includes(q) ||
+        (s.topic ? s.topic.name.toLowerCase().includes(q) : false) ||
+        s.subjects.some(sub => sub.name.toLowerCase().includes(q));
+      return trinnOk && fagOk && temaOk && searchOk;
     });
     const shown = limit ? filtered.slice(0, limit) : filtered.slice(0, visibleCount);
-    const emptyMsg = i18nText(dict, 'empty-state', 'Ingen simuleringer i denne kategorien ennå.');
+    // A no-match search is a different situation from an empty category, and
+    // saying "in this category yet" for a typo'd query reads as a bug.
+    const emptyMsg = q
+      ? i18nText(dict, 'empty-search', 'Ingen simuleringer matcher søket.')
+      : i18nText(dict, 'empty-state', 'Ingen simuleringer i denne kategorien ennå.');
     grid.innerHTML = shown.map(simCardHTML).join('') || `<p>${emptyMsg}</p>`;
 
     if (loadMoreBox) {
@@ -158,6 +173,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (activeTrinn) url.searchParams.set('trinn', activeTrinn); else url.searchParams.delete('trinn');
     if (activeFag) url.searchParams.set('fag', activeFag); else url.searchParams.delete('fag');
     if (activeTema) url.searchParams.set('tema', activeTema); else url.searchParams.delete('tema');
+    if (activeSearch) url.searchParams.set('s', activeSearch); else url.searchParams.delete('s');
     history.pushState({}, '', url);
   }
 
@@ -203,6 +219,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       visibleCount = PAGE_SIZE;
       updateUrl();
       render();
+    });
+  }
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      activeSearch = searchInput.value;
+      visibleCount = PAGE_SIZE;
+      updateUrl();
+      render();
+    });
+    // The field lives inside a <form> on the homepage only; on /alle-simuleringer/
+    // it is standalone, so swallow Enter rather than letting it reload the page.
+    searchInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') event.preventDefault();
     });
   }
   if (loadMoreBox) {

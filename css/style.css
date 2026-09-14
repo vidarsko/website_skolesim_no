@@ -306,6 +306,25 @@ html[data-theme="dark"] .lang-btn.active { background: rgba(255,255,255,0.10); }
   margin: 0 0 40px;
   align-items: start;
 }
+/* Søk — client-side, title/description only (see AGENTS.md, "Søk").
+   Mirrors læremedki's implementation so the two sites stay consistent. */
+.search-input {
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--fg);
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  padding: 10px 18px;
+  width: 100%;
+  max-width: 320px;
+}
+.search-input:focus-visible { outline: none; border-color: var(--border-strong); }
+.search-input::placeholder { color: var(--fg); opacity: 0.5; }
+.search-form { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.search-form .search-input { max-width: 260px; }
+[data-simulations-search] { display: block; margin-bottom: 24px; }
+
 .filter-group-label {
   font-size: 13px;
   font-weight: 700;

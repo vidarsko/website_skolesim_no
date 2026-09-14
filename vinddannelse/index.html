@@ -94,8 +94,8 @@
         --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
 
         /* Skrifttyper */
-        --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        --raft-font-heading: "Geologica", var(--raft-font);
+        --raft-font: "Readex Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --raft-font-heading: var(--raft-font);
     }
 
     * {
@@ -120,7 +120,7 @@
         width: 100%;
         padding: 30px;
         border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #D5CFC9;
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -479,18 +479,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const hx = width * 0.2;
         const hy = height * 0.7;
         ctx.fillStyle = 'rgba(0, 60, 180, 1)';
-        ctx.font = 'bold 50px Geologica';
+        ctx.font = 'bold 50px "Readex Pro", Helvetica, Arial, sans-serif';
         ctx.fillText('H', hx, hy);
-        ctx.font = 'bold 13px Geologica';
+        ctx.font = 'bold 13px "Readex Pro", Helvetica, Arial, sans-serif';
         ctx.fillText('KJØLIG / TUNGT', hx, hy + 28);
 
         // Lavtrykk Markør (L)
         const lx = width * 0.8;
         const ly = height * 0.7;
         ctx.fillStyle = 'rgba(180, 40, 0, 1)';
-        ctx.font = 'bold 50px Geologica';
+        ctx.font = 'bold 50px "Readex Pro", Helvetica, Arial, sans-serif';
         ctx.fillText('L', lx, ly);
-        ctx.font = 'bold 13px Geologica';
+        ctx.font = 'bold 13px "Readex Pro", Helvetica, Arial, sans-serif';
         ctx.fillText('VARMT / LETT', lx, ly + 28);
         
         // Reset skygge for andre elementer

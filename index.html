@@ -12,29 +12,110 @@
   <script src="/js/analytics.js"></script>
   <script id="i18n-dict" type="application/json">
   {
-    "nav-alle-sim": {"no": "Alle simuleringer", "en": "All simulations"},
-    "nav-fagoversikt": {"no": "Fagoversikt", "en": "Subjects"},
-    "nav-om-meg": {"no": "Om meg", "en": "About"},
-    "hero-heading-1": {"no": "Interaktive simuleringer ", "en": "Interactive simulations "},
-    "hero-heading-2": {"no": "for skolen", "en": "for the classroom"},
-    "hero-sub": {"no": "Utforsk fysikk, kjemi, biologi og mer gjennom simuleringer du kan justere og leke med selv.", "en": "Explore physics, chemistry, biology and more through simulations you can adjust and play with yourself."},
-    "hero-stat-label": {"no": "Se en simulering av langs- og tversbølger", "en": "See a simulation of longitudinal and transverse waves"},
-    "hero-cta": {"no": "Se alle simuleringer", "en": "Browse all simulations"},
-    "tile-alle-simuleringer": {"no": "Alle simuleringer", "en": "All simulations"},
-    "fagbox-heading": {"no": "Velg fag", "en": "Choose a subject"},
-    "fagoversikt-heading": {"no": "Fagoversikt", "en": "Subject overview"},
-    "fagoversikt-lead": {"no": "Klikk på en tittel for å navigere.", "en": "Click a title to navigate."},
-    "siste-heading": {"no": "Siste simuleringer", "en": "Latest simulations"},
-    "siste-link": {"no": "Se alle simuleringer →", "en": "See all simulations →"},
-    "empty-state": {"no": "Ingen simuleringer i denne kategorien ennå.", "en": "No simulations in this category yet."},
-    "footer-copyright": {"no": "Copyright 2026 – Skolesim", "en": "Copyright 2026 – Skolesim"},
-    "footer-privacy": {"no": "Personvernerklæring", "en": "Privacy policy"},
-    "theme-toggle-aria": {"no": "Bytt fargetema", "en": "Toggle color theme"},
-    "footer-contact-heading": {"no": "Lære med KI", "en": "Learning with AI"},
-    "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
-    "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
-    "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
-    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"}
+    "nav-alle-sim": {
+      "no": "Alle simuleringer",
+      "en": "All simulations"
+    },
+    "nav-fagoversikt": {
+      "no": "Fagoversikt",
+      "en": "Subjects"
+    },
+    "nav-om-meg": {
+      "no": "Om meg",
+      "en": "About"
+    },
+    "hero-heading-1": {
+      "no": "Interaktive simuleringer ",
+      "en": "Interactive simulations "
+    },
+    "hero-heading-2": {
+      "no": "for skolen",
+      "en": "for the classroom"
+    },
+    "hero-sub": {
+      "no": "Utforsk fysikk, kjemi, biologi og mer gjennom simuleringer du kan justere og leke med selv.",
+      "en": "Explore physics, chemistry, biology and more through simulations you can adjust and play with yourself."
+    },
+    "hero-stat-label": {
+      "no": "Se en simulering av langs- og tversbølger",
+      "en": "See a simulation of longitudinal and transverse waves"
+    },
+    "hero-cta": {
+      "no": "Se alle simuleringer",
+      "en": "Browse all simulations"
+    },
+    "tile-alle-simuleringer": {
+      "no": "Alle simuleringer",
+      "en": "All simulations"
+    },
+    "fagbox-heading": {
+      "no": "Velg fag",
+      "en": "Choose a subject"
+    },
+    "fagoversikt-heading": {
+      "no": "Fagoversikt",
+      "en": "Subject overview"
+    },
+    "fagoversikt-lead": {
+      "no": "Klikk på en tittel for å navigere.",
+      "en": "Click a title to navigate."
+    },
+    "siste-heading": {
+      "no": "Siste simuleringer",
+      "en": "Latest simulations"
+    },
+    "siste-link": {
+      "no": "Se alle simuleringer →",
+      "en": "See all simulations →"
+    },
+    "empty-state": {
+      "no": "Ingen simuleringer i denne kategorien ennå.",
+      "en": "No simulations in this category yet."
+    },
+    "footer-copyright": {
+      "no": "Copyright 2026 – Skolesim",
+      "en": "Copyright 2026 – Skolesim"
+    },
+    "footer-privacy": {
+      "no": "Personvernerklæring",
+      "en": "Privacy policy"
+    },
+    "theme-toggle-aria": {
+      "no": "Bytt fargetema",
+      "en": "Toggle color theme"
+    },
+    "footer-contact-heading": {
+      "no": "Lære med KI",
+      "en": "Learning with AI"
+    },
+    "footer-contact-p1": {
+      "no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ",
+      "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "
+    },
+    "footer-contact-link1": {
+      "no": "sende den til meg",
+      "en": "send it to me"
+    },
+    "footer-contact-p2": {
+      "no": ", eller les mer på ",
+      "en": ", or read more on "
+    },
+    "footer-contact-link2": {
+      "no": "min blogg om å lære med KI",
+      "en": "my blog about learning with AI"
+    },
+    "search-placeholder": {
+      "no": "Søk i simuleringer …",
+      "en": "Search simulations …"
+    },
+    "search-submit": {
+      "no": "Søk",
+      "en": "Search"
+    },
+    "empty-search": {
+      "no": "Ingen simuleringer matcher søket.",
+      "en": "No simulations match your search."
+    }
   }
   </script>
 </head>
@@ -104,6 +185,10 @@
     <div class="section-lead">
       <h2 data-i18n="siste-heading">Siste simuleringer</h2>
       <p><a href="/alle-simuleringer/" data-i18n="siste-link">Se alle simuleringer →</a></p>
+      <form class="search-form" action="/alle-simuleringer/" method="get">
+        <input type="search" name="s" class="search-input" data-i18n-attr="placeholder:search-placeholder" placeholder="Søk i simuleringer …" aria-label="Søk i simuleringer">
+        <button type="submit" class="btn" data-i18n="search-submit">Søk</button>
+      </form>
     </div>
     <div class="wide">
       <div class="posts-grid" data-simulations-grid data-limit="6"></div>

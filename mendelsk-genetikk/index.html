@@ -94,17 +94,16 @@
     --raft-bg-alt: rgba(255, 255, 255, 0.6);
     --raft-bg-controls: rgba(255, 255, 255, 0.8);
     --raft-bg-box: #ffffff;
-    --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --raft-font-heading: "Geologica", var(--raft-font);
+    --raft-font: "Readex Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --raft-font-heading: var(--raft-font);
 
     /* Semantiske farger for genetikk */
     --dominant: #2d6a4f;
     --dominant-light: #b7e4c7;
     --recessive: #C26148;
     --recessive-light: #fcd5b0;
-    --border: #d4cfc5;
-    --muted: #7a7a8a;
-    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --border: #D5CFC9;
+    --muted: #7A6860;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -168,7 +167,6 @@
     border-radius: 16px;
     padding: 24px;
     border: 1.5px solid var(--border);
-    box-shadow: var(--shadow);
   }
 
   .card h2 {
@@ -221,7 +219,7 @@
   .trait-btn:hover { border-color: var(--raft-accent); transform: translateY(-2px); }
   .trait-btn.active {
     border-color: var(--raft-accent);
-    background: #fdeae6;
+    background: #F6EAE6;
     color: var(--raft-accent-dark);
   }
 
@@ -388,7 +386,6 @@
   .punnett-cell:hover {
     transform: scale(1.1);
     z-index: 2;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
   }
 
   /* Results */
@@ -453,7 +450,7 @@
 
   /* Info box */
   .info-box {
-    background: #fdeae6;
+    background: #F6EAE6;
     border-left: 4px solid var(--raft-accent);
     border-radius: 0 10px 10px 0;
     padding: 12px 16px;
@@ -517,7 +514,7 @@
   .concept-card p {
     font-size: 0.85rem;
     line-height: 1.6;
-    color: #444;
+    color: #1D1F25;
   }
 
   /* Quiz */
@@ -555,7 +552,7 @@
     font-weight: 600;
   }
 
-  .quiz-opt:hover:not(:disabled) { border-color: var(--raft-accent); background: #fdeae6; }
+  .quiz-opt:hover:not(:disabled) { border-color: var(--raft-accent); background: #F6EAE6; }
   .quiz-opt.correct { background: #d4edda; border-color: var(--dominant); color: var(--dominant); }
   .quiz-opt.wrong { background: #fde8e8; border-color: #e74c3c; color: #c0392b; }
 
@@ -847,7 +844,7 @@
   <div class="card">
     <h2><span class="step-num">🧪</span> Sjekk forståelsen</h2>
     <div id="quizContainer"></div>
-    <button class="calc-btn" style="background:#444;max-width:220px;margin:12px auto 0;display:block;" onclick="nextQuestion()">Ny spørsmål 🔀</button>
+    <button class="calc-btn" style="background:#7A6860;max-width:220px;margin:12px auto 0;display:block;" onclick="nextQuestion()">Ny spørsmål 🔀</button>
   </div>
 
   <!-- LAST NED -->

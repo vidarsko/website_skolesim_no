@@ -100,15 +100,14 @@
   --raft-bg-alt: rgba(255,255,255,0.6);
   --raft-bg-controls: rgba(255,255,255,0.8);
   --raft-bg-box: #ffffff;
-  --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --raft-font-heading: "Geologica", var(--raft-font);
+  --raft-font: "Readex Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --raft-font-heading: var(--raft-font);
   --accent-pale: rgba(194,97,72,0.10);
   --accent-light: rgba(194,97,72,0.22);
   --border: #d5cfc9;
   --mid: #7a6860;
   --safe: #27ae60;
   --danger: #c0392b;
-  --gold: #d4a843;
 
   /* Body-stiler på wrapperen */
   background-color: var(--raft-bg);
@@ -124,7 +123,7 @@
 
 /* HEADER */
 .sim-blod header {
-  background: linear-gradient(135deg, var(--raft-fg) 0%, #2c2228 55%, #3d2f2b 100%);
+  background: var(--raft-fg);
   color: white;
   text-align: center;
   padding: 3rem 2rem 2.5rem;
@@ -135,7 +134,7 @@
   content: '';
   position: absolute; inset: 0;
   background: radial-gradient(ellipse at 30% 50%, rgba(194,97,72,0.25) 0%, transparent 60%),
-              radial-gradient(ellipse at 70% 50%, rgba(212,168,67,0.10) 0%, transparent 60%);
+              radial-gradient(ellipse at 70% 50%, rgba(194,97,72,0.10) 0%, transparent 60%);
 }
 .sim-blod header h1 {
   font-family: var(--raft-font-heading);
@@ -187,7 +186,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  border: 1px solid #D5CFC9;
 }
 .sim-blod .tab-btn {
   padding: 0.5rem 1.25rem;
@@ -202,7 +201,7 @@
   transition: all 0.2s;
 }
 .sim-blod .tab-btn:hover { background: var(--accent-pale); border-color: var(--raft-accent); color: var(--raft-accent); }
-.sim-blod .tab-btn.active { background: var(--raft-accent); border-color: var(--raft-accent); color: white; box-shadow: 0 4px 12px rgba(194,97,72,0.3); }
+.sim-blod .tab-btn.active { background: var(--raft-accent); border-color: var(--raft-accent); color: white; }
 
 /* SECTIONS */
 .sim-blod .section { display: none; padding: 2.5rem 1rem; max-width: 960px; margin: 0 auto; }
@@ -230,7 +229,7 @@
   border-radius: 16px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  border: 1px solid #D5CFC9;
 }
 .sim-blod .card h3 {
   font-family: var(--raft-font-heading);
@@ -256,7 +255,7 @@
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: default;
 }
-.sim-blod .blood-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(194,97,72,0.15); }
+.sim-blod .blood-card:hover { transform: translateY(-4px); }
 .sim-blod .blood-type-badge {
   font-family: var(--raft-font-heading);
   font-size: 2.2rem;
@@ -275,10 +274,10 @@
   color: var(--raft-accent);
   border: 1px solid var(--accent-light);
 }
-.sim-blod .antigen-tag.absent { background: #f0f0f0; color: #999; border-color: #ddd; }
+.sim-blod .antigen-tag.absent { background: #F1EEEC; color: #7A6860; border-color: #D5CFC9; }
 
 .sim-blod .info-box {
-  background: linear-gradient(135deg, var(--accent-pale), rgba(212,168,67,0.05));
+  background: linear-gradient(135deg, var(--accent-pale), rgba(194,97,72,0.05));
   border-left: 4px solid var(--raft-accent);
   border-radius: 0 12px 12px 0;
   padding: 1rem 1.2rem;
@@ -354,7 +353,7 @@
 .sim-blod .matrix-table td { border: 1px solid var(--border); width: 52px; height: 42px; text-align: center; vertical-align: middle; font-size: 1.1rem; }
 .sim-blod .matrix-table td.ok { background: #eafaf1; }
 .sim-blod .matrix-table td.nok { background: #fdedec; }
-.sim-blod .matrix-table tr td:first-child { background: #f5f3f1; font-weight: 700; font-family: var(--raft-font-heading); color: var(--mid); }
+.sim-blod .matrix-table tr td:first-child { background: #F1EEEC; font-weight: 700; font-family: var(--raft-font-heading); color: var(--mid); }
 
 .sim-blod .donate-sim { margin-top: 1.5rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
 .sim-blod .donate-panel { flex: 1; min-width: 240px; }
@@ -382,15 +381,15 @@
 .sim-blod .anim-legend { display: flex; gap: 1rem; flex-wrap: wrap; font-size: 0.8rem; color: var(--mid); margin-bottom: 0.75rem; align-items: center; }
 .sim-blod .leg-item { display: flex; align-items: center; gap: 0.4rem; }
 .sim-blod .leg-dot { width: 13px; height: 13px; border-radius: 50%; }
-.sim-blod .anim-log { background: var(--raft-fg); color: #e0c8bf; font-family: monospace; font-size: 0.8rem; padding: 0.9rem; border-radius: 10px; min-height: 58px; max-height: 78px; overflow-y: auto; line-height: 1.55; }
+.sim-blod .anim-log { background: var(--raft-fg); color: #E3C4B9; font-family: monospace; font-size: 0.8rem; padding: 0.9rem; border-radius: 10px; min-height: 58px; max-height: 78px; overflow-y: auto; line-height: 1.55; }
 
 /* FAGSTOFF */
 .sim-blod .fag-article h3 { font-family: var(--raft-font-heading); font-size: 1.2rem; color: var(--raft-accent); margin-bottom: 0.45rem; margin-top: 1.5rem; font-weight: 700; }
-.sim-blod .fag-article p { color: #333; margin-bottom: 0.8rem; font-size: 0.95rem; }
+.sim-blod .fag-article p { color: #1D1F25; margin-bottom: 0.8rem; font-size: 0.95rem; }
 .sim-blod .fag-article ul { padding-left: 1.4rem; margin-bottom: 0.8rem; }
 .sim-blod .fag-article ul li { margin-bottom: 0.3rem; font-size: 0.93rem; }
-.sim-blod .fact-box { background: linear-gradient(135deg,#fffbf0,#fdf5e0); border: 2px solid var(--gold); border-radius: 12px; padding: 0.9rem 1.1rem; margin: 1rem 0; font-size: 0.91rem; }
-.sim-blod .fact-box strong { color: #8a6000; }
+.sim-blod .fact-box { background: #F6EAE6; border: 2px solid #E3C4B9; border-radius: 12px; padding: 0.9rem 1.1rem; margin: 1rem 0; font-size: 0.91rem; }
+.sim-blod .fact-box strong { color: #C26148; }
 
 /* QUIZ */
 .sim-blod .quiz-card { background: var(--raft-bg-box); border: 2px solid var(--border); border-radius: 16px; padding: 1.4rem; margin-bottom: 1.4rem; transition: border-color 0.3s; }
@@ -406,14 +405,14 @@
 .sim-blod .quiz-feedback.show { display: block; }
 .sim-blod .quiz-feedback.correct { color: var(--safe); }
 .sim-blod .quiz-feedback.wrong { color: var(--danger); }
-.sim-blod #quiz-score { text-align: center; padding: 1.5rem; background: linear-gradient(135deg, var(--raft-fg), #3d2f2b); color: white; border-radius: 16px; font-family: var(--raft-font-heading); font-size: 1.35rem; display: none; margin-top: 1rem; }
+.sim-blod #quiz-score { text-align: center; padding: 1.5rem; background: var(--raft-fg); color: white; border-radius: 16px; font-family: var(--raft-font-heading); font-size: 1.35rem; display: none; margin-top: 1rem; }
 .sim-blod #quiz-score.show { display: block; }
 .sim-blod #quiz-score span { color: var(--raft-accent); font-size: 2rem; }
 .sim-blod #submit-quiz { display: block; margin: 1.5rem auto 0; padding: 0.75rem 2.5rem; background: var(--raft-accent); color: white; border: none; border-radius: 50px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: var(--raft-font); transition: background 0.2s; }
 .sim-blod #submit-quiz:hover { background: var(--raft-accent-dark); }
 
 /* FOOTER */
-.sim-blod footer { background: var(--raft-fg); color: #b0a09a; text-align: center; padding: 1.5rem; font-size: 0.83rem; margin-top: 2rem; font-family: var(--raft-font); }
+.sim-blod footer { background: var(--raft-fg); color: #A2948B; text-align: center; padding: 1.5rem; font-size: 0.83rem; margin-top: 2rem; font-family: var(--raft-font); }
 
 /* LAST NED */
 .sim-blod .download-wrap { text-align: center; padding: 1.5rem 1rem; background: var(--raft-bg-controls); border-top: 1px solid var(--border); }
@@ -557,7 +556,7 @@
       </div>
       <div class="offspring-results" id="sim-offspring-results">
         <p style="font-size:0.8rem;font-weight:600;color:var(--mid);margin-bottom:0.8rem;">Sannsynlighet for barnets blodtype</p>
-        <p style="color:#bbb;font-size:0.88rem;">Trykk «Beregn» for å se resultater.</p>
+        <p style="color:#7A6860;font-size:0.88rem;">Trykk «Beregn» for å se resultater.</p>
       </div>
     </div>
   </div>

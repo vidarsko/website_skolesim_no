@@ -93,15 +93,15 @@
         --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
 
         /* Skrifttyper */
-        --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        --raft-font-heading: "Geologica", var(--raft-font);
+        --raft-font: "Readex Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --raft-font-heading: var(--raft-font);
 
         /* Farger for simuleringen */
         --color-u: #007bff; /* Blå */
         --color-v: #dc3545; /* Rød */
         --color-w: var(--raft-accent); /* Rustrød */
         --color-target: #28a745; /* Grønn */
-        --color-grid: #d0d0d0;
+        --color-grid: #D5CFC9;
         --color-component: rgba(0, 0, 0, 0.3);
     }
 
@@ -111,7 +111,7 @@
         padding: 20px;
         background: var(--raft-bg-alt);
         border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border: 1px solid #D5CFC9;
         font-family: var(--raft-font);
         color: var(--raft-fg);
         border: 1px solid rgba(0,0,0,0.1);
@@ -146,7 +146,7 @@
         aspect-ratio: 1 / 1;
         background: var(--raft-bg-box);
         border-radius: 8px;
-        border: 1px solid #ccc;
+        border: 1px solid #D5CFC9;
     }
 
     .controls {
@@ -243,7 +243,7 @@
         color: var(--raft-bg);
     }
     #downloadButton:hover {
-        background-color: #333;
+        background-color: #3A3D45;
     }
 
     @media (max-width: 768px) {
@@ -328,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
         v: rootStyles.getPropertyValue('--color-v').trim() || '#dc3545',
         w: rootStyles.getPropertyValue('--color-w').trim() || '#C26148',
         target: rootStyles.getPropertyValue('--color-target').trim() || '#28a745',
-        grid: rootStyles.getPropertyValue('--color-grid').trim() || '#d0d0d0',
+        grid: rootStyles.getPropertyValue('--color-grid').trim() || '#D5CFC9',
         component: rootStyles.getPropertyValue('--color-component').trim() || 'rgba(0,0,0,0.3)',
         text: rootStyles.getPropertyValue('--raft-fg').trim() || '#1D1F25'
     };
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (label) {
             ctx.fillStyle = color;
-            ctx.font = `bold 16px Geologica, Figtree, sans-serif`;
+            ctx.font = `bold 16px "Readex Pro", Helvetica, Arial, sans-serif`;
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             ctx.fillText(label, toPixelX(vec.x * 1.1 + 0.2), toPixelY(vec.y * 1.1 + 0.2));

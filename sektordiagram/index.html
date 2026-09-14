@@ -96,8 +96,8 @@
     --raft-bg-box: #ffffff;    /* Ren hvit for innhold-bokser */
 
     /* Skrifttyper */
-    --raft-font: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --raft-font-heading: "Geologica", var(--raft-font);
+    --raft-font: "Readex Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --raft-font-heading: var(--raft-font);
 }
 
 /* Generell Layout */
@@ -107,7 +107,7 @@
     margin: 0 auto;
     padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border: 1px solid #D5CFC9;
     font-family: var(--raft-font);
     color: var(--raft-fg);
 }
@@ -146,7 +146,7 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 1px solid #D5CFC9;
 }
 
 .slider-group {
@@ -178,7 +178,7 @@ input[type="range"] {
     width: 100%;
     height: 6px;
     border-radius: 3px;
-    background: #d1d1d1;
+    background: #DCD6D2;
     outline: none;
     -webkit-appearance: none;
     appearance: none;
@@ -212,7 +212,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     align-items: center;
     height: 400px;
     position: relative;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 1px solid #D5CFC9;
 }
 
 /* Knapper */
@@ -237,7 +237,7 @@ button:hover {
     text-align: center;
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #D5CFC9;
 }
 
 /* Responsivitet */
@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 tooltip: {
                     backgroundColor: 'rgba(29, 31, 37, 0.9)',
-                    titleFont: { family: "'Geologica', sans-serif" },
+                    titleFont: { family: "'Readex Pro', sans-serif" },
                     bodyFont: { family: "'Figtree', sans-serif" },
                     callbacks: {
                         label: function(context) {

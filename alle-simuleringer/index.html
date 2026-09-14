@@ -12,27 +12,102 @@
   <script src="/js/analytics.js"></script>
   <script id="i18n-dict" type="application/json">
   {
-    "nav-alle-sim": {"no": "Alle simuleringer", "en": "All simulations"},
-    "nav-fagoversikt": {"no": "Fagoversikt", "en": "Subjects"},
-    "nav-om-meg": {"no": "Om meg", "en": "About"},
-    "alle-sim-heading": {"no": "Alle simuleringer", "en": "All simulations"},
-    "alle-sim-lead": {"no": "Velg trinn, fag og/eller tema for å filtrere.", "en": "Pick a level, subject and/or topic to filter."},
-    "filter-trinn-label": {"no": "Trinn", "en": "Level"},
-    "filter-fag-label": {"no": "Fag", "en": "Subject"},
-    "filter-tema-label": {"no": "Tema", "en": "Topic"},
-    "filter-all-trinn": {"no": "Alle trinn", "en": "All levels"},
-    "filter-all-fag": {"no": "Alle fag", "en": "All subjects"},
-    "filter-all-tema": {"no": "Alle tema", "en": "All topics"},
-    "load-more-btn": {"no": "Vis flere", "en": "Show more"},
-    "empty-state": {"no": "Ingen simuleringer i denne kategorien ennå.", "en": "No simulations in this category yet."},
-    "footer-copyright": {"no": "Copyright 2026 – Skolesim", "en": "Copyright 2026 – Skolesim"},
-    "footer-privacy": {"no": "Personvernerklæring", "en": "Privacy policy"},
-    "theme-toggle-aria": {"no": "Bytt fargetema", "en": "Toggle color theme"},
-    "footer-contact-heading": {"no": "Lære med KI", "en": "Learning with AI"},
-    "footer-contact-p1": {"no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ", "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "},
-    "footer-contact-link1": {"no": "sende den til meg", "en": "send it to me"},
-    "footer-contact-p2": {"no": ", eller les mer på ", "en": ", or read more on "},
-    "footer-contact-link2": {"no": "min blogg om å lære med KI", "en": "my blog about learning with AI"}
+    "nav-alle-sim": {
+      "no": "Alle simuleringer",
+      "en": "All simulations"
+    },
+    "nav-fagoversikt": {
+      "no": "Fagoversikt",
+      "en": "Subjects"
+    },
+    "nav-om-meg": {
+      "no": "Om meg",
+      "en": "About"
+    },
+    "alle-sim-heading": {
+      "no": "Alle simuleringer",
+      "en": "All simulations"
+    },
+    "alle-sim-lead": {
+      "no": "Velg trinn, fag og/eller tema for å filtrere.",
+      "en": "Pick a level, subject and/or topic to filter."
+    },
+    "filter-trinn-label": {
+      "no": "Trinn",
+      "en": "Level"
+    },
+    "filter-fag-label": {
+      "no": "Fag",
+      "en": "Subject"
+    },
+    "filter-tema-label": {
+      "no": "Tema",
+      "en": "Topic"
+    },
+    "filter-all-trinn": {
+      "no": "Alle trinn",
+      "en": "All levels"
+    },
+    "filter-all-fag": {
+      "no": "Alle fag",
+      "en": "All subjects"
+    },
+    "filter-all-tema": {
+      "no": "Alle tema",
+      "en": "All topics"
+    },
+    "load-more-btn": {
+      "no": "Vis flere",
+      "en": "Show more"
+    },
+    "empty-state": {
+      "no": "Ingen simuleringer i denne kategorien ennå.",
+      "en": "No simulations in this category yet."
+    },
+    "footer-copyright": {
+      "no": "Copyright 2026 – Skolesim",
+      "en": "Copyright 2026 – Skolesim"
+    },
+    "footer-privacy": {
+      "no": "Personvernerklæring",
+      "en": "Privacy policy"
+    },
+    "theme-toggle-aria": {
+      "no": "Bytt fargetema",
+      "en": "Toggle color theme"
+    },
+    "footer-contact-heading": {
+      "no": "Lære med KI",
+      "en": "Learning with AI"
+    },
+    "footer-contact-p1": {
+      "no": "Denne siden samler nyttige interaktive simuleringer laget med KI. Har du laget en simulering, må du gjerne ",
+      "en": "This site collects useful interactive simulations made with AI. If you've made one, feel free to "
+    },
+    "footer-contact-link1": {
+      "no": "sende den til meg",
+      "en": "send it to me"
+    },
+    "footer-contact-p2": {
+      "no": ", eller les mer på ",
+      "en": ", or read more on "
+    },
+    "footer-contact-link2": {
+      "no": "min blogg om å lære med KI",
+      "en": "my blog about learning with AI"
+    },
+    "search-placeholder": {
+      "no": "Søk i simuleringer …",
+      "en": "Search simulations …"
+    },
+    "search-submit": {
+      "no": "Søk",
+      "en": "Search"
+    },
+    "empty-search": {
+      "no": "Ingen simuleringer matcher søket.",
+      "en": "No simulations match your search."
+    }
   }
   </script>
 </head>
@@ -69,6 +144,7 @@
       <p data-i18n="alle-sim-lead">Klikk på en kategori for å filtrere.</p>
     </div>
     <div class="wide">
+      <input type="search" class="search-input" data-simulations-search data-i18n-attr="placeholder:search-placeholder" placeholder="Søk i simuleringer …" aria-label="Søk i simuleringer">
       <div class="filter-groups">
         <div>
           <p class="filter-group-label" data-i18n="filter-trinn-label">Trinn</p>
