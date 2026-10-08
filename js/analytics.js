@@ -1,17 +1,16 @@
-// Google tag (gtag.js) — shared analytics loader.
-// Include on any page with: <script src="/js/analytics.js"></script>
-(function () {
-  var GA_ID = 'G-FV79S9M498';
+/* ==========================================================================
+   analytics.js — GoatCounter loader.
+   Include on any page with: <script src="/js/analytics.js"></script>
+   in <head>, right after the stylesheets.
 
+   GoatCounter site: skolesim.goatcounter.com. Chosen 2026-10-08 in place
+   of Google Analytics, as on aiskilltrees.com: no cookies, nothing stored on
+   the visitor's device, no IP addresses kept, so no consent banner.
+   ========================================================================== */
+(function () {
   var s = document.createElement('script');
   s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+  s.src = 'https://gc.zgo.at/count.js';
+  s.setAttribute('data-goatcounter', 'https://skolesim.goatcounter.com/count');
   document.head.appendChild(s);
-
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  window.gtag = gtag;
-
-  gtag('js', new Date());
-  gtag('config', GA_ID);
 })();
