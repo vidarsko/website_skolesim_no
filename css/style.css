@@ -223,7 +223,13 @@ html[data-theme="dark"] .lang-btn.active { background: rgba(255,255,255,0.10); }
 
 .hero-stat--wave { transition: border-color 0.15s; }
 .hero-stat--wave:hover { border-color: var(--accent); }
-.hero-stat--wave canvas { display: block; width: 100%; margin-bottom: 12px; }
+.hero-stat--wave .hero-wave {
+  width: 100%;
+  aspect-ratio: 400 / 124;
+  margin-bottom: 12px;
+  background: url("/media/hero-wave-light.gif") center / contain no-repeat;
+}
+html[data-theme="dark"] .hero-stat--wave .hero-wave { background-image: url("/media/hero-wave-dark.gif"); }
 .hero-stat--wave .stat-label { text-align: center; }
 
 .section { padding: 64px 24px; }
