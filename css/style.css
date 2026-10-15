@@ -630,3 +630,158 @@ html[data-theme="dark"] .hero-stat--wave .hero-wave { background-image: url("/me
   .posts-grid { grid-template-columns: 1fr; }
   .header-right { width: 100%; justify-content: space-between; }
 }
+
+/* ==========================================================================
+   /lag-din-egen-simulering/ — prosessflyt, ledetekst-boks, og forsidens
+   «Lag din egen simulering med KI»-sak (.ki-callout)
+   ========================================================================== */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.page-heading { font-size: 40px; margin-bottom: 8px; }
+.page-byline { font-size: 15px; font-weight: 600; color: var(--accent); margin-bottom: 16px; }
+
+.process-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+.process-step {
+  position: relative;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  text-align: center;
+}
+.process-step + .process-step::before {
+  content: "›";
+  position: absolute;
+  left: -13px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px;
+  opacity: 0.45;
+}
+.process-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.process-step--build .process-num { background: var(--accent); color: var(--fg-inverse); }
+.process-step h3 { font-size: 17px; margin: 0 0 6px; }
+.process-step p { font-size: 14px; margin: 0; opacity: 0.7; line-height: 1.5; }
+
+.process-phases {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 12px;
+}
+.process-phase {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  opacity: 0.7;
+  border-top: 2px solid var(--border-strong);
+  padding-top: 6px;
+  margin: 0;
+}
+.process-phase--a { grid-column: 1 / span 2; }
+.process-phase--b { grid-column: 3; border-top-color: var(--accent); }
+.process-phase--c { grid-column: 4 / span 2; }
+
+.prompt-intro { margin-top: 56px; }
+.prompt-intro h2 { font-size: 26px; margin-top: 40px; }
+.prompt-intro h2:first-child { margin-top: 0; }
+.howto-list { padding-left: 1.4em; margin: 0 0 16px; }
+.howto-list li { margin-bottom: 6px; }
+.prompt-note { font-size: 15px; opacity: 0.75; }
+
+/* Kopierbar ledetekst — samme copy-block som læremedki.no sine Instrukser-innlegg
+   (markup, js/copy-block.js og stilene under er kopiert derfra, bare uten .post-body-scope). */
+.copy-block {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+  padding: 20px;
+  margin: 0 0 24px;
+}
+.copy-block-label { font-weight: 600; color: var(--accent); font-size: 0.95rem; margin: 0 0 10px; }
+.copy-block-content {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 0;
+  padding: 14px 16px;
+  background: var(--bg);
+  border-radius: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 8px 18px;
+  background: var(--accent);
+  color: var(--fg-inverse);
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s, transform 0.1s;
+}
+.copy-btn:hover { background: var(--accent-secondary); }
+.copy-btn:active { transform: scale(0.97); }
+.copy-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+.copy-btn.copied { background: #4a8c6f; }
+
+.prompt-credit { font-size: 15px; opacity: 0.8; }
+.prompt-credit--lead { opacity: 1; }
+.prompt-credit a, .ki-callout-text a { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 900px) {
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .process-step + .process-step::before { display: none; }
+  .process-phases { display: none; }
+}
+@media (max-width: 560px) {
+  .process-steps { grid-template-columns: 1fr; }
+  .page-heading { font-size: 32px; }
+}
+
+/* Forsidens sak — en bred, lav boks mellom hero og Fagoversikt */
+.ki-callout-section { padding: 48px 0 0; }
+.ki-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 40px;
+  flex-wrap: wrap;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+}
+.ki-callout-text { flex: 1 1 420px; }
+.ki-callout-text h2 { font-size: 26px; margin: 0 0 8px; }
+.ki-callout-text p { margin: 0; font-size: 16px; }
+.ki-callout .btn { flex-shrink: 0; }
