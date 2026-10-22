@@ -624,9 +624,13 @@ html[data-theme="dark"] .hero-stat--wave .hero-wave { background-image: url("/me
 
 @media (max-width: 780px) {
   h1 { font-size: 40px; }
-  .tile-grid { grid-template-columns: repeat(2, 1fr); }
+  /* auto rows: 1fr rows would all stretch to the tallest tile (the 280px panel), leaving a gap
+     under the 16:9 image tile. */
+  .tile-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto; }
   .tile--featured { grid-column: span 2; grid-row: span 1; aspect-ratio: 16/9; }
-  .tile--panel { grid-column: span 2; grid-row: span 1; min-height: 280px; }
+  /* aspect-ratio off: with 16:9 inherited from .tile--featured, min-height 280px forced the
+     width to 280×16/9 ≈ 498px, so the box bled past the right edge on phones. */
+  .tile--panel { grid-column: span 2; grid-row: span 1; min-height: 280px; aspect-ratio: auto; }
   .posts-grid { grid-template-columns: 1fr; }
   .header-right { width: 100%; justify-content: space-between; }
 }
