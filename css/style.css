@@ -488,6 +488,28 @@ html[data-theme="dark"] .hero-stat--wave .hero-wave { background-image: url("/me
 }
 
 /* ==========================================================================
+   Tool frame — a submitted single-file tool embedded unchanged in an
+   <iframe> (its file sits next to the page as /<slug>/opplegg.html) instead
+   of inline in .wp-embed. Used where the submission is kept byte-identical,
+   e.g. a deliberate easy-read typeface for pupils with learning
+   difficulties. /js/tool-frame.js sizes the frame to its content; the
+   height here only covers the moment before that script runs.
+   ========================================================================== */
+.tool-frame {
+  display: block;
+  width: 100%;
+  height: 80vh;
+  min-height: 420px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: #fff;
+}
+.tool-frame-links {
+  margin: 10px 0 0;
+  font-size: 14px;
+}
+
+/* ==========================================================================
    Simulation cards — single-row choice bar below an embedded simulation
    (Forklaring / Forslag til utforskning / Lignende simuleringer / reserved
    4th slot). Each card is a 4:3 image tile with the thumbnail filling the

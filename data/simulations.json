@@ -463,5 +463,105 @@
     },
     "description": "Flytt kulene på en romersk kuleramme og se hvordan tall og duodesimale brøker bygges opp spalte for spalte.",
     "image": "/media/romersk-abacus.jpg"
+  },
+  {
+    "slug": "ferdighetstre-eksamen-2p-y",
+    "title": "Ferdighetstre: Klar for eksamen i 2P-Y",
+    "dateAdded": "2026-11-10",
+    "subjects": [
+      {
+        "name": "Matematikk 2P-Y",
+        "slug": "matematikk-2p-y",
+        "trinn": [
+          {
+            "name": "Vg3",
+            "slug": "vg3"
+          }
+        ]
+      }
+    ],
+    "topic": {
+      "name": "Eksamensforberedelse",
+      "slug": "eksamensforberedelse"
+    },
+    "description": "Øv til eksamen i 2P-Y: fem emner med tre nivåer hver, oppgaver som rettes med en gang, og en blandet prøve med ti oppgaver.",
+    "image": "/media/ferdighetstre-eksamen-2p-y.jpg"
+  },
+  {
+    "slug": "ferdighetstre-personlig-okonomi-1p-y",
+    "title": "Ferdighetstre: Klar for prøven i personlig økonomi (1P-Y)",
+    "dateAdded": "2026-11-10",
+    "subjects": [
+      {
+        "name": "Matematikk 1P-Y",
+        "slug": "matematikk-1p-y",
+        "trinn": [
+          {
+            "name": "Vg1",
+            "slug": "vg1"
+          }
+        ]
+      }
+    ],
+    "topic": {
+      "name": "Personlig økonomi",
+      "slug": "personlig-okonomi"
+    },
+    "description": "Personlig økonomi i 1P-Y naturbruk: prosent, lønn og overtid, regneark, sparing og lån, i tre nivåer med retting og forklaring.",
+    "image": "/media/ferdighetstre-personlig-okonomi-1p-y.jpg"
+  },
+  {
+    "slug": "escape-room-formell-og-uformell-engelsk",
+    "title": "Language Lockdown: escape room om formell og uformell engelsk",
+    "dateAdded": "2026-11-10",
+    "subjects": [
+      {
+        "name": "Engelsk (vg1-2)",
+        "slug": "engelsk-vg1-2",
+        "trinn": [
+          {
+            "name": "Vg1",
+            "slug": "vg1"
+          },
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          }
+        ]
+      }
+    ],
+    "topic": {
+      "name": "Formelt og uformelt språk",
+      "slug": "formelt-og-uformelt-sprak"
+    },
+    "description": "Escape room på engelsk: lås opp seks dører ved å velge formell, semi-formell eller uformell engelsk i hver situasjon.",
+    "image": "/media/escape-room-formell-og-uformell-engelsk.jpg"
+  },
+  {
+    "slug": "kortspill-formell-og-uformell-engelsk",
+    "title": "Cards Against Formality",
+    "dateAdded": "2026-11-10",
+    "subjects": [
+      {
+        "name": "Engelsk (vg1-2)",
+        "slug": "engelsk-vg1-2",
+        "trinn": [
+          {
+            "name": "Vg1",
+            "slug": "vg1"
+          },
+          {
+            "name": "Vg2",
+            "slug": "vg2"
+          }
+        ]
+      }
+    ],
+    "topic": {
+      "name": "Formelt og uformelt språk",
+      "slug": "formelt-og-uformelt-sprak"
+    },
+    "description": "Kortspill for to: svar uformelt på formelle situasjoner, og gjør svarene om til formell engelsk.",
+    "image": "/media/kortspill-formell-og-uformell-engelsk.jpg"
   }
 ]
